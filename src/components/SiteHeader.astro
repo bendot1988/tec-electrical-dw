@@ -11,11 +11,7 @@ const navigation = [
 <header class="site-header">
 	<div class="container">
 		<a class="brand" href="/" aria-label="Tech Electrical home">
-			<span class="brand-mark" aria-hidden="true">TE</span>
-			<span class="brand-text">
-				<strong>Tech Electrical</strong>
-				<small>Services Ltd</small>
-			</span>
+			<img class="brand-logo" src="/tech-electrical-logo.png" alt="Tech Electrical Services Ltd" />
 		</a>
 
 		<nav class="nav" aria-label="Primary">
@@ -82,7 +78,7 @@ const navigation = [
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 0.8rem 1.25rem;
+		padding: 0.8rem var(--site-content-padding);
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		align-items: center;
@@ -92,37 +88,13 @@ const navigation = [
 	.brand {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.7rem;
 		white-space: nowrap;
 	}
 
-	.brand-mark {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 2rem;
-		height: 2rem;
-		border-radius: 50%;
-		background: linear-gradient(145deg, #0f4ac4, #0a2d79);
-		color: #fff;
-		font-size: 0.7rem;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-	}
-
-	.brand-text {
-		display: inline-flex;
-		flex-direction: column;
-		line-height: 1.1;
-	}
-
-	.brand-text strong {
-		font-size: 0.9rem;
-	}
-
-	.brand-text small {
-		font-size: 0.68rem;
-		color: #64748b;
+	.brand-logo {
+		display: block;
+		width: clamp(170px, 23vw, 300px);
+		height: auto;
 	}
 
 	.nav ul {
@@ -209,7 +181,7 @@ const navigation = [
 		display: none;
 		border-top: 1px solid #e2e8f0;
 		background: #fff;
-		padding: 0.3rem 1.25rem 1.15rem;
+		padding: 0.3rem var(--site-content-padding) 1.15rem;
 	}
 
 	.mobile-menu nav ul {
@@ -271,6 +243,10 @@ const navigation = [
 		.mobile-menu[data-open='true'] {
 			display: block;
 			animation: menuSlideDown 220ms ease;
+		}
+
+		.brand-logo {
+			width: clamp(150px, 46vw, 230px);
 		}
 	}
 
