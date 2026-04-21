@@ -73,6 +73,12 @@ const navigation = [
 		background: rgba(255, 255, 255, 0.96);
 		backdrop-filter: blur(8px);
 		border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+		transition: transform 220ms ease;
+		will-change: transform;
+	}
+
+	.site-header.is-hidden {
+		transform: translateY(-100%);
 	}
 
 	.container {
@@ -268,9 +274,47 @@ const navigation = [
 </style>
 
 <script>
+	const headerElement = document.querySelector('.site-header') as HTMLElement | null;
 	const toggleButton = document.querySelector('[data-menu-toggle]') as HTMLButtonElement | null;
 	const menuPanel = document.querySelector('[data-menu-panel]') as HTMLElement | null;
 	const mobileLinks = document.querySelectorAll('[data-menu-panel] a');
+
+	if (headerElement) {
+		let lastScrollY = window.scrollY;
+		let ticking = false;
+		const minScrollDelta = 8;
+		const hideOffset = 110;
+
+		const updateHeaderVisibility = () => {
+			const currentY = window.scrollY;
+			const delta = currentY - lastScrollY;
+			const mobileMenuOpen = toggleButton?.getAttribute('aria-expanded') === 'true';
+
+			if (currentY <= 4 || mobileMenuOpen) {
+				headerElement.classList.remove('is-hidden');
+			} else if (Math.abs(delta) > minScrollDelta) {
+				if (delta > 0 && currentY > hideOffset) {
+					headerElement.classList.add('is-hidden');
+				} else if (delta < 0) {
+					headerElement.classList.remove('is-hidden');
+				}
+			}
+
+			lastScrollY = currentY;
+			ticking = false;
+		};
+
+		window.addEventListener(
+			'scroll',
+			() => {
+				if (!ticking) {
+					window.requestAnimationFrame(updateHeaderVisibility);
+					ticking = true;
+				}
+			},
+			{ passive: true },
+		);
+	}
 
 	if (toggleButton && menuPanel) {
 		const closeMenu = () => {
@@ -278,6 +322,7 @@ const navigation = [
 			toggleButton.setAttribute('aria-label', 'Open menu');
 			menuPanel.hidden = true;
 			menuPanel.dataset.open = 'false';
+			headerElement?.classList.remove('is-hidden');
 		};
 
 		const openMenu = () => {
@@ -285,6 +330,7 @@ const navigation = [
 			toggleButton.setAttribute('aria-label', 'Close menu');
 			menuPanel.hidden = false;
 			menuPanel.dataset.open = 'true';
+			headerElement?.classList.remove('is-hidden');
 		};
 
 		toggleButton.addEventListener('click', () => {

@@ -64,17 +64,35 @@ const {
 
 	:global([data-reveal]) {
 		opacity: 0;
-		transform: translateY(22px) scale(0.985);
+		transform: translateY(28px) scale(0.985);
 		transition:
-			opacity 520ms ease,
-			transform 520ms ease;
+			opacity 680ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 680ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 680ms cubic-bezier(0.22, 1, 0.36, 1);
 		transition-delay: var(--reveal-delay, 0ms);
 		will-change: opacity, transform;
 	}
 
+	:global([data-reveal='left']) {
+		transform: translateX(-34px) scale(0.985);
+	}
+
+	:global([data-reveal='right']) {
+		transform: translateX(34px) scale(0.985);
+	}
+
+	:global([data-reveal='zoom']) {
+		transform: scale(0.94);
+	}
+
+	:global([data-reveal='blur']) {
+		filter: blur(8px);
+	}
+
 	:global([data-reveal].is-revealed) {
 		opacity: 1;
-		transform: translateY(0) scale(1);
+		transform: translate3d(0, 0, 0) scale(1);
+		filter: blur(0);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -88,6 +106,18 @@ const {
 
 <script>
 	const revealItems = Array.from(document.querySelectorAll('[data-reveal]'));
+
+	const staggerGroups = Array.from(document.querySelectorAll('[data-reveal-stagger]'));
+	staggerGroups.forEach((group) => {
+		const staggerStep = Number(group.getAttribute('data-reveal-stagger')) || 80;
+		const children = Array.from(group.querySelectorAll<HTMLElement>('[data-reveal]'));
+		children.forEach((child, index) => {
+			if (!child.style.getPropertyValue('--reveal-delay')) {
+				child.style.setProperty('--reveal-delay', `${index * staggerStep}ms`);
+			}
+		});
+	});
+
 	if (revealItems.length > 0) {
 		if ('IntersectionObserver' in window) {
 			const observer = new IntersectionObserver(

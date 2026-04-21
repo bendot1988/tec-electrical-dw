@@ -77,13 +77,31 @@ const packages = [
 
 <style>
 	.packages-section {
-		background: #f8fafc;
+		position: relative;
+		isolation: isolate;
 		padding: 5.5rem var(--site-content-padding);
+		background:
+			linear-gradient(165deg, rgba(8, 36, 92, 0.82) 0%, rgba(15, 74, 196, 0.72) 45%, rgba(30, 64, 175, 0.78) 100%),
+			url('/solar-packages-summer-bg.png');
+		background-size: cover;
+		background-position: center;
+		border-block: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
+	.packages-section::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(180deg, rgba(15, 23, 42, 0.25) 0%, transparent 45%, rgba(15, 23, 42, 0.35) 100%);
+		pointer-events: none;
 	}
 
 	.packages-wrap {
 		max-width: 1200px;
 		margin: 0 auto;
+		position: relative;
+		z-index: 1;
 	}
 
 	.section-head {
@@ -98,21 +116,22 @@ const packages = [
 		font-weight: 700;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
-		color: #3567ab;
+		color: #fbbf24;
 	}
 
 	.section-head h2 {
 		margin: 0.6rem 0 0.7rem;
 		font-size: clamp(2rem, 3vw, 3rem);
 		line-height: 1.1;
-		color: #0f172a;
+		color: #ffffff;
+		text-shadow: 0 2px 24px rgba(15, 23, 42, 0.35);
 	}
 
 	.section-head span {
 		display: block;
 		font-size: 1.02rem;
 		line-height: 1.55;
-		color: #64748b;
+		color: rgba(241, 245, 249, 0.92);
 	}
 
 	.cards {
