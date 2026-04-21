@@ -1,0 +1,242 @@
+---
+const packages = [
+	{
+		title: 'Solar Essentials',
+		subtitle: 'Start generating clean energy',
+		features: [
+			'On-roof or In-roof PV array',
+			'Premium panels & inverter',
+			'MCS certified install & handover',
+			'Generation monitoring app',
+		],
+		popular: false,
+	},
+	{
+		title: 'Solar + Battery',
+		subtitle: 'Most popular -- maximise self-use',
+		features: [
+			'Everything in Solar Essentials',
+			'Sigenergy / GivEnergy battery',
+			'Whole-house backup option',
+			'Smart load shifting',
+		],
+		popular: true,
+	},
+	{
+		title: 'Solar + Battery + EV',
+		subtitle: 'Total home energy system',
+		features: [
+			'Everything in Solar + Battery',
+			'Integrated 7kW EV charger',
+			'Free solar miles for your car',
+			'Single-app control',
+		],
+		popular: false,
+	},
+];
+---
+
+<section class="packages-section" aria-labelledby="packages-heading">
+	<div class="packages-wrap">
+		<header class="section-head" data-reveal>
+			<p>Solar Packages</p>
+			<h2 id="packages-heading">Choose the right system for your home</h2>
+			<span>
+				Every install is bespoke -- these are our most popular configurations, fully designed and installed
+				in-house.
+			</span>
+		</header>
+
+		<div class="cards">
+			{
+				packages.map((item, index) => (
+					<article
+						class:list={['card', item.popular && 'popular']}
+						data-reveal
+						style={`--reveal-delay: ${90 + index * 110}ms;`}
+					>
+						<div class="image-wrap">
+							<img src="/package-placeholder.svg" alt="" loading="lazy" />
+							{item.popular && <em>Most popular</em>}
+						</div>
+
+						<h3>{item.title}</h3>
+						<p>{item.subtitle}</p>
+
+						<ul>
+							{item.features.map((feature) => <li>{feature}</li>)}
+						</ul>
+
+						<a href="#quote">Get a tailored quote</a>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.packages-section {
+		background: #f8fafc;
+		padding: 5.5rem var(--site-content-padding);
+	}
+
+	.packages-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.section-head {
+		text-align: center;
+		max-width: 760px;
+		margin: 0 auto 2rem;
+	}
+
+	.section-head p {
+		margin: 0;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #3567ab;
+	}
+
+	.section-head h2 {
+		margin: 0.6rem 0 0.7rem;
+		font-size: clamp(2rem, 3vw, 3rem);
+		line-height: 1.1;
+		color: #0f172a;
+	}
+
+	.section-head span {
+		display: block;
+		font-size: 1.02rem;
+		line-height: 1.55;
+		color: #64748b;
+	}
+
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		padding: 1rem;
+		transition:
+			transform 220ms ease,
+			box-shadow 220ms ease,
+			border-color 220ms ease;
+	}
+
+	.card.popular {
+		border-color: #94a3b8;
+		box-shadow: 0 8px 25px -20px rgba(15, 23, 42, 0.55);
+	}
+
+	@media (hover: hover) {
+		.card:hover {
+			transform: translateY(-8px);
+			border-color: #c2cfdf;
+			box-shadow: 0 24px 40px -28px rgba(15, 23, 42, 0.55);
+		}
+
+		.card.popular:hover {
+			box-shadow: 0 28px 45px -28px rgba(15, 23, 42, 0.62);
+		}
+	}
+
+	.image-wrap {
+		position: relative;
+		margin-bottom: 0.9rem;
+	}
+
+	.image-wrap img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-radius: 0.65rem;
+		display: block;
+	}
+
+	.image-wrap em {
+		position: absolute;
+		top: 0.55rem;
+		right: 0.55rem;
+		padding: 0.2rem 0.65rem;
+		font-style: normal;
+		font-size: 0.72rem;
+		font-weight: 700;
+		border-radius: 999px;
+		background: #1e3a8a;
+		color: #fff;
+	}
+
+	.card h3 {
+		margin: 0;
+		font-size: 1.45rem;
+		color: #0f172a;
+	}
+
+	.card > p {
+		margin: 0.35rem 0 0.9rem;
+		color: #64748b;
+		font-size: 0.95rem;
+	}
+
+	.card ul {
+		margin: 0 0 1rem;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.card li {
+		position: relative;
+		padding-left: 1rem;
+		color: #334155;
+		font-size: 0.93rem;
+	}
+
+	.card li::before {
+		content: '✓';
+		position: absolute;
+		left: 0;
+		color: #d39b24;
+		font-weight: 700;
+	}
+
+	.card a {
+		display: inline-flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		border-radius: 0.55rem;
+		padding: 0.74rem 1rem;
+		border: 1px solid #dbe1eb;
+		font-size: 0.9rem;
+		font-weight: 700;
+	}
+
+	.card.popular a {
+		border: 0;
+		background: linear-gradient(120deg, #f59e0b, #f97316);
+		color: #fff;
+	}
+
+	@media (max-width: 1000px) {
+		.cards {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.packages-section {
+			padding: 4.2rem var(--site-content-padding);
+		}
+	}
+</style>

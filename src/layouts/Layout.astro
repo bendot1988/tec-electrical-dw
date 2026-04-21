@@ -58,4 +58,50 @@ const {
 		color: inherit;
 		text-decoration: none;
 	}
+
+	:global([data-reveal]) {
+		opacity: 0;
+		transform: translateY(22px) scale(0.985);
+		transition:
+			opacity 520ms ease,
+			transform 520ms ease;
+		transition-delay: var(--reveal-delay, 0ms);
+		will-change: opacity, transform;
+	}
+
+	:global([data-reveal].is-revealed) {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:global([data-reveal]) {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+	}
 </style>
+
+<script>
+	const revealItems = Array.from(document.querySelectorAll('[data-reveal]'));
+	if (revealItems.length > 0) {
+		if ('IntersectionObserver' in window) {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('is-revealed');
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+			);
+
+			revealItems.forEach((item) => observer.observe(item));
+		} else {
+			revealItems.forEach((item) => item.classList.add('is-revealed'));
+		}
+	}
+</script>
