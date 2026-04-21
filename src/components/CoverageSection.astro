@@ -1,0 +1,214 @@
+---
+const coveragePoints = [
+	{ name: 'Loughborough', lat: 52.7721, lng: -1.2062 },
+	{ name: 'Leicester', lat: 52.6369, lng: -1.1398 },
+	{ name: 'Nottingham', lat: 52.9548, lng: -1.1581 },
+	{ name: 'Derby', lat: 52.9225, lng: -1.4746 },
+	{ name: 'Melton Mowbray', lat: 52.7659, lng: -0.8866 },
+	{ name: 'Coalville', lat: 52.7246, lng: -1.3724 },
+	{ name: 'Hinckley', lat: 52.5416, lng: -1.3733 },
+	{ name: 'Market Harborough', lat: 52.4771, lng: -0.9206 },
+	{ name: 'Oakham', lat: 52.6694, lng: -0.7308 },
+	{ name: 'Stamford', lat: 52.6521, lng: -0.4816 },
+	{ name: 'Grantham', lat: 52.9115, lng: -0.6411 },
+	{ name: 'Newark', lat: 53.0761, lng: -0.8084 },
+];
+---
+
+<section class="coverage" aria-labelledby="coverage-heading">
+	<div class="coverage-wrap">
+		<div class="coverage-content" data-reveal>
+			<p>Coverage</p>
+			<h2 id="coverage-heading">Areas We Cover</h2>
+			<span>
+				Comprehensive electrical services across Leicestershire, Nottinghamshire and Derbyshire -- both urban
+				and rural, with the same high standard.
+			</span>
+			<small>Don&apos;t see your area? Get in touch -- we often travel further for larger projects.</small>
+		</div>
+
+		<ul class="area-grid" data-reveal style="--reveal-delay: 120ms;">
+			{
+				coveragePoints.map((point) => (
+					<li>{point.name}</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<div class="coverage-map-wrap" data-reveal style="--reveal-delay: 170ms;">
+		<div id="coverage-map" aria-label="Map showing service coverage areas"></div>
+	</div>
+</section>
+
+<style>
+	@import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+
+	.coverage {
+		background: #112e6f;
+		padding: 5rem var(--site-content-padding) 5.4rem;
+		color: #fff;
+	}
+
+	.coverage-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 1.1fr;
+		gap: 2.1rem;
+		align-items: start;
+	}
+
+	.coverage-content p {
+		margin: 0;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #f8c04f;
+	}
+
+	.coverage-content h2 {
+		margin: 0.5rem 0 0.7rem;
+		font-size: clamp(2rem, 3vw, 3rem);
+		line-height: 1.1;
+	}
+
+	.coverage-content span {
+		display: block;
+		font-size: 1.05rem;
+		line-height: 1.55;
+		color: rgba(241, 245, 249, 0.92);
+		max-width: 560px;
+	}
+
+	.coverage-content small {
+		display: block;
+		margin-top: 0.9rem;
+		font-size: 0.95rem;
+		color: rgba(241, 245, 249, 0.84);
+	}
+
+	.area-grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.5rem;
+	}
+
+	.area-grid li {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.65rem 0.74rem;
+		border: 1px solid #f59e0b;
+		background: linear-gradient(120deg, #f59e0b, #facc15);
+		border-radius: 0.6rem;
+		font-size: 0.95rem;
+		color: #111827;
+	}
+
+	.area-grid li::before {
+		content: '';
+		width: 0.95rem;
+		height: 0.95rem;
+		background-image: url('/brand-map-marker.png');
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		flex-shrink: 0;
+	}
+
+	.coverage-map-wrap {
+		max-width: 1200px;
+		margin: 20px auto 0;
+		padding: 0.65rem;
+		border-radius: 1rem;
+		border: 1px solid rgba(148, 163, 184, 0.3);
+		background: rgba(22, 58, 135, 0.34);
+	}
+
+	#coverage-map {
+		width: 100%;
+		height: 410px;
+		border-radius: 0.9rem;
+		border: 1px solid rgba(148, 163, 184, 0.35);
+		overflow: hidden;
+	}
+
+	@media (max-width: 1000px) {
+		.coverage-wrap {
+			grid-template-columns: 1fr;
+		}
+
+		.area-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 680px) {
+		.coverage {
+			padding: 4.2rem var(--site-content-padding);
+		}
+
+		.area-grid {
+			grid-template-columns: 1fr;
+		}
+
+		#coverage-map {
+			height: 330px;
+		}
+	}
+</style>
+
+<script define:vars={{ coveragePoints }}>
+	const MAP_ID = 'coverage-map';
+
+	const setupMap = () => {
+		const mapElement = document.getElementById(MAP_ID);
+		if (!mapElement || !window.L) return;
+
+		if (mapElement.dataset.initialized === 'true') return;
+		mapElement.dataset.initialized = 'true';
+
+		const map = window.L.map(MAP_ID, {
+			scrollWheelZoom: false,
+		}).setView([52.75, -1.05], 9);
+
+		window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '&copy; OpenStreetMap contributors',
+		}).addTo(map);
+
+		const brandIcon = window.L.icon({
+			iconUrl: '/brand-map-marker.png',
+			iconSize: [30, 30],
+			iconAnchor: [15, 15],
+			popupAnchor: [0, -14],
+		});
+
+		const markers = coveragePoints.map((point) => {
+			return window.L.marker([point.lat, point.lng], { icon: brandIcon }).addTo(map).bindPopup(point.name);
+		});
+
+		const group = window.L.featureGroup(markers);
+		map.fitBounds(group.getBounds().pad(0.22));
+	};
+
+	const ensureLeaflet = async () => {
+		if (window.L) {
+			setupMap();
+			return;
+		}
+
+		const script = document.createElement('script');
+		script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+		script.async = true;
+		script.onload = () => setupMap();
+		document.head.appendChild(script);
+	};
+
+	ensureLeaflet();
+</script>

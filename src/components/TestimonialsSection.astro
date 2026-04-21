@@ -1,0 +1,155 @@
+---
+const testimonials = [
+	{
+		quote:
+			'Excellent service from start to finish. Professional, punctual, and excellent value for money.',
+		name: 'Sarah Johnson',
+		meta: 'Loughborough · Student Property Rewire & Fire Safety',
+	},
+	{
+		quote:
+			'The consultation was thorough and the install was exactly as promised. Already seeing great savings on our bills.',
+		name: 'Mark Williams',
+		meta: 'Leicester · Solar & Battery Installation',
+	},
+	{
+		quote:
+			'Used thermal imaging to identify the issue other electricians could not find. Fixed same-day with a detailed report.',
+		name: 'Emma Davis',
+		meta: 'Melton Mowbray · Electrical Fault Finding',
+	},
+];
+---
+
+<section class="testimonials" aria-labelledby="testimonials-heading">
+	<div class="testimonials-wrap">
+		<header class="testimonials-head" data-reveal>
+			<p>Testimonials</p>
+			<h2 id="testimonials-heading">What Our Customers Say</h2>
+		</header>
+
+		<div class="testimonials-grid">
+			{
+				testimonials.map((item, index) => (
+					<article data-reveal style={`--reveal-delay: ${90 + index * 110}ms;`}>
+						<div class="rating" aria-label="5 star rating">★★★★★</div>
+						<blockquote>"{item.quote}"</blockquote>
+						<hr />
+						<strong>{item.name}</strong>
+						<small>{item.meta}</small>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.testimonials {
+		padding: 5.2rem var(--site-content-padding) 5.8rem;
+		background: #f8fafc;
+		border-top: 1px solid #e2e8f0;
+	}
+
+	.testimonials-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.testimonials-head {
+		text-align: center;
+		margin: 0 auto 2rem;
+		max-width: 760px;
+	}
+
+	.testimonials-head p {
+		margin: 0;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #3567ab;
+	}
+
+	.testimonials-head h2 {
+		margin: 0.5rem 0 0;
+		font-size: clamp(2rem, 3vw, 3rem);
+		line-height: 1.1;
+		color: #0f172a;
+	}
+
+	.testimonials-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.testimonials-grid article {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		padding: 1rem;
+		transition:
+			transform 220ms ease,
+			box-shadow 220ms ease,
+			border-color 220ms ease;
+	}
+
+	.rating {
+		color: #e5a90a;
+		letter-spacing: 0.1em;
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	blockquote {
+		margin: 0.75rem 0 0;
+		font-size: 1.03rem;
+		line-height: 1.55;
+		color: #0f172a;
+		min-height: 7.1rem;
+	}
+
+	hr {
+		border: 0;
+		border-top: 1px solid #e2e8f0;
+		margin: 0.9rem 0;
+	}
+
+	strong {
+		display: block;
+		font-size: 1.35rem;
+		color: #0f172a;
+	}
+
+	small {
+		display: block;
+		margin-top: 0.22rem;
+		font-size: 0.9rem;
+		color: #64748b;
+	}
+
+	@media (hover: hover) {
+		.testimonials-grid article:hover {
+			transform: translateY(-8px);
+			border-color: #c2cfdf;
+			box-shadow: 0 24px 42px -28px rgba(15, 23, 42, 0.58);
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.testimonials-grid {
+			grid-template-columns: 1fr;
+		}
+
+		blockquote {
+			min-height: 0;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.testimonials {
+			padding: 4.2rem var(--site-content-padding);
+		}
+	}
+</style>

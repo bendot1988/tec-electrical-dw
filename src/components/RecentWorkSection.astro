@@ -1,0 +1,207 @@
+---
+const projects = [
+	{
+		title: 'Luxury New Build -- Solar + Battery',
+		location: 'Leicester',
+		year: '2024',
+		description: 'Premium in-roof solar with battery storage and integrated EV charger for a high-spec new build.',
+		image: '/project-newbuild-aerial.png',
+		imageAlt: 'Aerial view of a new build roof with in-roof solar installation underway',
+		tags: ['New Build', 'Solar', 'Battery', 'EV Charger'],
+	},
+	{
+		title: 'On-roof Solar Install',
+		location: 'Leicestershire',
+		year: '2024',
+		description: 'Full design, install and handover of an on-roof solar PV array with bird-protection trim.',
+		image: '/project-solar-install.png',
+		imageAlt: 'On-roof solar panel installation on a residential property',
+		tags: ['Solar PV', 'Design', 'Install'],
+	},
+	{
+		title: 'Bespoke Lighting & Power',
+		location: 'Loughborough',
+		year: '2024',
+		description: 'Feature LED lighting, integrated shelving power and full first-fix on a bespoke study fit-out.',
+		image: '/project-interior-fitout.png',
+		imageAlt: 'Bespoke interior fit-out with integrated lighting and power',
+		tags: ['Lighting Design', 'First Fix', 'Maintenance'],
+	},
+];
+---
+
+<section class="recent-work" aria-labelledby="recent-work-heading">
+	<div class="recent-work-wrap">
+		<header class="recent-work-head" data-reveal>
+			<p>Recent Work</p>
+			<h2 id="recent-work-heading">Projects We&apos;re Proud Of</h2>
+			<span>A snapshot of recent installations across Leicestershire and surrounding areas.</span>
+		</header>
+
+		<div class="project-grid">
+			{
+				projects.map((project, index) => (
+					<article data-reveal style={`--reveal-delay: ${90 + index * 110}ms;`}>
+						<div class="project-image">
+							<img src={project.image} alt={project.imageAlt} loading="lazy" />
+							<em>{project.year}</em>
+						</div>
+
+						<div class="project-content">
+							<small>{project.location}</small>
+							<h3>{project.title}</h3>
+							<p>{project.description}</p>
+							<ul>
+								{project.tags.map((tag) => <li>{tag}</li>)}
+							</ul>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.recent-work {
+		padding: 5.2rem var(--site-content-padding) 5.8rem;
+		background: #f8fafc;
+	}
+
+	.recent-work-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.recent-work-head {
+		text-align: center;
+		max-width: 760px;
+		margin: 0 auto 2rem;
+	}
+
+	.recent-work-head p {
+		margin: 0;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #3567ab;
+	}
+
+	.recent-work-head h2 {
+		margin: 0.55rem 0 0.7rem;
+		font-size: clamp(2rem, 3vw, 3rem);
+		line-height: 1.1;
+		color: #0f172a;
+	}
+
+	.recent-work-head span {
+		display: block;
+		font-size: 1.02rem;
+		line-height: 1.55;
+		color: #64748b;
+	}
+
+	.project-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.project-grid article {
+		overflow: hidden;
+		border-radius: 0.9rem;
+		border: 1px solid #e2e8f0;
+		background: #fff;
+		transition:
+			transform 220ms ease,
+			box-shadow 220ms ease,
+			border-color 220ms ease;
+	}
+
+	.project-image {
+		position: relative;
+	}
+
+	.project-image img {
+		display: block;
+		width: 100%;
+		height: 195px;
+		object-fit: cover;
+	}
+
+	.project-image em {
+		position: absolute;
+		top: 0.6rem;
+		right: 0.6rem;
+		padding: 0.2rem 0.58rem;
+		font-style: normal;
+		font-size: 0.72rem;
+		font-weight: 700;
+		border-radius: 999px;
+		background: rgba(248, 250, 252, 0.96);
+		color: #334155;
+	}
+
+	.project-content {
+		padding: 0.85rem 1rem 1rem;
+	}
+
+	.project-content small {
+		display: block;
+		font-size: 0.84rem;
+		color: #64748b;
+	}
+
+	.project-content h3 {
+		margin: 0.35rem 0 0.5rem;
+		font-size: 1.55rem;
+		line-height: 1.2;
+		color: #0f172a;
+	}
+
+	.project-content p {
+		margin: 0;
+		font-size: 0.95rem;
+		line-height: 1.5;
+		color: #475569;
+	}
+
+	.project-content ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin: 0.8rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.project-content li {
+		font-size: 0.77rem;
+		font-weight: 600;
+		padding: 0.25rem 0.54rem;
+		border-radius: 999px;
+		background: #f1f5f9;
+		color: #334155;
+	}
+
+	@media (hover: hover) {
+		.project-grid article:hover {
+			transform: translateY(-8px);
+			border-color: #c2cfdf;
+			box-shadow: 0 24px 42px -28px rgba(15, 23, 42, 0.58);
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.project-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.recent-work {
+			padding: 4.2rem var(--site-content-padding);
+		}
+	}
+</style>
