@@ -3,6 +3,8 @@ const packages = [
 	{
 		title: 'Solar Essentials',
 		subtitle: 'Start generating clean energy',
+		image: '/package-solar-essentials.png',
+		imageAlt: 'Solar panels being installed on a new-build roof under a blue sky',
 		features: [
 			'On-roof or In-roof PV array',
 			'Premium panels & inverter',
@@ -14,6 +16,8 @@ const packages = [
 	{
 		title: 'Solar + Battery',
 		subtitle: 'Most popular -- maximise self-use',
+		image: '/package-solar-battery.png',
+		imageAlt: 'Rooftop solar array, home battery unit, and electric vehicle charging',
 		features: [
 			'Everything in Solar Essentials',
 			'Sigenergy / GivEnergy battery',
@@ -25,6 +29,8 @@ const packages = [
 	{
 		title: 'Solar + Battery + EV',
 		subtitle: 'Total home energy system',
+		image: '/package-solar-battery-ev.png',
+		imageAlt: 'Residential solar panels and wall-mounted home battery storage',
 		features: [
 			'Everything in Solar + Battery',
 			'Integrated 7kW EV charger',
@@ -38,7 +44,7 @@ const packages = [
 
 <section class="packages-section" aria-labelledby="packages-heading">
 	<div class="packages-wrap">
-		<header class="section-head" data-reveal>
+		<header class="section-head" data-reveal="fade-up">
 			<p>Solar Packages</p>
 			<h2 id="packages-heading">Choose the right system for your home</h2>
 			<span>
@@ -49,14 +55,17 @@ const packages = [
 
 		<div class="cards">
 			{
-				packages.map((item, index) => (
+				packages.map((item, index) => {
+					const fades = ['fade-left', 'fade-up', 'fade-right'];
+					const reveal = fades[index % 3];
+					return (
 					<article
 						class:list={['card', item.popular && 'popular']}
-						data-reveal
+						data-reveal={reveal}
 						style={`--reveal-delay: ${90 + index * 110}ms;`}
 					>
 						<div class="image-wrap">
-							<img src="/package-placeholder.svg" alt="" loading="lazy" />
+							<img src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" />
 							{item.popular && <em>Most popular</em>}
 						</div>
 
@@ -69,7 +78,8 @@ const packages = [
 
 						<a href="#quote">Get a tailored quote</a>
 					</article>
-				))
+					);
+				})
 			}
 		</div>
 	</div>

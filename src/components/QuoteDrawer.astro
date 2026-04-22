@@ -1,0 +1,371 @@
+<div
+	class="quote-drawer"
+	id="quote-drawer"
+	aria-hidden="true"
+	data-quote-drawer
+>
+	<div class="quote-drawer-backdrop" data-quote-close tabindex="-1"></div>
+	<div
+		class="quote-drawer-panel"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="quote-drawer-title"
+	>
+		<div class="quote-drawer-head">
+			<div>
+				<p class="quote-drawer-eyebrow">Free quote</p>
+				<h2 id="quote-drawer-title">Get your quick quote</h2>
+				<p class="quote-drawer-lead">Tell us what you need — we&apos;ll call you within 1 hour.</p>
+			</div>
+			<button
+				type="button"
+				class="quote-drawer-close"
+				data-quote-close
+				aria-label="Close quote form"
+			>
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+
+		<div class="quote-drawer-body">
+			<form class="quote-drawer-form" id="quote-drawer-form">
+				<div class="field-grid">
+					<label>
+						<span>Name *</span>
+						<input type="text" name="name" placeholder="John Smith" required autocomplete="name" />
+					</label>
+					<label>
+						<span>Phone *</span>
+						<input type="tel" name="phone" placeholder="07…" required autocomplete="tel" />
+					</label>
+				</div>
+				<label>
+					<span>Postcode *</span>
+					<input type="text" name="postcode" placeholder="LE7 7QN" required autocomplete="postal-code" />
+				</label>
+				<label>
+					<span>Brief job description *</span>
+					<textarea name="job" rows="4" placeholder="Describe your electrical or solar requirements…" required
+					></textarea>
+				</label>
+				<button type="submit">Get my free quote</button>
+				<small>We&apos;ll call you within 1 hour</small>
+			</form>
+
+			<div class="quote-drawer-success" id="quote-drawer-success" hidden>
+				<p class="quote-drawer-success-title">Thanks — you&apos;re on the list</p>
+				<p class="quote-drawer-success-text">
+					We&apos;ve got your details. A member of the team will call you shortly.
+				</p>
+				<button type="button" class="quote-drawer-success-btn" data-quote-close>Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.quote-drawer {
+		--qd-brand: #0f4ac4;
+		--qd-brand-deep: #0c3d9e;
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	.quote-drawer.is-open {
+		visibility: visible;
+		pointer-events: auto;
+	}
+
+	.quote-drawer-backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(15, 23, 42, 0.48);
+		opacity: 0;
+		transition: opacity 320ms ease;
+	}
+
+	.quote-drawer.is-open .quote-drawer-backdrop {
+		opacity: 1;
+	}
+
+	.quote-drawer-panel {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		width: min(100%, 440px);
+		max-width: 100vw;
+		background: #fff;
+		box-shadow: -16px 0 48px -20px rgba(15, 23, 42, 0.35);
+		display: flex;
+		flex-direction: column;
+		transform: translate3d(100%, 0, 0);
+		transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+		overflow: auto;
+	}
+
+	.quote-drawer.is-open .quote-drawer-panel {
+		transform: translate3d(0, 0, 0);
+	}
+
+	.quote-drawer-head {
+		flex-shrink: 0;
+		padding: 1.35rem 1.25rem 1.1rem;
+		background: linear-gradient(145deg, var(--qd-brand) 0%, var(--qd-brand-deep) 100%);
+		color: #fff;
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+
+	.quote-drawer-eyebrow {
+		margin: 0;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		opacity: 0.92;
+	}
+
+	.quote-drawer-head h2 {
+		margin: 0.35rem 0 0.4rem;
+		font-size: 1.45rem;
+		font-weight: 800;
+		letter-spacing: -0.02em;
+		line-height: 1.15;
+	}
+
+	.quote-drawer-lead {
+		margin: 0;
+		font-size: 0.92rem;
+		line-height: 1.5;
+		color: rgba(241, 245, 249, 0.95);
+	}
+
+	.quote-drawer-close {
+		flex-shrink: 0;
+		width: 2.5rem;
+		height: 2.5rem;
+		border: 1px solid rgba(255, 255, 255, 0.35);
+		border-radius: 0.55rem;
+		background: rgba(255, 255, 255, 0.12);
+		color: #fff;
+		font-size: 1.5rem;
+		line-height: 1;
+		cursor: pointer;
+		display: grid;
+		place-items: center;
+		padding: 0;
+	}
+
+	.quote-drawer-close:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	.quote-drawer-body {
+		padding: 1.25rem 1.25rem 1.75rem;
+		flex: 1;
+	}
+
+	.quote-drawer-form {
+		display: grid;
+		gap: 0.78rem;
+	}
+
+	.quote-drawer-form .field-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.7rem;
+	}
+
+	.quote-drawer-form label {
+		display: grid;
+		gap: 0.35rem;
+		font-size: 0.86rem;
+		font-weight: 600;
+		color: #334155;
+	}
+
+	.quote-drawer-form input,
+	.quote-drawer-form textarea {
+		width: 100%;
+		padding: 0.65rem 0.72rem;
+		border: 1px solid #d6deea;
+		border-radius: 0.48rem;
+		font: inherit;
+	}
+
+	.quote-drawer-form textarea {
+		resize: vertical;
+		min-height: 6rem;
+	}
+
+	.quote-drawer-form button[type='submit'] {
+		border: 0;
+		border-radius: 0.55rem;
+		padding: 0.78rem 1rem;
+		background: linear-gradient(120deg, #f59e0b, #f97316);
+		color: #fff;
+		font-size: 0.95rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.quote-drawer-form button[type='submit']:hover {
+		filter: brightness(1.05);
+	}
+
+	.quote-drawer-form small {
+		text-align: center;
+		color: #64748b;
+	}
+
+	.quote-drawer-success {
+		text-align: center;
+		padding: 1.5rem 0.5rem;
+	}
+
+	.quote-drawer-success-title {
+		margin: 0;
+		font-size: 1.25rem;
+		font-weight: 800;
+		color: #0f172a;
+	}
+
+	.quote-drawer-success-text {
+		margin: 0.65rem 0 1.25rem;
+		color: #64748b;
+		line-height: 1.55;
+		font-size: 0.98rem;
+	}
+
+	.quote-drawer-success-btn {
+		border: 1px solid #dbe1eb;
+		border-radius: 0.55rem;
+		padding: 0.72rem 1.35rem;
+		background: #fff;
+		font-weight: 700;
+		font-size: 0.92rem;
+		color: #1f2937;
+		cursor: pointer;
+	}
+
+	.quote-drawer-success-btn:hover {
+		border-color: var(--qd-brand);
+		color: var(--qd-brand);
+	}
+
+	@media (max-width: 520px) {
+		.quote-drawer-form .field-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.quote-drawer-backdrop,
+		.quote-drawer-panel {
+			transition: none;
+		}
+	}
+</style>
+
+<script>
+	(() => {
+		const root = document.querySelector('[data-quote-drawer]');
+		if (!root) return;
+
+		const form = document.getElementById('quote-drawer-form');
+		const success = document.getElementById('quote-drawer-success');
+
+		/** @type {HTMLElement | null} */
+		let lastFocus = null;
+
+		const focusables = () => {
+			const sel =
+				'button:not([disabled]), [href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+			return Array.from(root.querySelectorAll(sel)).filter(
+				(el) => root.contains(el) && !el.closest('[hidden]'),
+			);
+		};
+
+		function open() {
+			lastFocus = /** @type {HTMLElement | null} */ (document.activeElement);
+			root.classList.add('is-open');
+			root.setAttribute('aria-hidden', 'false');
+			document.body.style.overflow = 'hidden';
+			const first = focusables()[0];
+			first?.focus();
+		}
+
+		function close() {
+			root.classList.remove('is-open');
+			root.setAttribute('aria-hidden', 'true');
+			document.body.style.overflow = '';
+			lastFocus?.focus?.();
+			lastFocus = null;
+		}
+
+		function resetPanel() {
+			if (form && success) {
+				form.hidden = false;
+				success.hidden = true;
+				form.reset();
+			}
+		}
+
+		document.addEventListener(
+			'click',
+			(e) => {
+				const a = (e.target as HTMLElement).closest('a');
+				if (!a) return;
+				const href = a.getAttribute('href');
+				if (href === '#quote' || href === '#quote-form') {
+					e.preventDefault();
+					resetPanel();
+					open();
+				}
+			},
+			true,
+		);
+
+		root.addEventListener('click', (e) => {
+			const t = e.target as HTMLElement;
+			if (t.closest('[data-quote-close]')) close();
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && root.classList.contains('is-open')) {
+				e.preventDefault();
+				close();
+			}
+		});
+
+		root.addEventListener('keydown', (e) => {
+			if (e.key !== 'Tab' || !root.classList.contains('is-open')) return;
+			const list = focusables();
+			if (list.length === 0) return;
+			const first = list[0];
+			const last = list[list.length - 1];
+			if (e.shiftKey && document.activeElement === first) {
+				e.preventDefault();
+				last.focus();
+			} else if (!e.shiftKey && document.activeElement === last) {
+				e.preventDefault();
+				first.focus();
+			}
+		});
+
+		form?.addEventListener('submit', (e) => {
+			e.preventDefault();
+			if (!success || !form) return;
+			form.hidden = true;
+			success.hidden = false;
+			const btn = success.querySelector('button');
+			btn?.focus();
+		});
+	})();
+</script>

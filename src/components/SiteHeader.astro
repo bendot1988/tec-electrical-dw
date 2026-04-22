@@ -1,25 +1,45 @@
 ---
+import { siteContact } from '../data/siteContact';
+
 const navigation = [
 	{ label: 'Home', href: '/' },
 	{ label: 'Services', href: '/services' },
 	{ label: 'Solar', href: '/solar' },
 	{ label: 'Projects', href: '/projects' },
-	{ label: 'Contact', href: '/contact' },
-];
+	{ label: 'Contact', href: '/contact', accent: true },
+] as const;
 ---
 
 <header class="site-header">
+	<div class="header-topbar">
+		<div class="header-topbar-inner" aria-label="Office address and telephone">
+			<p class="header-topbar-address">
+				<span class="header-topbar-label">Address</span>
+				{siteContact.addressFull}
+			</p>
+			<a class="header-topbar-phone" href={siteContact.telHref}>
+				<span class="header-topbar-label">Tel</span>
+				{siteContact.telDisplay}
+			</a>
+		</div>
+	</div>
+
 	<div class="container">
 		<a class="brand" href="/" aria-label="Tech Electrical home">
 			<img class="brand-logo" src="/tech-electrical-logo.png" alt="Tech Electrical Services Ltd" />
 		</a>
 
 		<nav class="nav" aria-label="Primary">
-			<ul>
+			<ul class="nav-list">
 				{
 					navigation.map((item) => (
 						<li>
-							<a href={item.href}>{item.label}</a>
+							<a
+								class:list={['nav-link', item.accent && 'nav-link--accent']}
+								href={item.href}
+							>
+								{item.label}
+							</a>
 						</li>
 					))
 				}
@@ -27,7 +47,7 @@ const navigation = [
 		</nav>
 
 		<div class="actions">
-			<a class="call-link" href="tel:+441160000000">Call Now</a>
+			<a class="call-link" href={siteContact.telHref}>Call Now</a>
 			<a class="quote-link" href="#quote">Get Quote</a>
 		</div>
 
@@ -51,7 +71,12 @@ const navigation = [
 				{
 					navigation.map((item) => (
 						<li>
-							<a href={item.href}>{item.label}</a>
+							<a
+								class:list={['mobile-nav-link', item.accent && 'mobile-nav-link--accent']}
+								href={item.href}
+							>
+								{item.label}
+							</a>
 						</li>
 					))
 				}
@@ -67,18 +92,70 @@ const navigation = [
 
 <style>
 	.site-header {
+		--header-brand: #0f4ac4;
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		background: rgba(255, 255, 255, 0.96);
-		backdrop-filter: blur(8px);
-		border-bottom: 1px solid rgba(15, 23, 42, 0.08);
 		transition: transform 220ms ease;
 		will-change: transform;
 	}
 
 	.site-header.is-hidden {
 		transform: translateY(-100%);
+	}
+
+	.header-topbar {
+		background: linear-gradient(100deg, #0a1f4d 0%, #0f4ac4 52%, #0c3d9e 100%);
+		color: rgba(248, 250, 252, 0.96);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
+	.header-topbar-inner {
+		width: 100%;
+		padding: 0.42rem var(--site-content-padding);
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem 1.25rem;
+		font-size: 0.8125rem;
+		line-height: 1.35;
+	}
+
+	.header-topbar-address {
+		margin: 0;
+		flex: 1 1 12rem;
+		min-width: 0;
+	}
+
+	.header-topbar-phone {
+		flex-shrink: 0;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.4rem;
+		font-weight: 700;
+		color: #fff;
+		letter-spacing: 0.02em;
+		transition: opacity 160ms ease;
+	}
+
+	.header-topbar-phone:hover {
+		opacity: 0.88;
+	}
+
+	.header-topbar-phone:focus-visible {
+		outline: 2px solid #fbbf24;
+		outline-offset: 2px;
+		border-radius: 0.25rem;
+	}
+
+	.header-topbar-label {
+		font-weight: 600;
+		font-size: 0.68rem;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		opacity: 0.78;
+		margin-right: 0.2rem;
 	}
 
 	.container {
@@ -88,6 +165,10 @@ const navigation = [
 		grid-template-columns: auto 1fr auto;
 		align-items: center;
 		gap: 1rem;
+		background: rgba(255, 255, 255, 0.96);
+		backdrop-filter: blur(10px) saturate(1.2);
+		border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+		box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
 	}
 
 	.brand {
@@ -102,23 +183,88 @@ const navigation = [
 		height: auto;
 	}
 
-	.nav ul {
-		margin: 0;
-		padding: 0;
-		list-style: none;
+	.nav {
 		display: flex;
 		justify-content: center;
-		gap: 1.5rem;
-		font-size: 0.94rem;
+		align-items: center;
+		min-width: 0;
 	}
 
-	.nav a {
-		color: #334155;
-		font-weight: 500;
+	.nav-list {
+		margin: 0;
+		padding: 0.22rem;
+		list-style: none;
+		display: inline-flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 0.12rem;
+		width: max-content;
+		max-width: 100%;
+		font-size: 0.92rem;
+		background: #f8fafc;
+		border: 1px solid #e2e8f0;
+		border-radius: 999px;
 	}
 
-	.nav a:hover {
-		color: #0f4ac4;
+	.nav-link {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.48rem 0.95rem;
+		border-radius: 999px;
+		color: #475569;
+		font-weight: 600;
+		letter-spacing: 0.01em;
+		transition: color 160ms ease, background 160ms ease;
+	}
+
+	.nav-link:not(.nav-link--accent)::after {
+		content: '';
+		position: absolute;
+		left: 50%;
+		bottom: 0.35rem;
+		width: calc(100% - 1.4rem);
+		height: 2px;
+		border-radius: 2px;
+		background: var(--header-brand);
+		transform: translateX(-50%) scaleX(0);
+		transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+		pointer-events: none;
+	}
+
+	.nav-link:not(.nav-link--accent):hover {
+		color: var(--header-brand);
+		background: rgba(15, 74, 196, 0.06);
+	}
+
+	.nav-link:not(.nav-link--accent):hover::after {
+		transform: translateX(-50%) scaleX(1);
+	}
+
+	.nav-link:not(.nav-link--accent):focus-visible {
+		outline: 2px solid var(--header-brand);
+		outline-offset: 2px;
+		color: var(--header-brand);
+	}
+
+	.nav-link--accent {
+		margin-left: 0.08rem;
+		padding: 0.48rem 1.1rem;
+		color: var(--header-brand);
+		background: #fff;
+		border: 1px solid #cbd5e1;
+	}
+
+	.nav-link--accent:hover {
+		color: #fff;
+		background: var(--header-brand);
+		border-color: var(--header-brand);
+	}
+
+	.nav-link--accent:focus-visible {
+		outline: 2px solid var(--header-brand);
+		outline-offset: 3px;
 	}
 
 	.actions {
@@ -129,21 +275,43 @@ const navigation = [
 
 	.call-link,
 	.quote-link {
-		border-radius: 0.6rem;
-		padding: 0.62rem 1rem;
-		font-size: 0.88rem;
-		font-weight: 600;
+		border-radius: 0.65rem;
+		padding: 0.62rem 1.05rem;
+		font-size: 0.86rem;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		transition:
+			background 160ms ease,
+			border-color 160ms ease,
+			color 160ms ease,
+			filter 160ms ease;
 	}
 
 	.call-link {
-		border: 1px solid #dbe1eb;
+		border: 1px solid #e2e8f0;
 		background: #fff;
-		color: #1f2937;
+		color: #1e293b;
+	}
+
+	.call-link:hover {
+		border-color: var(--header-brand);
+		color: var(--header-brand);
 	}
 
 	.quote-link {
-		background: linear-gradient(120deg, #f59e0b, #f97316);
+		border: 1px solid #ea580c;
+		background: #f97316;
 		color: #fff;
+	}
+
+	.quote-link:hover {
+		filter: brightness(1.05);
+	}
+
+	.call-link:focus-visible,
+	.quote-link:focus-visible {
+		outline: 2px solid var(--header-brand);
+		outline-offset: 2px;
 	}
 
 	.mobile-toggle {
@@ -199,12 +367,17 @@ const navigation = [
 		border-top: 1px solid #f1f5f9;
 	}
 
-	.mobile-menu nav a {
+	.mobile-nav-link {
 		display: block;
 		padding: 0.86rem 0;
 		font-size: 0.99rem;
 		font-weight: 600;
 		color: #334155;
+	}
+
+	.mobile-nav-link--accent {
+		color: var(--header-brand);
+		font-weight: 700;
 	}
 
 	.mobile-cta {

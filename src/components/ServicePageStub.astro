@@ -1,0 +1,105 @@
+---
+interface Props {
+	title: string;
+	lede: string;
+}
+
+const { title, lede } = Astro.props;
+---
+
+<main class="service-stub">
+	<div class="service-stub-inner">
+		<p class="service-stub-eyebrow">Service overview</p>
+		<h1>{title}</h1>
+		<p class="service-stub-lede">{lede}</p>
+		<p class="service-stub-note">We&apos;re finishing this page — in the meantime, request a quote or call us and we&apos;ll help right away.</p>
+		<div class="service-stub-actions">
+			<a class="btn-primary" href="/#quote">Get a free quote</a>
+			<a class="btn-muted" href="/">Back to home</a>
+		</div>
+	</div>
+</main>
+
+<style>
+	.service-stub {
+		padding: 3.5rem var(--site-content-padding) 4.5rem;
+		background: #f8fafc;
+		min-height: 42vh;
+	}
+
+	.service-stub-inner {
+		max-width: 640px;
+		margin: 0 auto;
+	}
+
+	.service-stub-eyebrow {
+		margin: 0;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #0f4ac4;
+	}
+
+	.service-stub h1 {
+		margin: 0.5rem 0 0.75rem;
+		font-size: clamp(1.85rem, 3vw, 2.35rem);
+		color: #0f172a;
+		line-height: 1.15;
+	}
+
+	.service-stub-lede {
+		margin: 0;
+		font-size: 1.05rem;
+		line-height: 1.6;
+		color: #475569;
+	}
+
+	.service-stub-note {
+		margin: 1.25rem 0 0;
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: #64748b;
+	}
+
+	.service-stub-actions {
+		margin-top: 1.75rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.65rem;
+	}
+
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.78rem 1.2rem;
+		border-radius: 0.55rem;
+		font-weight: 700;
+		font-size: 0.9rem;
+		background: linear-gradient(120deg, #f59e0b, #f97316);
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		filter: brightness(1.05);
+	}
+
+	.btn-muted {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.76rem 1.15rem;
+		border-radius: 0.55rem;
+		font-weight: 700;
+		font-size: 0.9rem;
+		border: 1px solid #dbe1eb;
+		color: #334155;
+		background: #fff;
+	}
+
+	.btn-muted:hover {
+		border-color: #0f4ac4;
+		color: #0f4ac4;
+	}
+</style>

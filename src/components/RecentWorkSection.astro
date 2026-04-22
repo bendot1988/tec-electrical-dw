@@ -32,7 +32,7 @@ const projects = [
 
 <section class="recent-work" aria-labelledby="recent-work-heading">
 	<div class="recent-work-wrap">
-		<header class="recent-work-head" data-reveal>
+		<header class="recent-work-head" data-reveal="fade-down">
 			<p>Recent Work</p>
 			<h2 id="recent-work-heading">Projects We&apos;re Proud Of</h2>
 			<span>A snapshot of recent installations across Leicestershire and surrounding areas.</span>
@@ -40,8 +40,10 @@ const projects = [
 
 		<div class="project-grid">
 			{
-				projects.map((project, index) => (
-					<article data-reveal style={`--reveal-delay: ${90 + index * 110}ms;`}>
+				projects.map((project, index) => {
+					const fades = ['fade-left', 'fade-up', 'fade-right'];
+					return (
+					<article data-reveal={fades[index % 3]} style={`--reveal-delay: ${90 + index * 110}ms;`}>
 						<div class="project-image">
 							<img src={project.image} alt={project.imageAlt} loading="lazy" />
 							<em>{project.year}</em>
@@ -56,7 +58,8 @@ const projects = [
 							</ul>
 						</div>
 					</article>
-				))
+					);
+				})
 			}
 		</div>
 	</div>

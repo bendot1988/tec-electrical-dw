@@ -23,22 +23,25 @@ const testimonials = [
 
 <section class="testimonials" aria-labelledby="testimonials-heading">
 	<div class="testimonials-wrap">
-		<header class="testimonials-head" data-reveal>
+		<header class="testimonials-head" data-reveal="fade-right">
 			<p>Testimonials</p>
 			<h2 id="testimonials-heading">What Our Customers Say</h2>
 		</header>
 
 		<div class="testimonials-grid">
 			{
-				testimonials.map((item, index) => (
-					<article data-reveal style={`--reveal-delay: ${90 + index * 110}ms;`}>
+				testimonials.map((item, index) => {
+					const fades = ['fade-up', 'fade-down', 'fade-up'];
+					return (
+					<article data-reveal={fades[index % 3]} style={`--reveal-delay: ${90 + index * 110}ms;`}>
 						<div class="rating" aria-label="5 star rating">★★★★★</div>
 						<blockquote>"{item.quote}"</blockquote>
 						<hr />
 						<strong>{item.name}</strong>
 						<small>{item.meta}</small>
 					</article>
-				))
+					);
+				})
 			}
 		</div>
 	</div>

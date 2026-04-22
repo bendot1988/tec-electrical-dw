@@ -2,6 +2,8 @@
 const serviceCards = [
 	{
 		title: 'General Electrical & New Builds',
+		image: '/core-services-new-builds.png',
+		imageAlt: 'Modern new-build homes with integrated solar-ready electrical design',
 		items: [
 			'New Builds',
 			'Student/HMO Accommodation',
@@ -14,12 +16,16 @@ const serviceCards = [
 	},
 	{
 		title: 'Fault Finding & Maintenance',
+		image: '/core-services-fault-finding.png',
+		imageAlt: 'Electrical testing equipment and open distribution board during fault finding',
 		items: ['In-depth Diagnostics', 'Energy Logging', 'Thermal Imaging', 'Maintenance Packages', 'Landlord EICRs', 'PAT Testing'],
 		icon: '🔎',
 		featured: true,
 	},
 	{
 		title: 'Solar, Battery & EV',
+		image: '/core-services-solar-battery-ev.png',
+		imageAlt: 'Solar panel installation on a tiled roof',
 		items: [
 			'In-roof & On-roof Solar',
 			'Battery Storage with Backup',
@@ -37,7 +43,7 @@ const serviceTags = ['Domestic', 'Commercial', 'Safety', 'Inspection', 'Maintena
 
 <section class="core-services" aria-labelledby="core-services-heading">
 	<div class="core-services-wrap">
-		<header class="services-head" data-reveal>
+		<header class="services-head" data-reveal="fade-down">
 			<p>What We Do</p>
 			<h2 id="core-services-heading">Our Core Services</h2>
 			<span>
@@ -48,14 +54,16 @@ const serviceTags = ['Domestic', 'Commercial', 'Safety', 'Inspection', 'Maintena
 
 		<div class="services-grid">
 			{
-				serviceCards.map((service, index) => (
+				serviceCards.map((service, index) => {
+					const fades = ['fade-right', 'fade-up', 'fade-left'];
+					return (
 					<article
 						class:list={['service-card', service.featured && 'featured']}
-						data-reveal
+						data-reveal={fades[index % 3]}
 						style={`--reveal-delay: ${110 + index * 100}ms;`}
 					>
 						<div class="card-image">
-							<img src="/package-placeholder.svg" alt="" loading="lazy" />
+							<img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
 						</div>
 
 						<div class="card-icon" aria-hidden="true">{service.icon}</div>
@@ -64,11 +72,12 @@ const serviceTags = ['Domestic', 'Commercial', 'Safety', 'Inspection', 'Maintena
 							{service.items.map((item) => <li>{item}</li>)}
 						</ul>
 					</article>
-				))
+					);
+				})
 			}
 		</div>
 
-		<div class="service-tags" data-reveal style="--reveal-delay: 360ms;">
+		<div class="service-tags" data-reveal="fade-up" style="--reveal-delay: 360ms;">
 			{
 				serviceTags.map((tag) => (
 					<span>{tag}</span>

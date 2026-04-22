@@ -1,4 +1,5 @@
 ---
+import QuoteDrawer from '../components/QuoteDrawer.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
 interface Props {
@@ -35,6 +36,7 @@ const {
 	</head>
 	<body>
 		<slot />
+		<QuoteDrawer />
 		<SiteFooter />
 	</body>
 </html>
@@ -62,43 +64,104 @@ const {
 		text-decoration: none;
 	}
 
-	:global([data-reveal]) {
+	/* Default + fade-up: enter from below */
+	:global([data-reveal]),
+	:global([data-reveal='fade-up']) {
 		opacity: 0;
-		transform: translateY(28px) scale(0.985);
+		transform: translate3d(0, 22px, 0);
 		transition:
-			opacity 680ms cubic-bezier(0.22, 1, 0.36, 1),
-			transform 680ms cubic-bezier(0.22, 1, 0.36, 1),
-			filter 680ms cubic-bezier(0.22, 1, 0.36, 1);
+			opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 560ms cubic-bezier(0.22, 1, 0.36, 1);
 		transition-delay: var(--reveal-delay, 0ms);
 		will-change: opacity, transform;
 	}
 
-	:global([data-reveal='left']) {
-		transform: translateX(-34px) scale(0.985);
+	:global([data-reveal='fade-down']) {
+		opacity: 0;
+		transform: translate3d(0, -22px, 0);
+		transition:
+			opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 560ms cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: var(--reveal-delay, 0ms);
+		will-change: opacity, transform;
 	}
 
+	:global([data-reveal='fade-left']),
+	:global([data-reveal='left']) {
+		opacity: 0;
+		transform: translate3d(-26px, 0, 0);
+		transition:
+			opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 560ms cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: var(--reveal-delay, 0ms);
+		will-change: opacity, transform;
+	}
+
+	:global([data-reveal='fade-right']),
 	:global([data-reveal='right']) {
-		transform: translateX(34px) scale(0.985);
+		opacity: 0;
+		transform: translate3d(26px, 0, 0);
+		transition:
+			opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 560ms cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: var(--reveal-delay, 0ms);
+		will-change: opacity, transform;
 	}
 
 	:global([data-reveal='zoom']) {
-		transform: scale(0.94);
+		opacity: 0;
+		transform: scale(0.96);
+		transition:
+			opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 560ms cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: var(--reveal-delay, 0ms);
+		will-change: opacity, transform;
 	}
 
 	:global([data-reveal='blur']) {
-		filter: blur(8px);
+		opacity: 0;
+		transform: translate3d(0, 12px, 0);
+		filter: blur(6px);
+		transition:
+			opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			transform 560ms cubic-bezier(0.22, 1, 0.36, 1),
+			filter 560ms cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: var(--reveal-delay, 0ms);
+		will-change: opacity, transform, filter;
 	}
 
-	:global([data-reveal].is-revealed) {
+	:global([data-reveal].is-revealed),
+	:global([data-reveal='fade-up'].is-revealed),
+	:global([data-reveal='fade-down'].is-revealed),
+	:global([data-reveal='fade-left'].is-revealed),
+	:global([data-reveal='fade-right'].is-revealed),
+	:global([data-reveal='left'].is-revealed),
+	:global([data-reveal='right'].is-revealed),
+	:global([data-reveal='zoom'].is-revealed),
+	:global([data-reveal='blur'].is-revealed) {
 		opacity: 1;
 		transform: translate3d(0, 0, 0) scale(1);
 		filter: blur(0);
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		:global([data-reveal]) {
+		:global([data-reveal]),
+		:global([data-reveal='fade-up']),
+		:global([data-reveal='fade-down']),
+		:global([data-reveal='fade-left']),
+		:global([data-reveal='fade-right']),
+		:global([data-reveal='left']),
+		:global([data-reveal='right']),
+		:global([data-reveal='zoom']),
+		:global([data-reveal='blur']) {
 			opacity: 1;
 			transform: none;
+			filter: none;
 			transition: none;
 		}
 	}

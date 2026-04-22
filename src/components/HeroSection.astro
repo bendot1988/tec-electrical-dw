@@ -1,31 +1,35 @@
+---
+import { siteContact } from '../data/siteContact';
+---
+
 <section class="hero" id="quote">
 	<div class="hero-inner">
-		<div class="hero-copy" data-reveal="left" data-reveal-stagger="110">
-			<p class="eyebrow" data-reveal="blur">MCS Certified Solar Installers</p>
+		<div class="hero-copy" data-reveal="fade-left" data-reveal-stagger="110">
+			<p class="eyebrow" data-reveal="blur">NICEIC-approved · MCS solar · Leicestershire</p>
 			<h1 data-reveal>
-				Solar, Battery & EV
-				<span>Powering Leicestershire homes</span>
+				Electrical experts for homes &amp; businesses
+				<span>Solar, EV &amp; complete electrical care</span>
 			</h1>
 			<p class="subtitle" data-reveal>
-				Cut your energy bills with premium in-roof solar, whole-home battery backup and smart EV charging.
-				Designed and installed by a 15-year electrical team you can trust.
+				From new builds and rewires to fault finding, compliance testing, and emergency callouts — plus
+				in-roof solar, battery backup and EV charging when you&apos;re ready to go renewable.
 			</p>
 
-			<ul class="benefits" aria-label="Benefits" data-reveal>
-				<li>In-roof and on-roof PV</li>
-				<li>Battery storage + backup</li>
-				<li>EV charging integration</li>
-				<li>Slash energy bills</li>
+			<ul class="benefits" aria-label="What we cover" data-reveal>
+				<li>Installations, testing &amp; certification</li>
+				<li>Solar, battery storage &amp; EV charging</li>
+				<li>Fault finding &amp; landlord compliance</li>
+				<li>Domestic, commercial &amp; new builds</li>
 			</ul>
 
 			<div class="cta-group" data-reveal="zoom">
-				<a class="primary" href="#quote-form">Get My Free Solar Quote</a>
-				<a class="secondary" href="tel:+441160000000">Call Us Now</a>
-				<a class="secondary" href="https://wa.me/447000000000">WhatsApp</a>
+				<a class="primary" href="#quote-form">Get a free quote</a>
+				<a class="secondary" href={siteContact.telHref}>Call Us Now</a>
+				<a class="secondary" href={siteContact.whatsappHref}>WhatsApp</a>
 			</div>
 		</div>
 
-		<aside class="quote-card" id="quote-form" aria-label="Quick quote form" data-reveal="right">
+		<aside class="quote-card" id="quote-form" aria-label="Quick quote form" data-reveal="fade-right">
 			<h2>Get Your Quick Quote</h2>
 			<p>Fill out the form and we&apos;ll call you within 1 hour.</p>
 			<form class="quote-form">
@@ -41,7 +45,7 @@
 				</div>
 				<label>
 					<span>Postcode *</span>
-					<input type="text" name="postcode" placeholder="LE11 2XX" required />
+					<input type="text" name="postcode" placeholder="LE7 7QN" required />
 				</label>
 				<label>
 					<span>Brief Job Description *</span>
@@ -60,7 +64,7 @@
 		overflow: hidden;
 		padding: 4.2rem var(--site-content-padding) 5rem;
 		background:
-			linear-gradient(102deg, rgba(8, 28, 88, 0.9) 0%, rgba(10, 41, 110, 0.82) 45%, rgba(16, 66, 156, 0.72) 100%),
+			linear-gradient(102deg, rgba(8, 28, 88, 0.93) 0%, rgba(10, 41, 110, 0.88) 45%, rgba(16, 66, 156, 0.8) 100%),
 			url('/hero-solar-roof.png');
 		background-size: cover;
 		background-position: center;
@@ -129,8 +133,10 @@
 		padding: 0;
 		list-style: none;
 		display: grid;
-		grid-template-columns: repeat(2, minmax(170px, 1fr));
-		gap: 0.7rem 1rem;
+		grid-template-columns: repeat(2, max-content);
+		column-gap: 1.85rem;
+		row-gap: 0.7rem;
+		justify-content: start;
 	}
 
 	.benefits li {

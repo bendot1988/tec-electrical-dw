@@ -17,7 +17,7 @@ const coveragePoints = [
 
 <section class="coverage" aria-labelledby="coverage-heading">
 	<div class="coverage-wrap">
-		<div class="coverage-content" data-reveal>
+		<div class="coverage-content" data-reveal="fade-left">
 			<p>Coverage</p>
 			<h2 id="coverage-heading">Areas We Cover</h2>
 			<span>
@@ -27,7 +27,7 @@ const coveragePoints = [
 			<small>Don&apos;t see your area? Get in touch -- we often travel further for larger projects.</small>
 		</div>
 
-		<ul class="area-grid" data-reveal style="--reveal-delay: 120ms;">
+		<ul class="area-grid" data-reveal="fade-up" style="--reveal-delay: 120ms;">
 			{
 				coveragePoints.map((point) => (
 					<li>{point.name}</li>
@@ -36,7 +36,7 @@ const coveragePoints = [
 		</ul>
 	</div>
 
-	<div class="coverage-map-wrap" data-reveal style="--reveal-delay: 170ms;">
+	<div class="coverage-map-wrap" data-reveal="fade-right" style="--reveal-delay: 170ms;">
 		<div id="coverage-map" aria-label="Map showing service coverage areas"></div>
 	</div>
 </section>
@@ -102,12 +102,39 @@ const coveragePoints = [
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.65rem 0.74rem;
-		border: 1px solid #f59e0b;
-		background: linear-gradient(120deg, #f59e0b, #facc15);
-		border-radius: 0.6rem;
-		font-size: 0.95rem;
-		color: #111827;
+		padding: 0.65rem 0.8rem;
+		border: 1px solid rgba(226, 232, 240, 0.88);
+		border-radius: 0.65rem;
+		font-size: 0.93rem;
+		font-weight: 600;
+		letter-spacing: 0.01em;
+		color: #0f172a;
+		background: #fff;
+		box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.35);
+		transition:
+			border-color 180ms ease,
+			box-shadow 180ms ease,
+			transform 180ms ease;
+	}
+
+	@media (hover: hover) {
+		.area-grid li:hover {
+			border-color: rgba(248, 192, 79, 0.95);
+			box-shadow:
+				0 0 0 1px rgba(248, 192, 79, 0.35),
+				0 12px 28px -12px rgba(0, 0, 0, 0.4);
+			transform: translateY(-2px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.area-grid li {
+			transition: border-color 180ms ease, box-shadow 180ms ease;
+		}
+
+		.area-grid li:hover {
+			transform: none;
+		}
 	}
 
 	.area-grid li::before {
