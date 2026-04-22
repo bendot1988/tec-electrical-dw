@@ -9,7 +9,9 @@ import { siteContact } from '../data/siteContact';
 		<div class="footer-hero">
 			<img class="footer-logo" src="/tech-electrical-logo.png" alt="Tec Electrical Services Ltd" />
 			<p class="footer-tagline">
-				Professional electrical services across Leicestershire - domestic, commercial &amp; emergency.
+				Professional electrical services across Leicestershire&nbsp;&ndash;
+				<br class="footer-tagline-br-desktop" aria-hidden="true" />
+				domestic, commercial &amp; emergency.
 			</p>
 		</div>
 
@@ -173,6 +175,20 @@ import { siteContact } from '../data/siteContact';
 		font-size: 0.92rem;
 		line-height: 1.6;
 		color: #64748b;
+	}
+
+	.footer-tagline-br-desktop {
+		display: none;
+	}
+
+	@media (min-width: 901px) {
+		.footer-tagline {
+			max-width: min(30rem, 100%);
+		}
+
+		.footer-tagline-br-desktop {
+			display: block;
+		}
 	}
 
 	.footer-body {
