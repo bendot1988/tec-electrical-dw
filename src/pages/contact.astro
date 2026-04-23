@@ -1,0 +1,563 @@
+---
+import InnerPageHero from '../components/InnerPageHero.astro';
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { siteContact } from '../data/siteContact';
+
+const coverageLocations = [
+	'Loughborough',
+	'Leicester',
+	'Nottingham',
+	'Derby',
+	'Melton Mowbray',
+	'Coalville',
+	'Hinckley',
+	'Market Harborough',
+	'Oakham',
+	'Stamford',
+	'Grantham',
+	'Newark',
+] as const;
+---
+
+<Layout
+	title="Contact Us | Tech Electrical"
+	description="Get in touch with Tech Electrical for solar, EV, domestic and commercial electrical services across Leicestershire."
+>
+	<SiteHeader />
+
+	<main class="contact-page">
+		<InnerPageHero
+			eyebrow="Contact"
+			title="Contact Us"
+			description="Tell us what you need and we’ll come back quickly with practical advice and a clear quote."
+			backgroundImage="/hero-solar-roof.png"
+			featuredImage="/project-interior-fitout.png"
+			featuredAlt="Tech Electrical installation work in progress"
+			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Contact' }]}
+		/>
+
+		<section class="contact-main" aria-labelledby="contact-main-heading">
+			<div class="contact-main-wrap">
+				<div class="contact-info">
+					<h2 id="contact-main-heading">Let’s discuss your project</h2>
+					<p>
+						From urgent callouts and testing to full solar/EV installs, we can usually give you next steps on
+						the first call.
+					</p>
+
+					<div class="info-card">
+						<h3>Contact details</h3>
+						<ul>
+							<li>
+								<strong>Tel:</strong>
+								<span class="contact-copy-row">
+									<a href={siteContact.telHref}>{siteContact.telDisplay}</a>
+									<button
+										type="button"
+										class="copy-btn"
+										data-copy-value={siteContact.telDisplay}
+										aria-label={`Copy ${siteContact.telDisplay}`}
+										title="Copy number"
+									>
+										<span class="copy-btn-icon copy-icon" aria-hidden="true">
+											<svg viewBox="0 0 24 24">
+												<rect x="9" y="9" width="10" height="10" rx="2"></rect>
+												<rect x="5" y="5" width="10" height="10" rx="2"></rect>
+											</svg>
+										</span>
+										<span class="copy-btn-icon copied-icon" aria-hidden="true">
+											<svg viewBox="0 0 24 24">
+												<polyline points="5,13 10,18 19,7"></polyline>
+											</svg>
+										</span>
+									</button>
+								</span>
+							</li>
+							<li>
+								<strong>Mobile:</strong>
+								<span class="contact-copy-row">
+									<a href={siteContact.mobileHref}>{siteContact.mobileDisplay}</a>
+									<button
+										type="button"
+										class="copy-btn"
+										data-copy-value={siteContact.mobileDisplay}
+										aria-label={`Copy ${siteContact.mobileDisplay}`}
+										title="Copy number"
+									>
+										<span class="copy-btn-icon copy-icon" aria-hidden="true">
+											<svg viewBox="0 0 24 24">
+												<rect x="9" y="9" width="10" height="10" rx="2"></rect>
+												<rect x="5" y="5" width="10" height="10" rx="2"></rect>
+											</svg>
+										</span>
+										<span class="copy-btn-icon copied-icon" aria-hidden="true">
+											<svg viewBox="0 0 24 24">
+												<polyline points="5,13 10,18 19,7"></polyline>
+											</svg>
+										</span>
+									</button>
+								</span>
+							</li>
+							<li><strong>Email:</strong> <a href={`mailto:${siteContact.email}`}>{siteContact.email}</a></li>
+							<li><strong>Address:</strong> {siteContact.addressLine1}, {siteContact.postcode}</li>
+						</ul>
+					</div>
+
+					<div class="info-card">
+						<h3>Where we operate</h3>
+						<p>Leicestershire, Nottinghamshire, and Derbyshire, with travel for larger projects.</p>
+						<ul class="coverage-chips">
+							{coverageLocations.map((location) => <li>{location}</li>)}
+						</ul>
+					</div>
+				</div>
+
+				<div class="contact-form-card">
+					<h2>Request a quote</h2>
+					<p>We’ll review your enquiry and get back to you as soon as possible.</p>
+
+					<form class="contact-form">
+						<div class="field-grid">
+							<label>
+								<span>Full name *</span>
+								<input type="text" name="name" autocomplete="name" placeholder="John Smith" required />
+							</label>
+							<label>
+								<span>Email *</span>
+								<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+							</label>
+						</div>
+
+						<div class="field-grid">
+							<label>
+								<span>Phone *</span>
+								<input
+									type="tel"
+									name="phone"
+									autocomplete="tel"
+									inputmode="numeric"
+									placeholder="07XXX XXXXXX"
+									required
+								/>
+							</label>
+							<label>
+								<span>Postcode *</span>
+								<input
+									type="text"
+									name="postcode"
+									autocomplete="postal-code"
+									inputmode="text"
+									placeholder="LE7 7QN"
+									required
+								/>
+							</label>
+						</div>
+
+						<div class="field-grid">
+							<label>
+								<span>Service you’re interested in *</span>
+								<select name="service" required>
+									<option value="">Please select</option>
+									<option>Solar PV & Battery</option>
+									<option>EV Charging</option>
+									<option>Domestic Electrical</option>
+									<option>Commercial Electrical</option>
+									<option>Fault Finding & Maintenance</option>
+									<option>Testing & Compliance</option>
+								</select>
+							</label>
+							<label>
+								<span>Property type *</span>
+								<select name="property_type" required>
+									<option value="">Please select</option>
+									<option>Domestic</option>
+									<option>Commercial</option>
+									<option>Landlord / HMO</option>
+									<option>New Build</option>
+								</select>
+							</label>
+						</div>
+
+						<label>
+							<span>Project details *</span>
+							<textarea
+								name="message"
+								rows="5"
+								required
+								placeholder="Tell us what service you need, rough timeline, and any useful site details."
+							></textarea>
+						</label>
+
+						<label class="checkbox-field">
+							<input type="checkbox" name="consent_legal" required />
+							<span>
+								I agree to the <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms &amp; Conditions</a>,
+								and consent to being contacted about this enquiry.
+							</span>
+						</label>
+
+						<button type="submit">Send enquiry</button>
+						<small>Form processing will be connected to Resend shortly.</small>
+					</form>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.contact-page {
+		background: #f8fafc;
+	}
+
+	.contact-main {
+		padding: 2.6rem var(--site-content-padding) 4.2rem;
+	}
+
+	.contact-main-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 0.95fr 1.05fr;
+		gap: 1.1rem;
+	}
+
+	.contact-info h2 {
+		margin: 0;
+		font-size: clamp(1.55rem, 2.4vw, 2rem);
+		color: #0f172a;
+	}
+
+	.contact-info > p {
+		margin: 0.6rem 0 1rem;
+		color: #64748b;
+		line-height: 1.6;
+		font-size: 0.98rem;
+	}
+
+	.info-card,
+	.contact-form-card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		box-shadow: 0 12px 30px -24px rgba(15, 23, 42, 0.34);
+	}
+
+	.info-card {
+		padding: 1rem;
+		margin-top: 0.85rem;
+	}
+
+	.info-card h3 {
+		margin: 0;
+		font-size: 1.12rem;
+		color: #0f172a;
+	}
+
+	.info-card p {
+		margin: 0.45rem 0 0;
+		color: #64748b;
+		font-size: 0.94rem;
+		line-height: 1.55;
+	}
+
+	.info-card ul {
+		margin: 0.7rem 0 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 0.5rem;
+		color: #334155;
+	}
+
+	.info-card a {
+		color: #0f4ac4;
+	}
+
+	.contact-copy-row {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.copy-btn {
+		border: 1px solid #dbe1eb;
+		background: #f8fafc;
+		color: #475569;
+		border-radius: 999px;
+		width: 1.75rem;
+		height: 1.75rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		line-height: 1;
+		transition: border-color 160ms ease, color 160ms ease, background 160ms ease, transform 160ms ease;
+		padding: 0;
+	}
+
+	.copy-btn-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.copy-btn svg {
+		width: 0.92rem;
+		height: 0.92rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1.8;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.copy-btn .copied-icon {
+		display: none;
+	}
+
+	.copy-btn:hover {
+		border-color: #0f4ac4;
+		color: #0f4ac4;
+		background: #fff;
+		transform: translateY(-1px);
+	}
+
+	.copy-btn.is-copied {
+		background: #eff6ff;
+		border-color: #93c5fd;
+		color: #0f4ac4;
+	}
+
+	.copy-btn.is-copied .copy-icon {
+		display: none;
+	}
+
+	.copy-btn.is-copied .copied-icon {
+		display: inline-flex;
+	}
+
+	.coverage-chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin-top: 0.75rem;
+	}
+
+	.coverage-chips li {
+		padding: 0.27rem 0.52rem;
+		border-radius: 999px;
+		font-size: 0.74rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		background: #eff6ff;
+		color: #0f4ac4;
+	}
+
+	.contact-form-card {
+		padding: 1.05rem;
+	}
+
+	.contact-form-card h2 {
+		margin: 0;
+		font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+		color: #0f172a;
+	}
+
+	.contact-form-card > p {
+		margin: 0.5rem 0 0.95rem;
+		color: #64748b;
+		font-size: 0.95rem;
+	}
+
+	.contact-form {
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	.field-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.75rem;
+	}
+
+	.contact-form label {
+		display: grid;
+		gap: 0.34rem;
+	}
+
+	.contact-form label > span {
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: #334155;
+	}
+
+	.contact-form input,
+	.contact-form select,
+	.contact-form textarea {
+		width: 100%;
+		padding: 0.68rem 0.72rem;
+		font: inherit;
+		border: 1px solid #d6deea;
+		border-radius: 0.5rem;
+		background: #fff;
+		color: #0f172a;
+	}
+
+	.contact-form textarea {
+		resize: vertical;
+		min-height: 8.2rem;
+	}
+
+	.checkbox-field {
+		display: flex !important;
+		align-items: center;
+		gap: 0.55rem !important;
+	}
+
+	.checkbox-field input {
+		width: 1rem;
+		height: 1rem;
+		padding: 0;
+	}
+
+	.checkbox-field span {
+		font-size: 0.88rem !important;
+		font-weight: 500 !important;
+		color: #475569 !important;
+	}
+
+	.checkbox-field a {
+		color: #0f4ac4;
+		text-decoration: underline;
+		text-underline-offset: 0.1em;
+	}
+
+	.contact-form button {
+		border: 0;
+		border-radius: 0.58rem;
+		padding: 0.8rem 1rem;
+		background: linear-gradient(120deg, #f59e0b, #f97316);
+		color: #fff;
+		font-size: 0.95rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.contact-form button:hover {
+		filter: brightness(1.05);
+	}
+
+	.contact-form small {
+		text-align: center;
+		font-size: 0.82rem;
+		color: #64748b;
+	}
+
+	@media (max-width: 980px) {
+		.contact-main-wrap {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.field-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	const copyButtons = Array.from(document.querySelectorAll('.copy-btn'));
+	copyButtons.forEach((button) => {
+		button.addEventListener('click', async () => {
+			const raw = button.getAttribute('data-copy-value') || '';
+			const value = raw.replace(/\s+/g, '');
+			if (!value) return;
+
+			try {
+				await navigator.clipboard.writeText(value);
+				button.classList.add('is-copied');
+				window.setTimeout(() => {
+					button.classList.remove('is-copied');
+				}, 1200);
+			} catch {
+				// Silent fallback: no clipboard permission/support.
+			}
+		});
+	});
+
+	const contactForm = document.querySelector('.contact-form');
+
+	if (contactForm) {
+		const nameInput = contactForm.querySelector('input[name="name"]');
+		const phoneInput = contactForm.querySelector('input[name="phone"]');
+		const postcodeInput = contactForm.querySelector('input[name="postcode"]');
+
+		const toTitleCase = (value) =>
+			value
+				.trim()
+				.toLowerCase()
+				.replace(/\b[a-z]/g, (char) => char.toUpperCase());
+
+		const normalizePostcode = (value) => {
+			let cleaned = value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+			if (cleaned.length > 3) {
+				cleaned = `${cleaned.slice(0, -3)} ${cleaned.slice(-3)}`;
+			}
+			return cleaned.trim();
+		};
+
+		const normalizeUkMobile = (value) => {
+			let digits = value.replace(/\D/g, '');
+
+			if (digits.startsWith('00')) digits = digits.slice(2);
+			if (digits.startsWith('07')) digits = `44${digits.slice(1)}`;
+			else if (digits.startsWith('7')) digits = `44${digits}`;
+			else if (digits.startsWith('4') && !digits.startsWith('44')) digits = `44${digits.slice(1)}`;
+
+			return digits;
+		};
+
+		const validatePhone = () => {
+			if (!phoneInput) return true;
+			const normalized = normalizeUkMobile(phoneInput.value);
+			phoneInput.value = normalized;
+			const isValid = /^447\d{9}$/.test(normalized);
+			phoneInput.setCustomValidity(isValid ? '' : 'Enter a valid UK mobile number (e.g. 447XXXXXXXXX).');
+			return isValid;
+		};
+
+		nameInput?.addEventListener('blur', () => {
+			nameInput.value = toTitleCase(nameInput.value);
+		});
+
+		postcodeInput?.addEventListener('input', () => {
+			postcodeInput.value = normalizePostcode(postcodeInput.value);
+		});
+
+		postcodeInput?.addEventListener('blur', () => {
+			postcodeInput.value = normalizePostcode(postcodeInput.value);
+		});
+
+		phoneInput?.addEventListener('blur', () => {
+			validatePhone();
+		});
+
+		phoneInput?.addEventListener('input', () => {
+			phoneInput.setCustomValidity('');
+		});
+
+		contactForm.addEventListener('submit', (event) => {
+			if (nameInput) nameInput.value = toTitleCase(nameInput.value);
+			if (postcodeInput) postcodeInput.value = normalizePostcode(postcodeInput.value);
+			const phoneOk = validatePhone();
+			if (!phoneOk) {
+				event.preventDefault();
+				phoneInput?.reportValidity();
+			}
+		});
+	}
+</script>

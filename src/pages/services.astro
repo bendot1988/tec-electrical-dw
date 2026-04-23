@@ -42,15 +42,17 @@ const services = [
 		tags: ['commercial', 'maintenance'],
 	},
 	{
-		title: 'Fault Finding & Diagnostics',
-		summary: 'Fast diagnostics, thermal imaging, and repair plans to get power systems safe and reliable again.',
+		title: 'Testing Services',
+		summary:
+			'Landlord inspections, insurance testing, EICRs, fault finding, and visual condition inspections for domestic and commercial properties.',
 		href: '/#quote',
 		image: '/core-services-fault-finding.png',
 		tags: ['domestic', 'commercial', 'maintenance'],
 	},
 	{
-		title: 'Inspection, Testing & Compliance',
-		summary: 'EICR testing, landlord compliance, and certification support for domestic and commercial properties.',
+		title: 'Design Services, Load Monitoring & Energy Saving Surveys',
+		summary:
+			'Design support and energy performance insight to help you plan upgrades, reduce waste, and improve long-term electrical efficiency.',
 		href: '/#quote',
 		image: '/core-services-new-builds.png',
 		tags: ['domestic', 'commercial', 'maintenance'],
@@ -258,10 +260,15 @@ const services = [
 	}
 
 	.service-tags li {
-		padding: 0.25rem 0.52rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		white-space: nowrap;
+		padding: 0.28rem 0.56rem;
 		border-radius: 999px;
 		font-size: 0.72rem;
 		font-weight: 700;
+		line-height: 1;
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
 		background: #eff6ff;
@@ -311,8 +318,11 @@ const services = [
 </style>
 
 <script>
-	const root = document.querySelector('[data-services-overview]');
-	if (root) {
+	const initServiceFilters = () => {
+		const root = document.querySelector('[data-services-overview]');
+		if (!root || root.dataset.filtersReady === 'true') return;
+		root.dataset.filtersReady = 'true';
+
 		const buttons = Array.from(root.querySelectorAll('.service-filter-btn'));
 		const cards = Array.from(root.querySelectorAll('.service-card'));
 		const emptyState = root.querySelector('.service-empty-state');
@@ -320,7 +330,10 @@ const services = [
 		const setFilter = (filterId) => {
 			let visibleCount = 0;
 			cards.forEach((card) => {
-				const tags = (card.getAttribute('data-tags') || '').split(',');
+				const tags = (card.getAttribute('data-tags') || '')
+					.split(',')
+					.map((tag) => tag.trim())
+					.filter(Boolean);
 				const show = filterId === 'all' || tags.includes(filterId);
 				card.hidden = !show;
 				if (show) visibleCount += 1;
@@ -337,11 +350,25 @@ const services = [
 			});
 		};
 
-		buttons.forEach((button) => {
-			button.addEventListener('click', () => {
-				const filterId = button.getAttribute('data-filter') || 'all';
-				setFilter(filterId);
-			});
+		root.addEventListener('click', (event) => {
+			const target = event.target;
+			if (!(target instanceof Element)) return;
+			const button = target.closest('.service-filter-btn');
+			if (!button) return;
+			const filterId = button.getAttribute('data-filter') || 'all';
+			setFilter(filterId);
 		});
+
+		// Ensure cards are in a known state on first render.
+		setFilter('all');
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initServiceFilters, { once: true });
+	} else {
+		initServiceFilters();
 	}
+
+	// Supports Astro client-side navigations if enabled.
+	document.addEventListener('astro:page-load', initServiceFilters);
 </script>
