@@ -1,0 +1,389 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import Layout from '../layouts/Layout.astro';
+
+const colorTokens = [
+	{ name: 'Brand Blue', value: '#0f4ac4', usage: 'Primary accents, links, controls' },
+	{ name: 'Deep Blue', value: '#0c3d9e', usage: 'Gradients and overlays' },
+	{ name: 'Accent Amber', value: '#f59e0b', usage: 'Primary CTA and highlights' },
+	{ name: 'Accent Orange', value: '#f97316', usage: 'CTA gradient pairing' },
+	{ name: 'Page Background', value: '#f8fafc', usage: 'Global site background' },
+	{ name: 'Border', value: '#e2e8f0', usage: 'Cards, dividers, controls' },
+	{ name: 'Text Primary', value: '#0f172a', usage: 'Headings and key copy' },
+	{ name: 'Text Secondary', value: '#64748b', usage: 'Supportive body copy' },
+] as const;
+
+const typeScale = [
+	{ token: 'Display', sample: 'Electrical experts for homes & businesses', css: 'clamp(2.1rem, 4.8vw, 4rem), 800' },
+	{ token: 'H2 Section', sample: 'Our Core Services', css: 'clamp(2rem, 3vw, 3rem), 700-800' },
+	{ token: 'H3 Card', sample: 'Solar + Battery + EV', css: '1.45rem - 1.48rem, 700' },
+	{ token: 'Body', sample: 'Professional electrical services across Leicestershire.', css: '1rem - 1.1rem, 400-500' },
+	{ token: 'Eyebrow', sample: 'NICEIC-APPROVED · MCS SOLAR · LEICESTERSHIRE', css: '0.72rem - 0.78rem, 700, uppercase' },
+	{ token: 'Small', sample: "We'll call you within 1 hour", css: '0.82rem - 0.95rem, 400-500' },
+] as const;
+---
+
+<Layout
+	title="Tech Electrical Style Guide"
+	description="Internal design system reference for the Tech Electrical homepage styles and UI patterns."
+	noindex={true}
+>
+	<SiteHeader />
+
+	<main class="style-guide">
+		<section class="sg-hero">
+			<div class="sg-wrap">
+				<p class="sg-eyebrow">Internal only</p>
+				<h1>Homepage Style Guide</h1>
+				<p>
+					A single reference for the visual language used across the homepage: typography, colors, controls,
+					surfaces, borders, spacing, imagery, and interaction details.
+				</p>
+			</div>
+		</section>
+
+		<section class="sg-section">
+			<div class="sg-wrap">
+				<h2>Color Tokens</h2>
+				<div class="token-grid">
+					{
+						colorTokens.map((token) => (
+							<article class="token-card">
+								<div class="token-swatch" style={`background:${token.value};`}></div>
+								<h3>{token.name}</h3>
+								<p class="token-value">{token.value}</p>
+								<p>{token.usage}</p>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="sg-section">
+			<div class="sg-wrap">
+				<h2>Typography and Hierarchy</h2>
+				<div class="type-list">
+					{
+						typeScale.map((item) => (
+							<div class="type-row">
+								<p class="type-token">{item.token}</p>
+								<p class="type-sample">{item.sample}</p>
+								<p class="type-meta">{item.css}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<section class="sg-section">
+			<div class="sg-wrap">
+				<h2>Buttons and Interactive States</h2>
+				<div class="button-row">
+					<button class="btn btn-primary" type="button">Primary CTA</button>
+					<button class="btn btn-secondary" type="button">Secondary</button>
+					<button class="btn btn-outline" type="button">Outline</button>
+					<button class="btn btn-chip" type="button">Service Chip</button>
+				</div>
+				<p class="sg-note">Hover/focus uses subtle movement, underline growth, and border emphasis.</p>
+			</div>
+		</section>
+
+		<section class="sg-section">
+			<div class="sg-wrap">
+				<h2>Surfaces, Radius, and Borders</h2>
+				<div class="surface-grid">
+					<article class="surface surface-card">
+						<h3>Standard Card</h3>
+						<p>Border radius 0.9rem, 1px border, restrained shadow.</p>
+					</article>
+					<article class="surface surface-rail">
+						<h3>Navigation Rail</h3>
+						<p>Pill radius and muted border for compact nav clusters.</p>
+					</article>
+					<article class="surface surface-panel">
+						<h3>Dialog / Form Panel</h3>
+						<p>White panel with stronger elevation and rounded corners.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="sg-section">
+			<div class="sg-wrap">
+				<h2>Background Treatments</h2>
+				<div class="bg-grid">
+					<div class="bg-sample bg-hero">
+						<p>Hero: blue overlay + rooftop image</p>
+					</div>
+					<div class="bg-sample bg-packages">
+						<p>Packages: deep gradient over project image</p>
+					</div>
+					<div class="bg-sample bg-neutral">
+						<p>Neutral section: slate tint for readability</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.style-guide {
+		background: #f8fafc;
+		padding-bottom: 4rem;
+	}
+
+	.sg-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 var(--site-content-padding);
+	}
+
+	.sg-hero {
+		padding: 3.2rem 0 2.3rem;
+		background: linear-gradient(135deg, #eaf1ff 0%, #f8fafc 75%);
+		border-bottom: 1px solid #e2e8f0;
+	}
+
+	.sg-eyebrow {
+		margin: 0;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #0f4ac4;
+	}
+
+	.sg-hero h1 {
+		margin: 0.55rem 0 0.6rem;
+		font-size: clamp(2rem, 3.4vw, 2.8rem);
+		line-height: 1.1;
+		color: #0f172a;
+	}
+
+	.sg-hero p {
+		margin: 0;
+		max-width: 760px;
+		font-size: 1.02rem;
+		line-height: 1.6;
+		color: #64748b;
+	}
+
+	.sg-section {
+		padding: 2.2rem 0 0;
+	}
+
+	.sg-section h2 {
+		margin: 0 0 1rem;
+		font-size: 1.45rem;
+		color: #0f172a;
+	}
+
+	.token-grid,
+	.surface-grid,
+	.bg-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.9rem;
+	}
+
+	.token-card,
+	.surface {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		padding: 0.95rem;
+	}
+
+	.token-swatch {
+		height: 3.3rem;
+		border-radius: 0.62rem;
+		margin-bottom: 0.65rem;
+		border: 1px solid rgba(15, 23, 42, 0.1);
+	}
+
+	.token-card h3,
+	.surface h3 {
+		margin: 0;
+		font-size: 1rem;
+		color: #0f172a;
+	}
+
+	.token-value {
+		margin: 0.28rem 0;
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 0.84rem;
+		color: #334155;
+	}
+
+	.token-card p,
+	.surface p,
+	.sg-note {
+		margin: 0.3rem 0 0;
+		font-size: 0.92rem;
+		color: #64748b;
+		line-height: 1.55;
+	}
+
+	.type-list {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		overflow: hidden;
+	}
+
+	.type-row {
+		display: grid;
+		grid-template-columns: 0.8fr 1.6fr 1fr;
+		gap: 0.8rem;
+		padding: 0.78rem 0.95rem;
+		border-bottom: 1px solid #eef2f7;
+	}
+
+	.type-row:last-child {
+		border-bottom: 0;
+	}
+
+	.type-token,
+	.type-sample,
+	.type-meta {
+		margin: 0;
+	}
+
+	.type-token {
+		font-weight: 700;
+		color: #0f172a;
+	}
+
+	.type-sample {
+		color: #334155;
+	}
+
+	.type-meta {
+		font-size: 0.86rem;
+		color: #64748b;
+	}
+
+	.button-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.7rem;
+	}
+
+	.btn {
+		border: 1px solid transparent;
+		border-radius: 0.65rem;
+		padding: 0.74rem 1.1rem;
+		font-size: 0.9rem;
+		font-weight: 700;
+		cursor: pointer;
+		transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease, color 180ms ease,
+			border-color 180ms ease, background 180ms ease;
+	}
+
+	.btn:hover {
+		transform: translateY(-2px);
+	}
+
+	.btn-primary {
+		background: linear-gradient(120deg, #f59e0b, #f97316);
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		filter: brightness(1.05);
+	}
+
+	.btn-secondary {
+		background: rgba(15, 74, 196, 0.1);
+		border-color: rgba(15, 74, 196, 0.25);
+		color: #0f4ac4;
+	}
+
+	.btn-outline {
+		background: #fff;
+		border-color: #dbe1eb;
+		color: #334155;
+	}
+
+	.btn-chip {
+		background: #f8fafc;
+		border-color: #e2e8f0;
+		color: #334155;
+	}
+
+	.surface-card {
+		box-shadow: 0 12px 30px -20px rgba(15, 23, 42, 0.45);
+	}
+
+	.surface-rail {
+		border-radius: 999px;
+	}
+
+	.surface-panel {
+		box-shadow: 0 24px 48px -30px rgba(15, 23, 42, 0.6);
+	}
+
+	.bg-sample {
+		height: 10rem;
+		border-radius: 0.9rem;
+		border: 1px solid #dbe1eb;
+		display: flex;
+		align-items: flex-end;
+		padding: 0.75rem;
+		overflow: hidden;
+	}
+
+	.bg-sample p {
+		margin: 0;
+		font-size: 0.88rem;
+		font-weight: 600;
+		background: rgba(15, 23, 42, 0.6);
+		color: #fff;
+		padding: 0.3rem 0.5rem;
+		border-radius: 0.45rem;
+	}
+
+	.bg-hero {
+		background:
+			linear-gradient(102deg, rgba(8, 28, 88, 0.92) 0%, rgba(10, 41, 110, 0.86) 45%, rgba(16, 66, 156, 0.78) 100%),
+			url('/hero-solar-roof.png');
+		background-size: cover;
+		background-position: center;
+	}
+
+	.bg-packages {
+		background:
+			linear-gradient(165deg, rgba(8, 36, 92, 0.86) 0%, rgba(15, 74, 196, 0.74) 45%, rgba(30, 64, 175, 0.82) 100%),
+			url('/solar-packages-summer-bg.png');
+		background-size: cover;
+		background-position: center;
+	}
+
+	.bg-neutral {
+		background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+	}
+
+	@media (max-width: 980px) {
+		.token-grid,
+		.surface-grid,
+		.bg-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.type-row {
+			grid-template-columns: 1fr;
+			gap: 0.4rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.token-grid,
+		.surface-grid,
+		.bg-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

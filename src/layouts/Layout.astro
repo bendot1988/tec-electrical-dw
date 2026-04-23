@@ -6,12 +6,14 @@ interface Props {
 	title?: string;
 	description?: string;
 	canonical?: string;
+	noindex?: boolean;
 }
 
 const {
 	title = 'Tech Electrical | Solar, Battery & EV Specialists',
 	description = 'Trusted MCS-certified installers for solar, battery storage, and EV charging across Leicestershire.',
 	canonical = Astro.url.href,
+	noindex = false,
 } = Astro.props;
 ---
 
@@ -33,6 +35,7 @@ const {
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
 	</head>
 	<body>
 		<slot />

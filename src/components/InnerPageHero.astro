@@ -1,0 +1,186 @@
+---
+interface BreadcrumbItem {
+	label: string;
+	href?: string;
+}
+
+interface Props {
+	title: string;
+	description: string;
+	eyebrow?: string;
+	featuredImage: string;
+	featuredAlt: string;
+	breadcrumbs: BreadcrumbItem[];
+	backgroundImage?: string;
+}
+
+const { title, description, eyebrow = 'Service', featuredImage, featuredAlt, breadcrumbs, backgroundImage } =
+	Astro.props;
+---
+
+<section
+	class:list={['inner-hero', backgroundImage && 'has-bg']}
+	aria-labelledby="inner-hero-title"
+	style={backgroundImage ? `--inner-hero-bg: url('${backgroundImage}')` : undefined}
+>
+	<div class="inner-hero-wrap">
+		<div class="inner-hero-copy">
+			<nav class="inner-breadcrumbs" aria-label="Breadcrumb">
+				<ol>
+					{
+						breadcrumbs.map((item, index) => (
+							<li>
+								{item.href ? <a href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
+								{index < breadcrumbs.length - 1 && <span aria-hidden="true">/</span>}
+							</li>
+						))
+					}
+				</ol>
+			</nav>
+
+			<p class="inner-hero-eyebrow">{eyebrow}</p>
+			<h1 id="inner-hero-title">{title}</h1>
+			<p class="inner-hero-description">{description}</p>
+		</div>
+
+		<div class="inner-hero-image-wrap">
+			<img src={featuredImage} alt={featuredAlt} loading="eager" decoding="async" />
+		</div>
+	</div>
+</section>
+
+<style>
+	.inner-hero {
+		position: relative;
+		overflow: hidden;
+		padding: 2.4rem var(--site-content-padding) 2.8rem;
+		background: linear-gradient(160deg, #eaf1ff 0%, #f8fafc 75%);
+		border-bottom: 1px solid #dbe1eb;
+	}
+
+	.inner-hero.has-bg::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-image: var(--inner-hero-bg);
+		background-size: cover;
+		background-position: center;
+		filter: blur(3px);
+		transform: scale(1.02);
+		opacity: 0.76;
+	}
+
+	.inner-hero.has-bg::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			145deg,
+			rgba(6, 16, 44, 0.78) 0%,
+			rgba(9, 30, 84, 0.72) 50%,
+			rgba(12, 41, 117, 0.76) 100%
+		);
+	}
+
+	.inner-hero-wrap {
+		position: relative;
+		z-index: 1;
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr minmax(280px, 440px);
+		gap: 1.45rem 2rem;
+		align-items: center;
+	}
+
+	.inner-breadcrumbs ol {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		font-size: 0.82rem;
+		color: #64748b;
+	}
+
+	.inner-breadcrumbs a {
+		color: #475569;
+	}
+
+	.inner-breadcrumbs a:hover {
+		color: #0f4ac4;
+	}
+
+	.inner-hero.has-bg .inner-breadcrumbs ol,
+	.inner-hero.has-bg .inner-breadcrumbs a {
+		color: rgba(226, 232, 240, 0.92);
+	}
+
+	.inner-hero.has-bg .inner-breadcrumbs a:hover {
+		color: #ffffff;
+	}
+
+	.inner-hero-eyebrow {
+		margin: 0.8rem 0 0;
+		font-size: 0.76rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #0f4ac4;
+	}
+
+	.inner-hero h1 {
+		margin: 0.45rem 0 0.65rem;
+		font-size: clamp(2rem, 3.3vw, 2.9rem);
+		line-height: 1.1;
+		color: #0f172a;
+		letter-spacing: -0.02em;
+	}
+
+	.inner-hero-description {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.65;
+		color: #475569;
+		max-width: 60ch;
+	}
+
+	.inner-hero.has-bg .inner-hero-eyebrow {
+		color: #f8c04f;
+	}
+
+	.inner-hero.has-bg h1 {
+		color: #ffffff;
+	}
+
+	.inner-hero.has-bg .inner-hero-description {
+		color: rgba(241, 245, 249, 0.95);
+	}
+
+	.inner-hero-image-wrap {
+		border: 1px solid #dbe1eb;
+		border-radius: 1rem;
+		overflow: hidden;
+		background: #fff;
+		box-shadow: 0 18px 40px -28px rgba(15, 23, 42, 0.45);
+	}
+
+	.inner-hero.has-bg .inner-hero-image-wrap {
+		border-color: rgba(255, 255, 255, 0.35);
+		box-shadow: 0 22px 46px -26px rgba(15, 23, 42, 0.78);
+	}
+
+	.inner-hero-image-wrap img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	@media (max-width: 960px) {
+		.inner-hero-wrap {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

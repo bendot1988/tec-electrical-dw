@@ -1,0 +1,347 @@
+---
+import InnerPageHero from '../components/InnerPageHero.astro';
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+const filterOptions = [
+	{ id: 'all', label: 'All Services' },
+	{ id: 'solar', label: 'Solar' },
+	{ id: 'ev', label: 'EV' },
+	{ id: 'domestic', label: 'Domestic' },
+	{ id: 'commercial', label: 'Commercial' },
+	{ id: 'maintenance', label: 'Maintenance' },
+] as const;
+
+const services = [
+	{
+		title: 'Solar PV & Battery Systems',
+		summary: 'Bespoke in-roof and on-roof solar with battery storage, smart controls, and certified handover.',
+		href: '/solar',
+		image: '/package-solar-essentials.png',
+		tags: ['solar', 'domestic', 'commercial'],
+	},
+	{
+		title: 'EV Charging',
+		summary: 'Home and workplace EV chargers, load management, and integration with your solar setup.',
+		href: '/ev-charging',
+		image: '/package-solar-battery-ev.png',
+		tags: ['ev', 'domestic', 'commercial'],
+	},
+	{
+		title: 'Domestic Electrical',
+		summary: 'Rewires, consumer units, new builds, lighting, fire alarms, and compliant domestic installations.',
+		href: '/domestic-electrical',
+		image: '/core-services-new-builds.png',
+		tags: ['domestic', 'maintenance'],
+	},
+	{
+		title: 'Commercial Electrical',
+		summary: 'Commercial fit-outs, maintenance programs, testing, and planned upgrades across business premises.',
+		href: '/commercial-electrical',
+		image: '/core-services-fault-finding.png',
+		tags: ['commercial', 'maintenance'],
+	},
+	{
+		title: 'Fault Finding & Diagnostics',
+		summary: 'Fast diagnostics, thermal imaging, and repair plans to get power systems safe and reliable again.',
+		href: '/#quote',
+		image: '/core-services-fault-finding.png',
+		tags: ['domestic', 'commercial', 'maintenance'],
+	},
+	{
+		title: 'Inspection, Testing & Compliance',
+		summary: 'EICR testing, landlord compliance, and certification support for domestic and commercial properties.',
+		href: '/#quote',
+		image: '/core-services-new-builds.png',
+		tags: ['domestic', 'commercial', 'maintenance'],
+	},
+] as const;
+---
+
+<Layout
+	title="Services | Tech Electrical"
+	description="Explore all Tech Electrical services: solar, EV charging, domestic electrical, commercial electrical, and testing."
+>
+	<SiteHeader />
+
+	<main class="services-page" data-services-overview>
+		<InnerPageHero
+			eyebrow="Services"
+			title="Service Overview"
+			description="Everything we deliver across Leicestershire and surrounding areas — from solar and EV systems to full domestic and commercial electrical support."
+			backgroundImage="/hero-solar-roof.png"
+			featuredImage="/projects-section-bg.webp"
+			featuredAlt="Electrical and renewable installation project showcase"
+			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
+		/>
+
+		<section class="services-overview" aria-labelledby="services-overview-heading">
+			<div class="services-overview-wrap">
+				<div class="services-intro">
+					<h2 id="services-overview-heading">Find the right service quickly</h2>
+					<p>Use the filters to narrow by type. Cards below link to dedicated service pages or quote flow.</p>
+				</div>
+
+				<div class="service-filter-bar" role="toolbar" aria-label="Filter services">
+					{
+						filterOptions.map((filter, index) => (
+							<button
+								type="button"
+								class:list={['service-filter-btn', index === 0 && 'is-active']}
+								data-filter={filter.id}
+								aria-pressed={index === 0 ? 'true' : 'false'}
+							>
+								{filter.label}
+							</button>
+						))
+					}
+				</div>
+
+				<div class="service-grid">
+					{
+						services.map((item) => (
+							<article
+								class="service-card"
+								data-tags={item.tags.join(',')}
+							>
+								<div class="service-card-image">
+									<img src={item.image} alt={item.title} loading="lazy" decoding="async" />
+								</div>
+								<div class="service-card-body">
+									<h3>{item.title}</h3>
+									<p>{item.summary}</p>
+									<ul class="service-tags">
+										{item.tags.map((tag) => <li>{tag}</li>)}
+									</ul>
+									<a href={item.href}>View service</a>
+								</div>
+							</article>
+						))
+					}
+				</div>
+
+				<p class="service-empty-state" hidden>
+					No services match that filter yet. Try another category.
+				</p>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.services-page {
+		background: #f8fafc;
+	}
+
+	.services-overview {
+		padding: 2.6rem var(--site-content-padding) 4.3rem;
+	}
+
+	.services-overview-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.services-intro h2 {
+		margin: 0;
+		font-size: clamp(1.55rem, 2.4vw, 2rem);
+		color: #0f172a;
+	}
+
+	.services-intro p {
+		margin: 0.55rem 0 0;
+		color: #64748b;
+		font-size: 0.98rem;
+		line-height: 1.55;
+	}
+
+	.service-filter-bar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem;
+		margin-top: 1.35rem;
+	}
+
+	.service-filter-btn {
+		padding: 0.58rem 0.9rem;
+		border-radius: 999px;
+		border: 1px solid #dbe1eb;
+		background: #fff;
+		color: #334155;
+		font-size: 0.86rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
+	}
+
+	.service-filter-btn.is-active {
+		background: #0f4ac4;
+		border-color: #0f4ac4;
+		color: #fff;
+	}
+
+	@media (hover: hover) {
+		.service-filter-btn:hover {
+			border-color: #0f4ac4;
+			color: #0f4ac4;
+			transform: translateY(-1px);
+		}
+
+		.service-filter-btn.is-active:hover {
+			color: #fff;
+		}
+	}
+
+	.service-grid {
+		margin-top: 1.25rem;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.service-card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		overflow: hidden;
+		display: grid;
+		grid-template-rows: auto 1fr;
+		box-shadow: 0 14px 30px -24px rgba(15, 23, 42, 0.4);
+		transition:
+			transform 220ms ease,
+			box-shadow 220ms ease,
+			border-color 220ms ease;
+	}
+
+	@media (hover: hover) {
+		.service-card:hover {
+			transform: translateY(-8px);
+			border-color: #c2cfdf;
+			box-shadow: 0 24px 40px -28px rgba(15, 23, 42, 0.55);
+		}
+	}
+
+	.service-card-image img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+	}
+
+	.service-card-body {
+		padding: 0.95rem;
+		display: grid;
+		grid-template-rows: auto auto auto auto;
+		gap: 0.7rem;
+	}
+
+	.service-card h3 {
+		margin: 0;
+		font-size: 1.2rem;
+		color: #0f172a;
+	}
+
+	.service-card p {
+		margin: 0;
+		color: #64748b;
+		line-height: 1.55;
+		font-size: 0.94rem;
+	}
+
+	.service-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.service-tags li {
+		padding: 0.25rem 0.52rem;
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		background: #eff6ff;
+		color: #0f4ac4;
+	}
+
+	.service-card a {
+		justify-self: start;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.6rem 0.9rem;
+		border-radius: 0.55rem;
+		border: 1px solid #dbe1eb;
+		font-size: 0.87rem;
+		font-weight: 700;
+		color: #334155;
+		background: #fff;
+		transition: border-color 180ms ease, color 180ms ease;
+	}
+
+	.service-card a:hover {
+		border-color: #0f4ac4;
+		color: #0f4ac4;
+	}
+
+	.service-empty-state {
+		margin: 1rem 0 0;
+		color: #64748b;
+		font-size: 0.94rem;
+	}
+
+	@media (max-width: 1020px) {
+		.service-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 720px) {
+		.services-overview {
+			padding-top: 2.1rem;
+		}
+
+		.service-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	const root = document.querySelector('[data-services-overview]');
+	if (root) {
+		const buttons = Array.from(root.querySelectorAll('.service-filter-btn'));
+		const cards = Array.from(root.querySelectorAll('.service-card'));
+		const emptyState = root.querySelector('.service-empty-state');
+
+		const setFilter = (filterId) => {
+			let visibleCount = 0;
+			cards.forEach((card) => {
+				const tags = (card.getAttribute('data-tags') || '').split(',');
+				const show = filterId === 'all' || tags.includes(filterId);
+				card.hidden = !show;
+				if (show) visibleCount += 1;
+			});
+
+			if (emptyState) {
+				emptyState.hidden = visibleCount > 0;
+			}
+
+			buttons.forEach((button) => {
+				const active = button.getAttribute('data-filter') === filterId;
+				button.classList.toggle('is-active', active);
+				button.setAttribute('aria-pressed', active ? 'true' : 'false');
+			});
+		};
+
+		buttons.forEach((button) => {
+			button.addEventListener('click', () => {
+				const filterId = button.getAttribute('data-filter') || 'all';
+				setFilter(filterId);
+			});
+		});
+	}
+</script>
