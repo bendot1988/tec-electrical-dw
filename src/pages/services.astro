@@ -44,7 +44,7 @@ const services = [
 	{
 		title: 'Testing Services',
 		summary:
-			'Landlord inspections, insurance testing, EICRs, fault finding, and visual condition inspections for domestic and commercial properties.',
+			'Landlord inspections, insurance testing, EICRs, fault finding, visual condition inspections, fire alarm testing, emergency light testing, and PAT testing for domestic and commercial properties.',
 		href: '/#quote',
 		image: '/core-services-fault-finding.png',
 		tags: ['domestic', 'commercial', 'maintenance'],
@@ -56,6 +56,14 @@ const services = [
 		href: '/#quote',
 		image: '/core-services-new-builds.png',
 		tags: ['domestic', 'commercial', 'maintenance'],
+	},
+	{
+		title: 'Data Communications & Fibre Optic Installs',
+		summary:
+			'Commercial data communications and fibre optic installs. We work closely with ASK4 and have delivered projects in schools, colleges, student accommodation, and NHS environments.',
+		href: '/#quote',
+		image: '/service-fibre-optic.png',
+		tags: ['commercial'],
 	},
 ] as const;
 ---
@@ -215,6 +223,10 @@ const services = [
 			border-color 220ms ease;
 	}
 
+	.service-card[hidden] {
+		display: none !important;
+	}
+
 	@media (hover: hover) {
 		.service-card:hover {
 			transform: translateY(-8px);
@@ -232,8 +244,8 @@ const services = [
 
 	.service-card-body {
 		padding: 0.95rem;
-		display: grid;
-		grid-template-rows: auto auto auto auto;
+		display: flex;
+		flex-direction: column;
 		gap: 0.7rem;
 	}
 
@@ -276,22 +288,25 @@ const services = [
 	}
 
 	.service-card a {
-		justify-self: start;
 		display: inline-flex;
 		align-items: center;
-		padding: 0.6rem 0.9rem;
+		justify-content: center;
+		width: 100%;
+		margin-top: auto;
+		padding: 0.72rem 0.95rem;
 		border-radius: 0.55rem;
-		border: 1px solid #dbe1eb;
+		border: 1px solid #1d4ed8;
 		font-size: 0.87rem;
 		font-weight: 700;
-		color: #334155;
-		background: #fff;
-		transition: border-color 180ms ease, color 180ms ease;
+		color: #fff;
+		background: #2563eb;
+		transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
 	}
 
 	.service-card a:hover {
-		border-color: #0f4ac4;
-		color: #0f4ac4;
+		border-color: #1e40af;
+		background: #1d4ed8;
+		color: #fff;
 	}
 
 	.service-empty-state {
@@ -336,6 +351,7 @@ const services = [
 					.filter(Boolean);
 				const show = filterId === 'all' || tags.includes(filterId);
 				card.hidden = !show;
+				card.style.display = show ? '' : 'none';
 				if (show) visibleCount += 1;
 			});
 

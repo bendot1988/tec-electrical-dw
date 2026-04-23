@@ -1,0 +1,234 @@
+---
+import InnerPageHero from '../components/InnerPageHero.astro';
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { siteContact } from '../data/siteContact';
+
+const currentLondonLocations = ['High Wycombe', 'Edgware', 'St Charles', 'Torrington', 'Ilford'] as const;
+---
+
+<Layout
+	title="Emergency Callouts | Tech Electrical"
+	description="Emergency electrical callout support for ongoing commercial clients, including NHS and healthcare contracts."
+>
+	<SiteHeader />
+
+	<main class="callouts-page">
+		<InnerPageHero
+			eyebrow="Emergency Support"
+			title="Emergency Callout Services"
+			description="Rapid-response electrical support for ongoing client sites, with commercial-first coverage and healthcare experience."
+			backgroundImage="/emergency-callout-hero.png"
+			featuredImage="/emergency-callout-hero.png"
+			featuredAlt="Tech Electrical engineer carrying out emergency electrical diagnostics at a control panel"
+			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Emergency Callouts' }]}
+		/>
+
+		<section class="callouts-content" aria-labelledby="callouts-heading">
+			<div class="callouts-wrap">
+				<div class="callouts-main">
+					<h2 id="callouts-heading">How our emergency callouts work</h2>
+					<p>
+						We provide emergency callouts primarily for existing and ongoing clients where we already know the site
+						and electrical setup. This helps us respond faster and resolve issues safely.
+					</p>
+					<p>
+						For new sites, we can still assist on a case-by-case basis depending on workload, location, and the
+						nature of the issue.
+					</p>
+
+					<div class="callout-card">
+						<h3>Commercial and NHS-focused support</h3>
+						<p>
+							A large share of our callout work is commercial and healthcare-led, including NHS-linked
+							environments where continuity and compliance are critical.
+						</p>
+					</div>
+
+					<div class="callout-card">
+						<h3>Current active areas</h3>
+						<p>
+							We generally cover the Midlands and the South, and can travel further depending on the scope.
+							Current project activity includes the following London/surrounding locations:
+						</p>
+						<ul class="location-chips">
+							{currentLondonLocations.map((location) => <li>{location}</li>)}
+						</ul>
+					</div>
+
+					<div class="callout-card">
+						<h3>Out-of-hours availability</h3>
+						<p>
+							Out-of-hours service is available for long-standing and existing customers only. If you would
+							like to be included in this service, please get in touch with us.
+						</p>
+					</div>
+
+				</div>
+
+				<aside class="callouts-side">
+					<div class="side-card">
+						<h3>Need urgent support?</h3>
+						<p>Call us first so we can triage quickly and advise immediate safe actions.</p>
+						<a class="btn-primary" href={siteContact.telHref}>Call {siteContact.telDisplay}</a>
+						<a class="btn-outline" href="/contact">Send an enquiry</a>
+					</div>
+
+					<div class="side-card muted">
+						<h3>What to include on the call</h3>
+						<ul>
+							<li>Site name and full address</li>
+							<li>Issue summary and urgency</li>
+							<li>Any loss of power / safety risk</li>
+							<li>Best on-site contact details</li>
+						</ul>
+					</div>
+				</aside>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.callouts-page {
+		background: #f8fafc;
+	}
+
+	.callouts-content {
+		padding: 2.6rem var(--site-content-padding) 4.1rem;
+	}
+
+	.callouts-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: 1rem;
+	}
+
+	.callouts-main h2 {
+		margin: 0;
+		font-size: clamp(1.6rem, 2.4vw, 2.05rem);
+		color: #0f172a;
+	}
+
+	.callouts-main > p {
+		margin: 0.75rem 0 0;
+		color: #475569;
+		line-height: 1.65;
+		font-size: 0.98rem;
+	}
+
+	.callout-card,
+	.side-card {
+		margin-top: 1rem;
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		padding: 1rem;
+		box-shadow: 0 12px 30px -24px rgba(15, 23, 42, 0.34);
+	}
+
+	.callout-card h3,
+	.side-card h3 {
+		margin: 0;
+		font-size: 1.15rem;
+		color: #0f172a;
+	}
+
+	.callout-card p,
+	.side-card p {
+		margin: 0.55rem 0 0;
+		color: #64748b;
+		font-size: 0.94rem;
+		line-height: 1.55;
+	}
+
+	.location-chips {
+		margin: 0.7rem 0 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+
+	.location-chips li {
+		padding: 0.3rem 0.55rem;
+		border-radius: 999px;
+		font-size: 0.74rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		background: #eff6ff;
+		color: #0f4ac4;
+	}
+
+	.callouts-side {
+		display: grid;
+		align-content: start;
+		gap: 0.9rem;
+	}
+
+	.btn-primary,
+	.btn-outline {
+		margin-top: 0.8rem;
+		display: inline-flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		border-radius: 0.55rem;
+		padding: 0.78rem 0.95rem;
+		font-size: 0.9rem;
+		font-weight: 700;
+	}
+
+	.btn-primary {
+		background: linear-gradient(120deg, #f59e0b, #f97316);
+		color: #fff;
+	}
+
+	.btn-outline {
+		border: 1px solid #dbe1eb;
+		background: #fff;
+		color: #334155;
+	}
+
+	.btn-outline:hover {
+		border-color: #0f4ac4;
+		color: #0f4ac4;
+	}
+
+	.side-card ul {
+		margin: 0.55rem 0 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 0.44rem;
+	}
+
+	.side-card li {
+		position: relative;
+		padding-left: 0.9rem;
+		color: #475569;
+		font-size: 0.91rem;
+	}
+
+	.side-card li::before {
+		content: '•';
+		position: absolute;
+		left: 0;
+		color: #d39b24;
+		font-weight: 700;
+	}
+
+	.side-card.muted {
+		background: #f8fafc;
+	}
+
+	@media (max-width: 980px) {
+		.callouts-wrap {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

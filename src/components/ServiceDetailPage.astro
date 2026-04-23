@@ -1,0 +1,443 @@
+---
+import InnerPageHero from './InnerPageHero.astro';
+import { siteContact } from '../data/siteContact';
+
+interface BreadcrumbItem {
+	label: string;
+	href?: string;
+}
+
+interface BenefitItem {
+	title: string;
+	description: string;
+}
+
+interface AudienceItem {
+	title: string;
+	description: string;
+	image?: string;
+	imageAlt?: string;
+}
+
+interface FaqItem {
+	question: string;
+	answer: string;
+}
+
+interface Props {
+	eyebrow?: string;
+	title: string;
+	description: string;
+	breadcrumbs: BreadcrumbItem[];
+	backgroundImage?: string;
+	heroImage: string;
+	heroImageAlt: string;
+	featuredImage: string;
+	featuredImageAlt: string;
+	featuredCaption?: string;
+	serviceHeading?: string;
+	serviceBody: string[];
+	includedItems?: string[];
+	benefits: BenefitItem[];
+	audienceHeading?: string;
+	audienceItems: AudienceItem[];
+	faqs: FaqItem[];
+}
+
+const {
+	eyebrow = 'Service',
+	title,
+	description,
+	breadcrumbs,
+	backgroundImage,
+	heroImage,
+	heroImageAlt,
+	featuredImage,
+	featuredImageAlt,
+	featuredCaption,
+	serviceHeading = 'The service',
+	serviceBody,
+	includedItems = [],
+	benefits,
+	audienceHeading = "Who's it for?",
+	audienceItems,
+	faqs,
+} = Astro.props;
+---
+
+<main class="service-detail-page">
+	<InnerPageHero
+		eyebrow={eyebrow}
+		title={title}
+		description={description}
+		backgroundImage={backgroundImage}
+		featuredImage={heroImage}
+		featuredAlt={heroImageAlt}
+		breadcrumbs={breadcrumbs}
+	/>
+
+	<section class="service-overview" aria-labelledby="service-overview-heading">
+		<div class="service-wrap">
+			<div class="service-overview-layout">
+				<div class="service-copy">
+					<h2 id="service-overview-heading">{serviceHeading}</h2>
+					{serviceBody.map((paragraph) => <p>{paragraph}</p>)}
+				</div>
+				<aside class="service-sidebar">
+					<figure class="service-sidebar-image">
+						<img src={featuredImage} alt={featuredImageAlt} loading="eager" decoding="async" />
+						{featuredCaption && <figcaption>{featuredCaption}</figcaption>}
+					</figure>
+
+					{includedItems.length > 0 && (
+						<div class="service-included">
+							<h3>What&apos;s included</h3>
+							<ul>
+								{includedItems.map((item) => <li>{item}</li>)}
+							</ul>
+						</div>
+					)}
+				</aside>
+			</div>
+		</div>
+	</section>
+
+	<section class="service-benefits" aria-labelledby="service-benefits-heading">
+		<div class="service-wrap">
+			<h2 id="service-benefits-heading">Benefits</h2>
+			<div class="card-grid">
+				{
+					benefits.map((benefit) => (
+						<article class="info-card">
+							<h3>{benefit.title}</h3>
+							<p>{benefit.description}</p>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="service-audience" aria-labelledby="service-audience-heading">
+		<div class="service-wrap">
+			<h2 id="service-audience-heading">{audienceHeading}</h2>
+			<div class="card-grid audience-grid">
+				{
+					audienceItems.map((item) => (
+						<article class="info-card">
+							{item.image && (
+								<div class="info-card-image">
+									<img src={item.image} alt={item.imageAlt ?? item.title} loading="lazy" decoding="async" />
+								</div>
+							)}
+							<h3>{item.title}</h3>
+							<p>{item.description}</p>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="service-faq" aria-labelledby="service-faq-heading">
+		<div class="service-wrap">
+			<h2 id="service-faq-heading">FAQs</h2>
+			<div class="faq-list">
+				{
+					faqs.map((item) => (
+						<details>
+							<summary>{item.question}</summary>
+							<p>{item.answer}</p>
+						</details>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<section class="service-cta" aria-labelledby="service-cta-heading">
+		<div class="service-wrap">
+			<div class="service-cta-card">
+				<h2 id="service-cta-heading">Ready to get started?</h2>
+				<p>
+					Talk to our team about your project and we&apos;ll help you plan the right solution for your property and
+					budget.
+				</p>
+				<div class="service-cta-actions">
+					<a href="#quote">Get a free quote</a>
+					<a class="is-outline" href={siteContact.telHref}>Call {siteContact.telDisplay}</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<style>
+	.service-detail-page {
+		background: #f8fafc;
+	}
+
+	.service-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.service-overview,
+	.service-benefits,
+	.service-audience,
+	.service-faq,
+	.service-cta {
+		padding: 1.2rem var(--site-content-padding) 0;
+	}
+
+	.service-overview-layout {
+		display: grid;
+		grid-template-columns: 1.45fr minmax(280px, 1fr);
+		gap: 1.05rem;
+	}
+
+	.service-overview-layout > * {
+		min-width: 0;
+	}
+
+	.service-copy {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.95rem;
+		padding: 1.25rem;
+	}
+
+	.service-copy h2 {
+		margin: 0;
+		font-size: clamp(1.55rem, 2.2vw, 2rem);
+		color: #0f172a;
+	}
+
+	.service-copy p {
+		margin: 0.72rem 0 0;
+		font-size: 0.98rem;
+		line-height: 1.65;
+		color: #475569;
+	}
+
+	.service-sidebar {
+		display: grid;
+		gap: 0.78rem;
+	}
+
+	.service-sidebar-image {
+		margin: 0;
+		border-radius: 0.92rem;
+		overflow: hidden;
+		border: 1px solid #dbe1eb;
+		background: #fff;
+		box-shadow: 0 14px 30px -24px rgba(15, 23, 42, 0.42);
+	}
+
+	.service-sidebar-image img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		object-fit: cover;
+	}
+
+	.service-sidebar-image figcaption {
+		padding: 0.58rem 0.75rem;
+		font-size: 0.8rem;
+		color: #64748b;
+	}
+
+	.service-included {
+		background: #0f4ac4;
+		color: #fff;
+		border-radius: 0.95rem;
+		padding: 1.15rem 1.1rem;
+		box-shadow: 0 20px 44px -28px rgba(15, 74, 196, 0.65);
+	}
+
+	.service-included h3 {
+		margin: 0;
+		font-size: 0.95rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	.service-included ul {
+		margin: 0.78rem 0 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 0.52rem;
+	}
+
+	.service-included li {
+		position: relative;
+		padding-left: 1.15rem;
+		font-size: 0.9rem;
+		line-height: 1.45;
+		color: rgba(241, 245, 249, 0.97);
+	}
+
+	.service-included li::before {
+		content: '';
+		position: absolute;
+		left: 0.15rem;
+		top: 0.54rem;
+		width: 0.42rem;
+		height: 0.42rem;
+		border-radius: 999px;
+		background: #f8c04f;
+	}
+
+	.service-benefits,
+	.service-audience,
+	.service-faq,
+	.service-cta {
+		padding-top: 1.35rem;
+	}
+
+	.service-benefits h2,
+	.service-audience h2,
+	.service-faq h2 {
+		margin: 0;
+		font-size: clamp(1.45rem, 2vw, 1.85rem);
+		color: #0f172a;
+	}
+
+	.card-grid {
+		margin-top: 0.9rem;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.85rem;
+	}
+
+	.audience-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.info-card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		padding: 1rem;
+		box-shadow: 0 14px 28px -22px rgba(15, 23, 42, 0.3);
+		overflow: hidden;
+	}
+
+	.info-card-image {
+		margin: -1rem -1rem 0.85rem;
+	}
+
+	.info-card-image img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-bottom: 1px solid #e2e8f0;
+	}
+
+	.info-card h3 {
+		margin: 0;
+		font-size: 1.05rem;
+		color: #0f172a;
+	}
+
+	.info-card p {
+		margin: 0.5rem 0 0;
+		color: #64748b;
+		font-size: 0.93rem;
+		line-height: 1.58;
+	}
+
+	.faq-list {
+		margin-top: 0.9rem;
+		display: grid;
+		gap: 0.72rem;
+	}
+
+	.faq-list details {
+		background: #fff;
+		border: 1px solid #dbe1eb;
+		border-radius: 0.8rem;
+		padding: 0.8rem 0.95rem;
+	}
+
+	.faq-list summary {
+		cursor: pointer;
+		font-weight: 700;
+		color: #0f172a;
+	}
+
+	.faq-list p {
+		margin: 0.62rem 0 0;
+		color: #64748b;
+		line-height: 1.58;
+		font-size: 0.93rem;
+	}
+
+	.service-cta {
+		padding-bottom: 4rem;
+	}
+
+	.service-cta-card {
+		background: linear-gradient(145deg, #0f4ac4 0%, #0c3d9e 100%);
+		border-radius: 1rem;
+		padding: 1.4rem 1.2rem;
+		color: #fff;
+		box-shadow: 0 24px 48px -30px rgba(15, 74, 196, 0.72);
+	}
+
+	.service-cta-card h2 {
+		margin: 0;
+		font-size: clamp(1.35rem, 2vw, 1.85rem);
+	}
+
+	.service-cta-card p {
+		margin: 0.58rem 0 0;
+		max-width: 65ch;
+		color: rgba(241, 245, 249, 0.96);
+	}
+
+	.service-cta-actions {
+		margin-top: 1rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.68rem;
+	}
+
+	.service-cta-actions a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.68rem 1.05rem;
+		border-radius: 999px;
+		text-decoration: none;
+		font-weight: 700;
+		border: 1px solid transparent;
+		background: #fff;
+		color: #0f4ac4;
+	}
+
+	.service-cta-actions a.is-outline {
+		background: transparent;
+		color: #fff;
+		border-color: rgba(255, 255, 255, 0.55);
+	}
+
+	@media (max-width: 980px) {
+		.service-overview-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.card-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 680px) {
+		.card-grid,
+		.audience-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

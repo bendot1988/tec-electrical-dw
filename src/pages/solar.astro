@@ -1,16 +1,110 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ServicePageStub from '../components/ServicePageStub.astro';
+import ServiceDetailPage from '../components/ServiceDetailPage.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+
+const serviceBody = [
+	'Our solar and battery service covers design, supply, installation, commissioning, and handover for domestic and commercial sites. We build systems around how your property uses energy, not just panel count.',
+	'We assess roof orientation, usable roof area, current and future demand, and export potential to create a practical system that performs year-round. Installations can include in-roof or on-roof arrays, hybrid inverters, battery storage, and smart monitoring.',
+	'Every install is delivered by our in-house electrical team, with clear documentation and aftercare support so you can monitor performance and get the best return over time.',
+];
+
+const includedItems = [
+	'Site and usage assessment',
+	'System design and performance guidance',
+	'MCS-aligned install and commissioning',
+	'Battery-ready or battery-integrated options',
+	'App monitoring setup and handover',
+	'Post-install support',
+];
+
+const benefits = [
+	{
+		title: 'Lower running costs',
+		description: 'Generate and store your own energy to reduce reliance on peak-rate grid electricity.',
+	},
+	{
+		title: 'Better energy resilience',
+		description: 'Battery storage helps smooth usage through evenings and high-demand periods.',
+	},
+	{
+		title: 'Smarter control',
+		description: 'Monitoring tools show generation, storage, and usage so you can optimise performance.',
+	},
+];
+
+const audienceItems = [
+	{
+		title: 'Homeowners',
+		description: 'Ideal for households looking to cut bills, improve EPC performance, and future-proof energy use.',
+		image: '/hero-solar-roof.png',
+		imageAlt: 'Residential roof-mounted solar installation',
+	},
+	{
+		title: 'Commercial premises',
+		description: 'Suitable for offices, mixed-use sites, and operational properties with daytime demand.',
+		image: '/project-interior-fitout.png',
+		imageAlt: 'Commercial property electrical installation environment',
+	},
+	{
+		title: 'New builds and refurbishments',
+		description: 'Works well when integrated early with wider electrical design and distribution planning.',
+		image: '/core-services-new-builds.png',
+		imageAlt: 'New build project showing electrical and solar integration',
+	},
+	{
+		title: 'EV owners',
+		description: 'A strong fit where EV charging is part of the plan and self-generated power can offset charging costs.',
+		image: '/package-solar-battery-ev.png',
+		imageAlt: 'Solar, battery, and EV charging setup',
+	},
+];
+
+const faqs = [
+	{
+		question: 'Do I need a battery from day one?',
+		answer:
+			'No. We can design the system battery-ready so you can add storage later. If your evening usage is high, adding battery from day one often delivers better savings.',
+	},
+	{
+		question: 'How long does installation usually take?',
+		answer:
+			'Most residential systems are installed and commissioned within a few days once scaffolding and access are in place. Larger or more complex commercial sites take longer based on scope.',
+	},
+	{
+		question: 'Will this work with EV charging?',
+		answer:
+			'Yes. Solar and battery can be designed to support EV charging strategies, helping you use more self-generated energy.',
+	},
+	{
+		question: 'Do you provide handover and support?',
+		answer:
+			'Yes. We provide a full handover with system walkthrough, monitoring setup, and guidance so you know how to get the best performance.',
+	},
+];
 ---
 
 <Layout
-	title="Solar PV &amp; battery | Tech Electrical"
-	description="MCS-certified solar panel and battery installations for homes and businesses in Leicestershire."
+	title="Solar &amp; Battery Systems | Tech Electrical"
+	description="Complete solar PV and battery system design, installation, and handover for domestic and commercial properties."
 >
 	<SiteHeader />
-	<ServicePageStub
-		title="Solar &amp; battery"
-		lede="In-roof and on-roof PV, battery storage, monitoring and handover — designed and installed by our in-house team."
+	<ServiceDetailPage
+		eyebrow="Solar &amp; Battery"
+		title="Solar &amp; Battery Systems"
+		description="End-to-end solar PV and battery installations designed around your property, usage profile, and long-term energy goals."
+		breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Solar & Battery' }]}
+		backgroundImage="/hero-solar-roof.png"
+		heroImage="/projects-section-bg.webp"
+		heroImageAlt="Completed solar and battery installation project"
+		featuredImage="/package-solar-battery.png"
+		featuredImageAlt="Solar panels with integrated battery storage package"
+		featuredCaption="Designed, installed, and commissioned by our in-house electrical team."
+		serviceHeading="Solar and battery done properly"
+		serviceBody={serviceBody}
+		includedItems={includedItems}
+		benefits={benefits}
+		audienceItems={audienceItems}
+		faqs={faqs}
 	/>
 </Layout>
