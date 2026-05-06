@@ -45,7 +45,7 @@ const services = [
 		title: 'Testing Services',
 		summary:
 			'Landlord inspections, insurance testing, EICRs, fault finding, visual condition inspections, fire alarm testing, emergency light testing, and PAT testing for domestic and commercial properties.',
-		href: '/#quote',
+		href: '/testing-services',
 		image: '/core-services-fault-finding.png',
 		tags: ['domestic', 'commercial', 'maintenance'],
 	},
@@ -110,21 +110,19 @@ const services = [
 				<div class="service-grid">
 					{
 						services.map((item) => (
-							<article
-								class="service-card"
-								data-tags={item.tags.join(',')}
-							>
+							<article class="service-card" data-tags={item.tags.join(',')}>
 								<div class="service-card-image">
-									<img src={item.image} alt={item.title} loading="lazy" decoding="async" />
+									<img src={item.image} alt="" loading="lazy" decoding="async" aria-hidden="true" />
 								</div>
 								<div class="service-card-body">
 									<h3>{item.title}</h3>
 									<p>{item.summary}</p>
-									<ul class="service-tags">
+									<ul class="service-tags" aria-label="Categories">
 										{item.tags.map((tag) => <li>{tag}</li>)}
 									</ul>
-									<a href={item.href}>View service</a>
+									<span class="service-card-cta">View service</span>
 								</div>
+								<a class="service-card-link" href={item.href} aria-label={`View ${item.title} service`}></a>
 							</article>
 						))
 					}
@@ -210,6 +208,7 @@ const services = [
 	}
 
 	.service-card {
+		position: relative;
 		background: #fff;
 		border: 1px solid #e2e8f0;
 		border-radius: 0.9rem;
@@ -223,12 +222,26 @@ const services = [
 			border-color 220ms ease;
 	}
 
+	.service-card-link {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		border-radius: inherit;
+		text-decoration: none;
+	}
+
+	.service-card-link:focus-visible {
+		outline: 2px solid #2563eb;
+		outline-offset: 2px;
+	}
+
 	.service-card[hidden] {
 		display: none !important;
 	}
 
 	@media (hover: hover) {
 		.service-card:hover {
+			cursor: pointer;
 			transform: translateY(-8px);
 			border-color: #c2cfdf;
 			box-shadow: 0 24px 40px -28px rgba(15, 23, 42, 0.55);
@@ -287,7 +300,7 @@ const services = [
 		color: #0f4ac4;
 	}
 
-	.service-card a {
+	.service-card-cta {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -300,10 +313,19 @@ const services = [
 		font-weight: 700;
 		color: #fff;
 		background: #2563eb;
+		pointer-events: none;
 		transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
 	}
 
-	.service-card a:hover {
+	@media (hover: hover) {
+		.service-card:hover .service-card-cta {
+			border-color: #1e40af;
+			background: #1d4ed8;
+			color: #fff;
+		}
+	}
+
+	.service-card:focus-within .service-card-cta {
 		border-color: #1e40af;
 		background: #1d4ed8;
 		color: #fff;

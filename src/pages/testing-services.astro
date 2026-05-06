@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceDetailPage from '../components/ServiceDetailPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+const serviceBody = [
+	'We deliver structured electrical testing and inspection for landlords, homeowners, and commercial clients. Work is planned around access, downtime, and the reports you need for compliance, insurance, or peace of mind.',
+	'Whether you need a one-off EICR, a programme of periodic checks, or specialist testing such as fire alarms, emergency lighting, or PAT, our team documents findings clearly and explains practical next steps where remedial work is required.',
+];
+
+const keyPoints = [
+	'Clear reporting you can share with insurers, tenants, or duty holders',
+	'Domestic and commercial experience across Leicestershire and beyond',
+	'Practical advice when results show improvement or repair is needed',
+];
+
+const includedItems = [
+	'Agreed scope and access plan before we attend',
+	'Testing carried out to recognised standards and good practice',
+	'Digital or paper certificates and reports as required',
+	'Plain-English summary of outcomes and priorities',
+];
+
+const serviceModules = [
+	{
+		slug: 'landlord-inspections',
+		title: 'Landlord inspections',
+		image: '/project-interior-fitout.png',
+		imageAlt: 'Residential or let property interior suitable for landlord electrical inspection',
+		body: [
+			'Landlord electrical inspections help demonstrate that rental properties remain safe for tenants and meet expectations from councils, agents, and insurers.',
+			'We carry out the agreed inspection and testing scope, record observations clearly, and highlight anything that should be addressed within an agreed timeframe.',
+		],
+		benefits: [
+			'Supports compliance with letting and safety responsibilities',
+			'Reduces dispute risk with documented condition evidence',
+			'Can be aligned with tenancy changeovers or void periods',
+		],
+	},
+	{
+		slug: 'insurance-testing',
+		title: 'Insurance testing',
+		image: '/core-services-fault-finding.png',
+		imageAlt: 'Electrical testing and inspection at distribution equipment',
+		body: [
+			'Insurers sometimes ask for evidence that an installation has been inspected or tested within a certain period, especially after a claim or for higher-risk premises.',
+			'We carry out the scope they expect, issue formal documentation, and flag any items that could affect cover if left unresolved.',
+		],
+		benefits: [
+			'Certificates and reports formatted for insurer submission',
+			'Clear identification of urgent vs advisory items',
+			'Helps avoid delays when renewals or surveys ask for proof',
+		],
+	},
+	{
+		slug: 'eicrs',
+		title: 'EICRs',
+		image: '/project-solar-install.webp',
+		imageAlt: 'Electrical installation work and inspection context on site',
+		body: [
+			'An Electrical Installation Condition Report (EICR) records the condition of a fixed electrical installation at a point in time, including classification of any observations.',
+			'We test representative circuits and equipment, assess accessories and distribution, and summarise outcomes so you know what is satisfactory, what should be improved, and what may need immediate attention.',
+		],
+		benefits: [
+			'Suitable for homeowners, landlords, and commercial duty holders',
+			'Codes and observations explained in practical language',
+			'Ideal baseline before sales, purchases, or major upgrades',
+		],
+	},
+	{
+		slug: 'fault-finding',
+		title: 'Fault finding',
+		image: '/renewable-inverter.png',
+		imageAlt: 'Electrical equipment and diagnostics on site',
+		body: [
+			'Intermittent trips, nuisance RCD operation, or unexplained loss of power need a methodical approach rather than guesswork.',
+			'We combine safe isolation, measurement, and experience to narrow down the cause and recommend targeted repairs or replacements.',
+		],
+		benefits: [
+			'Less downtime than repeated callouts without diagnosis',
+			'Reduces risk of masking a serious underlying defect',
+			'Clear path from finding to fix, including remedial quotation if needed',
+		],
+	},
+	{
+		slug: 'visual-condition-inspections',
+		title: 'Visual condition inspections',
+		image: '/project-newbuild-aerial.webp',
+		imageAlt: 'Building and electrical infrastructure from wider project context',
+		body: [
+			'Not every situation needs full test instrumentation straight away. A structured visual inspection can quickly highlight damaged accessories, overheating signs, or poor workmanship.',
+			'Useful for change-of-use checks, pre-purchase reviews, or scoping a larger testing programme.',
+		],
+		benefits: [
+			'Fast, low-disruption first pass where appropriate',
+			'Photographic notes and clear recommendations where useful',
+			'Good complement before a full EICR or insurance visit',
+		],
+	},
+	{
+		slug: 'fire-alarm-testing',
+		title: 'Fire alarm testing',
+		image: '/emergency-callout-hero.png',
+		imageAlt: 'Electrical systems and safety-critical environments',
+		body: [
+			'Fire detection and alarm systems depend on reliable power supplies and interfaces with the wider electrical installation.',
+			'We carry out agreed periodic testing in line with the system type and your log-book requirements, recording results for your records.',
+		],
+		benefits: [
+			'Supports responsible-person record keeping',
+			'Helps catch wiring or device faults before they become incidents',
+			'Coordinated with other electrical work where possible',
+		],
+	},
+	{
+		slug: 'emergency-light-testing',
+		title: 'Emergency light testing',
+		image: '/projects-section-bg.webp',
+		imageAlt: 'Commercial and operational building environments',
+		body: [
+			'Emergency escape lighting must work when mains power fails. Periodic discharge and functional checks confirm batteries, lamps, and control gear are doing their job.',
+			'We follow an agreed test plan and document outcomes so you can demonstrate compliance during audits.',
+		],
+		benefits: [
+			'Demonstrates due diligence for building users',
+			'Reduces liability risk from failed escape routes',
+			'Can be scheduled to minimise disruption to occupants',
+		],
+	},
+	{
+		slug: 'pat-testing',
+		title: 'PAT testing',
+		image: '/renewable-battery.png',
+		imageAlt: 'Electrical equipment and appliances in service',
+		body: [
+			'Portable Appliance Testing (PAT) is part of a wider maintenance regime for equipment supplied via plug and socket in workplaces, studios, and many rented settings.',
+			'We label, test, and record appliances proportionately to risk, without unnecessary retesting where it adds no value.',
+		],
+		benefits: [
+			'Inventory-style records for offices, workshops, and sites',
+			'Supports health and safety file expectations',
+			'Flexible visit patterns for larger estates or schools',
+		],
+	},
+];
+
+const faqs = [
+	{
+		question: 'How often should I get an EICR?',
+		answer:
+			'Typical guidance is every ten years for owner-occupied homes and more frequently for rented properties and commercial sites, but your insurer, lease, or risk assessment may specify something different. We can advise based on your situation.',
+	},
+	{
+		question: 'What happens if the report shows problems?',
+		answer:
+			'Observations are coded to show severity. We explain what each item means in practice and can quote remedial work where you want us to carry it out.',
+	},
+	{
+		question: 'Can you test outside normal hours?',
+		answer:
+			'For commercial clients we can often arrange early starts, evenings, or weekends to reduce disruption. Availability depends on scope and location.',
+	},
+	{
+		question: 'Do you cover both domestic and commercial?',
+		answer:
+			'Yes. The same team handles smaller domestic EICRs through to larger commercial testing programmes, always scaled to the property and documentation you need.',
+	},
+];
+---
+
+<Layout
+	title="Testing Services | Tech Electrical"
+	description="Landlord inspections, insurance testing, EICRs, fault finding, visual inspections, fire alarm testing, emergency light testing, and PAT testing."
+>
+	<SiteHeader />
+	<ServiceDetailPage
+		eyebrow="Testing"
+		title="Testing Services"
+		description="Structured inspection and testing for homes and businesses — from EICRs and landlord reports through to fire alarm, emergency lighting, and PAT programmes."
+		breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Testing Services' }]}
+		backgroundImage="/hero-solar-roof.png"
+		heroImage="/projects-section-bg.webp"
+		heroImageAlt="Electrical testing and inspection project context"
+		featuredImage="/core-services-fault-finding.png"
+		featuredImageAlt="Electrical testing and fault finding on site"
+		featuredCaption="Certificates, clear codes, and practical next steps."
+		serviceHeading="Inspection and testing, done clearly"
+		serviceBody={serviceBody}
+		keyPoints={keyPoints}
+		includedItems={includedItems}
+		benefits={[]}
+		audienceItems={[]}
+		serviceModules={serviceModules}
+		faqs={faqs}
+	/>
+</Layout>

@@ -24,6 +24,39 @@ interface FaqItem {
 	answer: string;
 }
 
+interface PartnerLogo {
+	name: string;
+	logo: string;
+	logoAlt?: string;
+}
+
+/** Full-width sections (own H2) with image, copy, and benefit bullets — used e.g. for Testing Services. */
+interface ServiceModule {
+	slug: string;
+	title: string;
+	image: string;
+	imageAlt: string;
+	body: string[];
+	benefits: string[];
+}
+
+interface SidebarFormField {
+	name: string;
+	label: string;
+	type: 'text' | 'email' | 'tel' | 'textarea' | 'select';
+	placeholder?: string;
+	required?: boolean;
+	options?: string[];
+}
+
+interface SidebarFormConfig {
+	title: string;
+	intro?: string;
+	submitLabel?: string;
+	consentLabel?: string;
+	fields: SidebarFormField[];
+}
+
 interface Props {
 	eyebrow?: string;
 	title: string;
@@ -37,10 +70,16 @@ interface Props {
 	featuredCaption?: string;
 	serviceHeading?: string;
 	serviceBody: string[];
+	keyPoints?: string[];
+	tokenPartnerLogos?: PartnerLogo[];
 	includedItems?: string[];
-	benefits: BenefitItem[];
+	benefits?: BenefitItem[];
 	audienceHeading?: string;
-	audienceItems: AudienceItem[];
+	audienceItems?: AudienceItem[];
+	/** When set, each item renders as an H2 block with image + description + bullets; generic Benefits / Who sections are omitted. */
+	serviceModules?: ServiceModule[];
+	/** Optional sidebar form shown in place of the featured image. Visual-only by default. */
+	sidebarForm?: SidebarFormConfig;
 	faqs: FaqItem[];
 }
 
@@ -57,12 +96,18 @@ const {
 	featuredCaption,
 	serviceHeading = 'The service',
 	serviceBody,
+	keyPoints = [],
+	tokenPartnerLogos = [],
 	includedItems = [],
-	benefits,
+	benefits = [],
 	audienceHeading = "Who's it for?",
-	audienceItems,
+	audienceItems = [],
+	serviceModules = [],
+	sidebarForm,
 	faqs,
 } = Astro.props;
+
+	const hasServiceModules = serviceModules.length > 0;
 ---
 
 <main class="service-detail-page">
@@ -79,18 +124,97 @@ const {
 	<section class="service-overview" aria-labelledby="service-overview-heading">
 		<div class="service-wrap">
 			<div class="service-overview-layout">
-				<div class="service-copy">
+				<div class="service-copy" data-reveal="fade-left">
 					<h2 id="service-overview-heading">{serviceHeading}</h2>
 					{serviceBody.map((paragraph) => <p>{paragraph}</p>)}
+					{
+						keyPoints.length > 0 && (
+							<ul class="service-key-points" aria-label="Key points" data-reveal-stagger="90">
+								{keyPoints.map((point) => <li data-reveal="zoom">{point}</li>)}
+							</ul>
+						)
+					}
+					{
+						tokenPartnerLogos.length > 0 && (
+							<div class="service-token-logos" aria-label="Featured partner brands" data-reveal="fade-up">
+								<p>Installed with trusted brands</p>
+								<ul class="service-token-logos-list">
+									{tokenPartnerLogos.map((brand) => (
+										<li class="service-token-logos-item">
+											<img
+												src={brand.logo}
+												alt={brand.logoAlt ?? `${brand.name} logo`}
+												loading="lazy"
+												decoding="async"
+												width="132"
+												height="64"
+											/>
+										</li>
+									))}
+								</ul>
+							</div>
+						)
+					}
 				</div>
-				<aside class="service-sidebar">
-					<figure class="service-sidebar-image">
-						<img src={featuredImage} alt={featuredImageAlt} loading="eager" decoding="async" />
-						{featuredCaption && <figcaption>{featuredCaption}</figcaption>}
-					</figure>
+				<aside class:list={['service-sidebar', sidebarForm && 'has-form']} data-reveal="fade-right" style="--reveal-delay: 110ms;">
+					{
+						sidebarForm ? (
+							<form class="service-sidebar-form" data-reveal="zoom" style="--reveal-delay: 130ms;">
+								<div class="service-sidebar-form-head">
+									<p class="service-sidebar-form-eyebrow">Quick Enquiry</p>
+									<h3>{sidebarForm.title}</h3>
+									{sidebarForm.intro && <p>{sidebarForm.intro}</p>}
+								</div>
+								<div class="service-sidebar-fields">
+									{
+										sidebarForm.fields.map((field) => (
+											<label>
+												<span>{field.label}</span>
+												{field.type === 'textarea' ? (
+													<textarea
+														name={field.name}
+														placeholder={field.placeholder}
+														rows={4}
+														required={field.required ?? false}
+													></textarea>
+												) : field.type === 'select' ? (
+													<select name={field.name} required={field.required ?? false}>
+														<option value="">Select...</option>
+														{(field.options ?? []).map((opt) => (
+															<option value={opt}>{opt}</option>
+														))}
+													</select>
+												) : (
+													<input
+														type={field.type}
+														name={field.name}
+														placeholder={field.placeholder}
+														required={field.required ?? false}
+													/>
+												)}
+											</label>
+										))
+									}
+								</div>
+								<label class="service-sidebar-consent">
+									<input type="checkbox" required />
+									<span
+										>{sidebarForm.consentLabel ??
+											'I confirm I agree to the Terms & Conditions and understand how my data will be processed in line with GDPR.'}</span
+									>
+								</label>
+								<button type="submit">{sidebarForm.submitLabel ?? 'Send enquiry'}</button>
+							</form>
+						) : (
+							<figure class="service-sidebar-image" data-reveal="zoom" style="--reveal-delay: 130ms;">
+								<img src={featuredImage} alt={featuredImageAlt} loading="eager" decoding="async" />
+								{featuredCaption && <figcaption>{featuredCaption}</figcaption>}
+							</figure>
+						)
+					}
 
 					{includedItems.length > 0 && (
-						<div class="service-included">
+						<div class="service-included" data-reveal="fade-up" style="--reveal-delay: 180ms;">
 							<h3>What&apos;s included</h3>
 							<ul>
 								{includedItems.map((item) => <li>{item}</li>)}
@@ -102,50 +226,100 @@ const {
 		</div>
 	</section>
 
-	<section class="service-benefits" aria-labelledby="service-benefits-heading">
-		<div class="service-wrap">
-			<h2 id="service-benefits-heading">Benefits</h2>
-			<div class="card-grid">
-				{
-					benefits.map((benefit) => (
-						<article class="info-card">
-							<h3>{benefit.title}</h3>
-							<p>{benefit.description}</p>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</section>
-
-	<section class="service-audience" aria-labelledby="service-audience-heading">
-		<div class="service-wrap">
-			<h2 id="service-audience-heading">{audienceHeading}</h2>
-			<div class="card-grid audience-grid">
-				{
-					audienceItems.map((item) => (
-						<article class="info-card">
-							{item.image && (
-								<div class="info-card-image">
-									<img src={item.image} alt={item.imageAlt ?? item.title} loading="lazy" decoding="async" />
+	{
+		hasServiceModules && (
+			<section class="service-modules" aria-label="Service categories">
+				<div class="service-wrap service-modules-wrap" data-reveal-stagger="100">
+					{
+						serviceModules.map((mod, index) => (
+							<article
+								class:list={['service-module', index % 2 === 1 && 'service-module--reverse']}
+								id={mod.slug}
+								data-reveal="fade-up"
+							>
+								<h2 class="service-module-title">{mod.title}</h2>
+								<div class="service-module-grid">
+									<figure class="service-module-figure">
+										<img src={mod.image} alt={mod.imageAlt} loading="lazy" decoding="async" />
+									</figure>
+									<div class="service-module-body">
+										{mod.body.map((paragraph) => <p>{paragraph}</p>)}
+										{mod.benefits.length > 0 && (
+											<div class="service-module-benefits">
+												<p class="service-module-benefits-label">Why it matters</p>
+												<ul>
+													{mod.benefits.map((line) => (
+														<li>{line}</li>
+													))}
+												</ul>
+											</div>
+										)}
+									</div>
 								</div>
-							)}
-							<h3>{item.title}</h3>
-							<p>{item.description}</p>
-						</article>
-					))
-				}
-			</div>
-		</div>
-	</section>
+							</article>
+						))
+					}
+				</div>
+			</section>
+		)
+	}
+
+	{
+		!hasServiceModules && benefits.length > 0 && (
+			<section class="service-benefits" aria-labelledby="service-benefits-heading">
+				<div class="service-wrap">
+					<h2 id="service-benefits-heading" data-reveal="fade-up">
+						Benefits
+					</h2>
+					<div class="card-grid" data-reveal-stagger="100">
+						{
+							benefits.map((benefit, index) => (
+								<article class="info-card" data-reveal={index % 2 === 0 ? 'fade-left' : 'fade-right'}>
+									<h3>{benefit.title}</h3>
+									<p>{benefit.description}</p>
+								</article>
+							))
+						}
+					</div>
+				</div>
+			</section>
+		)
+	}
+
+	{
+		!hasServiceModules && audienceItems.length > 0 && (
+			<section class="service-audience" aria-labelledby="service-audience-heading">
+				<div class="service-wrap">
+					<h2 id="service-audience-heading" data-reveal="fade-up">
+						{audienceHeading}
+					</h2>
+					<div class="card-grid audience-grid" data-reveal-stagger="110">
+						{
+							audienceItems.map((item, index) => (
+								<article class="info-card" data-reveal={index % 2 === 0 ? 'fade-left' : 'fade-right'}>
+									{item.image && (
+										<div class="info-card-image">
+											<img src={item.image} alt={item.imageAlt ?? item.title} loading="lazy" decoding="async" />
+										</div>
+									)}
+									<h3>{item.title}</h3>
+									<p>{item.description}</p>
+								</article>
+							))
+						}
+					</div>
+				</div>
+			</section>
+		)
+	}
 
 	<section class="service-faq" aria-labelledby="service-faq-heading">
 		<div class="service-wrap">
-			<h2 id="service-faq-heading">FAQs</h2>
-			<div class="faq-list">
+			<h2 id="service-faq-heading" data-reveal="fade-up">FAQs</h2>
+			<div class="faq-list" data-reveal-stagger="85">
 				{
-					faqs.map((item) => (
-						<details>
+					faqs.map((item, index) => (
+						<details data-reveal={index % 2 === 0 ? 'fade-left' : 'fade-right'}>
 							<summary>{item.question}</summary>
 							<p>{item.answer}</p>
 						</details>
@@ -154,10 +328,11 @@ const {
 			</div>
 		</div>
 	</section>
+	<slot name="after-faq" />
 
 	<section class="service-cta" aria-labelledby="service-cta-heading">
 		<div class="service-wrap">
-			<div class="service-cta-card">
+			<div class="service-cta-card" data-reveal="zoom">
 				<h2 id="service-cta-heading">Ready to get started?</h2>
 				<p>
 					Talk to our team about your project and we&apos;ll help you plan the right solution for your property and
@@ -183,6 +358,7 @@ const {
 	}
 
 	.service-overview,
+	.service-modules,
 	.service-benefits,
 	.service-audience,
 	.service-faq,
@@ -220,9 +396,145 @@ const {
 		color: #475569;
 	}
 
+	.service-key-points {
+		margin: 1rem 0 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 0.62rem;
+	}
+
+	.service-key-points li {
+		position: relative;
+		padding: 0.82rem 0.85rem 0.82rem 2.35rem;
+		font-size: 0.91rem;
+		line-height: 1.45;
+		color: #1e293b;
+		font-weight: 600;
+		background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%);
+		border: 1px solid #d6e4ff;
+		border-radius: 0.72rem;
+		box-shadow: 0 8px 18px -18px rgba(15, 23, 42, 0.35);
+		transition:
+			transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+			border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+			background 220ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.service-key-points li::before {
+		content: '';
+		position: absolute;
+		left: 0.82rem;
+		top: 0.94rem;
+		width: 1rem;
+		height: 1rem;
+		border-radius: 999px;
+		background: #16a34a;
+		box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.92);
+	}
+
+	.service-key-points li::after {
+		content: '';
+		position: absolute;
+		left: 1.14rem;
+		top: 1.23rem;
+		width: 0.31rem;
+		height: 0.15rem;
+		border-left: 2px solid #fff;
+		border-bottom: 2px solid #fff;
+		transform: rotate(-45deg);
+	}
+
+	.service-token-logos {
+		margin-top: 0.95rem;
+		padding-top: 0.8rem;
+		border-top: 1px solid #e2e8f0;
+	}
+
+	.service-token-logos p {
+		margin: 0 0 0.55rem;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #0f4ac4;
+	}
+
+	.service-token-logos-list {
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.65rem;
+		list-style: none;
+	}
+
+	.service-token-logos-item {
+		list-style: none;
+		background: #fff;
+		border: 1px solid #dbe5f2;
+		border-radius: 0.7rem;
+		padding: 0.6rem 0.7rem;
+		display: grid;
+		place-items: center;
+		min-height: 92px;
+		box-shadow: 0 8px 18px -16px rgba(15, 23, 42, 0.45);
+		transition:
+			transform 180ms ease,
+			box-shadow 180ms ease,
+			border-color 180ms ease,
+			background-color 180ms ease;
+	}
+
+	.service-token-logos-item::marker {
+		content: '';
+	}
+
+	.service-token-logos img {
+		display: block;
+		width: auto;
+		height: auto;
+		max-width: min(100%, 230px);
+		max-height: 56px;
+		object-fit: contain;
+	}
+
+	@media (max-width: 420px) {
+		.service-token-logos-list {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (hover: hover) {
+		.service-token-logos-item:hover {
+			transform: translateY(-2px);
+			border-color: #bfdbfe;
+			background-color: #f8fbff;
+			box-shadow:
+				0 14px 24px -18px rgba(37, 99, 235, 0.5),
+				0 8px 16px -14px rgba(15, 23, 42, 0.35);
+		}
+
+		.service-key-points li:hover {
+			transform: translateY(-2px);
+			border-color: #b9d1ff;
+			background: #ffffff;
+			box-shadow:
+				0 12px 24px -18px rgba(15, 74, 196, 0.45),
+				0 6px 14px -12px rgba(15, 23, 42, 0.28);
+		}
+	}
+
 	.service-sidebar {
 		display: grid;
 		gap: 0.78rem;
+	}
+
+	.service-sidebar.has-form {
+		position: relative;
+		z-index: 3;
 	}
 
 	.service-sidebar-image {
@@ -245,6 +557,129 @@ const {
 		padding: 0.58rem 0.75rem;
 		font-size: 0.8rem;
 		color: #64748b;
+	}
+
+	.service-sidebar-form {
+		margin: 0;
+		border-radius: 1rem;
+		border: 1px solid #bfdbfe;
+		background:
+			linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.98)),
+			linear-gradient(145deg, rgba(15, 74, 196, 0.09), rgba(56, 189, 248, 0.08));
+		padding: 0.8rem;
+		box-shadow:
+			0 22px 40px -28px rgba(15, 23, 42, 0.52),
+			0 10px 24px -16px rgba(15, 74, 196, 0.32);
+		display: grid;
+		gap: 0.8rem;
+		transform: translateY(1.25rem);
+	}
+
+	.service-sidebar-form-head {
+		background: linear-gradient(145deg, #0f4ac4 0%, #0c3d9e 100%);
+		border-radius: 0.72rem;
+		padding: 0.78rem 0.78rem 0.74rem;
+		color: #fff;
+	}
+
+	.service-sidebar-form-eyebrow {
+		margin: 0;
+		font-size: 0.66rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: rgba(241, 245, 249, 0.9);
+	}
+
+	.service-sidebar-form h3 {
+		margin: 0;
+		font-size: 1.08rem;
+		line-height: 1.2;
+		color: #fff;
+	}
+
+	.service-sidebar-form-head p {
+		margin: 0.35rem 0 0;
+		font-size: 0.82rem;
+		line-height: 1.5;
+		color: rgba(241, 245, 249, 0.92);
+	}
+
+	.service-sidebar-fields {
+		display: grid;
+		gap: 0.56rem;
+		padding: 0 0.06rem;
+	}
+
+	.service-sidebar-fields label {
+		display: grid;
+		gap: 0.3rem;
+	}
+
+	.service-sidebar-fields span {
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: #334155;
+		letter-spacing: 0.01em;
+	}
+
+	.service-sidebar-fields input,
+	.service-sidebar-fields textarea,
+	.service-sidebar-fields select {
+		width: 100%;
+		border: 1px solid #c7d6ec;
+		border-radius: 0.5rem;
+		padding: 0.58rem 0.62rem;
+		font: inherit;
+		font-size: 0.9rem;
+		color: #0f172a;
+		background: #fff;
+		transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+	}
+
+	.service-sidebar-fields input:focus,
+	.service-sidebar-fields textarea:focus,
+	.service-sidebar-fields select:focus {
+		outline: none;
+		border-color: #3b82f6;
+		box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
+		background: #f8fbff;
+	}
+
+	.service-sidebar-fields textarea {
+		resize: vertical;
+		min-height: 5.5rem;
+	}
+
+	.service-sidebar-consent {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.45rem;
+		font-size: 0.78rem;
+		line-height: 1.45;
+		color: #475569;
+		padding: 0 0.06rem;
+	}
+
+	.service-sidebar-consent input {
+		margin-top: 0.2rem;
+	}
+
+	.service-sidebar-form button[type='submit'] {
+		border: 1px solid #1d4ed8;
+		border-radius: 0.55rem;
+		padding: 0.74rem 0.9rem;
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: #fff;
+		background: linear-gradient(135deg, #2563eb, #1d4ed8);
+		cursor: pointer;
+		box-shadow: 0 10px 18px -14px rgba(29, 78, 216, 0.7);
+	}
+
+	.service-sidebar-form button[type='submit']:hover {
+		background: linear-gradient(135deg, #1d4ed8, #1e40af);
+		border-color: #1e40af;
 	}
 
 	.service-included {
@@ -289,11 +724,123 @@ const {
 		background: #f8c04f;
 	}
 
+	.service-modules,
 	.service-benefits,
 	.service-audience,
 	.service-faq,
 	.service-cta {
 		padding-top: 1.35rem;
+	}
+
+	.service-modules-wrap {
+		display: flex;
+		flex-direction: column;
+		gap: 1.65rem;
+	}
+
+	.service-module {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.95rem;
+		padding: 1.2rem 1.15rem 1.25rem;
+		box-shadow: 0 14px 28px -22px rgba(15, 23, 42, 0.28);
+		min-width: 0;
+	}
+
+	.service-module-title {
+		margin: 0;
+		font-size: clamp(1.32rem, 2.1vw, 1.68rem);
+		color: #0f172a;
+		letter-spacing: -0.02em;
+		line-height: 1.2;
+	}
+
+	.service-module-grid {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+		gap: 1.15rem;
+		margin-top: 0.95rem;
+		align-items: start;
+		min-width: 0;
+	}
+
+	.service-module--reverse .service-module-figure {
+		order: 2;
+	}
+
+	.service-module--reverse .service-module-body {
+		order: 1;
+	}
+
+	.service-module-figure {
+		margin: 0;
+		border-radius: 0.72rem;
+		overflow: hidden;
+		border: 1px solid #dbe1eb;
+		background: #f8fafc;
+		min-width: 0;
+	}
+
+	.service-module-figure img {
+		display: block;
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+
+	.service-module-body {
+		min-width: 0;
+	}
+
+	.service-module-body > p {
+		margin: 0 0 0.65rem;
+		font-size: 0.96rem;
+		line-height: 1.62;
+		color: #475569;
+	}
+
+	.service-module-benefits {
+		margin-top: 1rem;
+		padding-top: 0.95rem;
+		border-top: 1px solid #e2e8f0;
+	}
+
+	.service-module-benefits-label {
+		margin: 0 0 0.55rem;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #0f4ac4;
+	}
+
+	.service-module-benefits ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		gap: 0.48rem;
+	}
+
+	.service-module-benefits li {
+		position: relative;
+		padding-left: 1.35rem;
+		font-size: 0.9rem;
+		line-height: 1.45;
+		color: #334155;
+		font-weight: 600;
+	}
+
+	.service-module-benefits li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.38rem;
+		width: 0.55rem;
+		height: 0.55rem;
+		border-radius: 2px;
+		background: linear-gradient(145deg, #0f4ac4, #2563eb);
+		box-shadow: 0 1px 2px rgba(15, 74, 196, 0.35);
 	}
 
 	.service-benefits h2,
@@ -326,14 +873,18 @@ const {
 
 	.info-card-image {
 		margin: -1rem -1rem 0.85rem;
+		padding: 0.48rem;
+		background: #f8fafc;
+		border-bottom: 1px solid #e2e8f0;
 	}
 
 	.info-card-image img {
 		display: block;
 		width: 100%;
-		aspect-ratio: 16 / 9;
+		height: 200px;
 		object-fit: cover;
-		border-bottom: 1px solid #e2e8f0;
+		border-radius: 0.62rem;
+		border: 1px solid #dbe1eb;
 	}
 
 	.info-card h3 {
@@ -429,6 +980,19 @@ const {
 			grid-template-columns: 1fr;
 		}
 
+		.service-sidebar-form {
+			transform: none;
+		}
+
+		.service-module-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.service-module--reverse .service-module-figure,
+		.service-module--reverse .service-module-body {
+			order: unset;
+		}
+
 		.card-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
@@ -438,6 +1002,10 @@ const {
 		.card-grid,
 		.audience-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.service-module-figure img {
+			height: 180px;
 		}
 	}
 </style>

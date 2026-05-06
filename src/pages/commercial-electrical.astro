@@ -1,16 +1,152 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ServicePageStub from '../components/ServicePageStub.astro';
+import ServiceDetailPage from '../components/ServiceDetailPage.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+
+const serviceBody = [
+	'Our commercial electrical service covers planned installations, upgrades, and ongoing support for operational buildings. We work around site constraints, access windows, and business continuity so projects are delivered with minimal disruption.',
+	'Scope can include distribution upgrades, lighting and emergency systems, power for specialist equipment, refurbishment works, and compliance-led testing programmes. We coordinate with your FM team, principal contractor, or site contacts to keep delivery straightforward.',
+	'From one-off improvement projects to rolling maintenance support, we provide clear documentation, practical recommendations, and a consistent point of contact across the full lifecycle of your electrical systems.',
+];
+
+const includedItems = [
+	'Site review and scope definition',
+	'Commercial distribution and circuit upgrades',
+	'Lighting, emergency lighting, and controls',
+	'Refurbishment and fit-out electrical works',
+	'Testing, inspection, and certification',
+	'Planned and reactive maintenance support',
+];
+
+const keyPoints = [
+	'Commercial installs and upgrades planned around live operations',
+	'Compliance-focused testing and clear reporting',
+	'Single contractor approach from survey to sign-off',
+];
+
+const benefits = [
+	{
+		title: 'Less operational disruption',
+		description: 'Work is phased around your occupancy, access windows, and critical load requirements.',
+	},
+	{
+		title: 'Clear compliance position',
+		description: 'Testing, inspection, and certification records are delivered in a format teams can act on quickly.',
+	},
+	{
+		title: 'Scalable support',
+		description: 'From small remedial works to larger upgrades, scope can expand with your site and tenancy needs.',
+	},
+];
+
+const audienceItems = [
+	{
+		title: 'Offices and mixed-use sites',
+		description: 'Electrical upgrades, lighting improvements, and day-to-day maintenance for occupied workplaces.',
+		image: '/project-interior-fitout.png',
+		imageAlt: 'Commercial interior electrical fit-out environment',
+	},
+	{
+		title: 'Retail and hospitality',
+		description: 'Planned work in customer-facing environments where programme control and finish quality are critical.',
+		image: '/projects-section-bg.webp',
+		imageAlt: 'Commercial project context suitable for retail and hospitality electrical work',
+	},
+	{
+		title: 'Education and healthcare environments',
+		description: 'Works delivered to agreed standards and processes in sites with strict operational requirements.',
+		image: '/emergency-callout-hero.png',
+		imageAlt: 'Electrical engineer working in a safety-critical commercial environment',
+	},
+	{
+		title: 'Student accommodation and managed property',
+		description: 'Rolling inspection, remedial upgrades, and lifecycle planning across multi-unit portfolios.',
+		image: '/project-newbuild-aerial.webp',
+		imageAlt: 'Multi-building development suitable for managed commercial or residential portfolios',
+	},
+];
+
+const faqs = [
+	{
+		question: 'Can you work in live commercial buildings?',
+		answer:
+			'Yes. We regularly schedule works around occupied spaces and critical operations, including out-of-hours windows where needed.',
+	},
+	{
+		question: 'Do you provide planned maintenance as well as project installs?',
+		answer:
+			'Yes. We can support one-off project delivery, recurring inspection/testing, and ongoing maintenance requirements.',
+	},
+	{
+		question: 'Can you coordinate with other contractors on site?',
+		answer:
+			'Absolutely. We frequently work alongside principal contractors, mechanical teams, and site managers to align programme and sequencing.',
+	},
+	{
+		question: 'What documentation do you provide after works?',
+		answer:
+			'We provide relevant certificates, test results, and completion information so your team has clear records for operations and compliance.',
+	},
+];
+
+const sidebarForm = {
+	title: "What's your business?",
+	intro: 'Tell us a few details and we will tailor the right commercial electrical scope for your site.',
+	submitLabel: 'Request commercial quote',
+	consentLabel:
+		'I confirm I have read the Terms & Conditions and Privacy Policy, and consent to my data being handled in line with GDPR.',
+	fields: [
+		{ name: 'contactName', label: 'Your name', type: 'text', placeholder: 'Jane Smith', required: true },
+		{
+			name: 'businessName',
+			label: 'Business name',
+			type: 'text',
+			placeholder: 'Acme Facilities Ltd',
+			required: true,
+		},
+		{
+			name: 'businessType',
+			label: 'What is your business?',
+			type: 'select',
+			required: true,
+			options: ['Office', 'Retail', 'Hospitality', 'Education', 'Healthcare', 'Industrial', 'Other'],
+		},
+		{ name: 'email', label: 'Work email', type: 'email', placeholder: 'name@company.com', required: true },
+		{ name: 'phone', label: 'Phone number', type: 'tel', placeholder: '07...', required: true },
+		{
+			name: 'projectSummary',
+			label: 'Project summary',
+			type: 'textarea',
+			placeholder: 'Tell us about your site, timescales, and required electrical works...',
+			required: true,
+		},
+	],
+} as const;
 ---
 
 <Layout
-	title="Commercial electrical | Tech Electrical"
-	description="Commercial electrical design, installation and maintenance for businesses across Leicestershire."
+	title="Commercial Electrical | Tech Electrical"
+	description="Commercial electrical installations, upgrades, compliance testing, and maintenance support for business premises."
 >
 	<SiteHeader />
-	<ServicePageStub
-		title="Commercial electrical"
-		lede="Retail, offices, student accommodation, three-phase work, maintenance packages and compliance — delivered to a professional standard."
+	<ServiceDetailPage
+		eyebrow="Commercial"
+		title="Commercial Electrical"
+		description="Installations, upgrades, testing, and maintenance for commercial premises delivered with programme control and clear documentation."
+		breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Commercial Electrical' }]}
+		backgroundImage="/hero-solar-roof.png"
+		heroImage="/projects-section-bg.webp"
+		heroImageAlt="Commercial electrical installation project context"
+		featuredImage="/core-services-fault-finding.png"
+		featuredImageAlt="Commercial electrical testing and distribution work"
+		featuredCaption="Planned delivery, safe execution, and clear sign-off."
+		serviceHeading="Commercial electrical support that scales"
+		serviceBody={serviceBody}
+		keyPoints={keyPoints}
+		includedItems={includedItems}
+		sidebarForm={sidebarForm}
+		benefits={benefits}
+		audienceItems={audienceItems}
+		faqs={faqs}
 	/>
 </Layout>

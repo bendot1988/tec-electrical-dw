@@ -1,16 +1,119 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ServicePageStub from '../components/ServicePageStub.astro';
+import ServiceDetailPage from '../components/ServiceDetailPage.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+
+const serviceBody = [
+	'We design and install EV charging for homes and workplaces, from a single wall-mounted unit through to multi-bay setups. Work covers supply capacity, cable routes, protection, testing, commissioning, and a clear handover so you know how to use the system day to day.',
+	'Where the mains supply is tight, we plan load management and staged charging so chargers stay safe and practical. If you already have or plan solar and battery, we can align charger placement and controls with the rest of your electrical setup.',
+	'Installations are carried out by our in-house team with the same documentation and quality standards as the rest of our electrical work, so you have a single point of contact from survey to sign-off.',
+];
+
+const includedItems = [
+	'On-site survey and cable route planning',
+	'Charger selection and mounting location agreed with you',
+	'Supply and earthing arrangements assessed',
+	'Installation, testing, and commissioning',
+	'App or portal setup where supported by the unit',
+	'Handover and aftercare guidance',
+];
+
+const keyPoints = [
+	'Domestic and workplace chargers with sensible load planning',
+	'Integration-friendly when solar or battery is part of the picture',
+	'Installed and certified by our in-house electrical team',
+];
+
+const benefits = [
+	{
+		title: 'Charge on your own schedule',
+		description: 'Overnight or daytime top-ups at home or reliable bays at work, without relying on public queues.',
+	},
+	{
+		title: 'Supply-aware design',
+		description: 'We size and configure charging around your existing supply and usage so the install stays safe and usable.',
+	},
+	{
+		title: 'Ready for the future',
+		description: 'Smart features and spare capacity thinking make it easier to add vehicles, bays, or renewable tie-ins later.',
+	},
+];
+
+const audienceItems = [
+	{
+		title: 'Homeowners',
+		description:
+			'Ideal if you want a fixed charger on the drive or garage wall, clear billing at home, and simple day-to-day use.',
+		image: '/package-solar-battery-ev.png',
+		imageAlt: 'Home electric vehicle charging alongside solar and battery equipment',
+	},
+	{
+		title: 'Commercial premises',
+		description: 'Workplace bays, visitor charging, and small fleets where you need dependable hardware and tidy cable runs.',
+		image: '/project-interior-fitout.png',
+		imageAlt: 'Commercial interior suitable for workplace electrical and EV infrastructure',
+	},
+	{
+		title: 'New builds and refurbishments',
+		description: 'Early coordination on distribution, containment, and future bay counts avoids costly rework later.',
+		image: '/core-services-new-builds.png',
+		imageAlt: 'New build development where EV readiness can be planned in advance',
+	},
+	{
+		title: 'Solar and battery customers',
+		description:
+			'A natural add-on when you want charging timed around generation or stored energy, with one coordinated design.',
+		image: '/package-solar-battery.png',
+		imageAlt: 'Solar and battery system that can complement smart EV charging',
+	},
+];
+
+const faqs = [
+	{
+		question: 'How fast can I charge at home?',
+		answer:
+			'Typical domestic wall units are 7 kW AC, which suits overnight charging for most drivers. Exact charge times depend on your vehicle, state of charge, and any load limits we agree for your property.',
+	},
+	{
+		question: 'Do I need three-phase supply?',
+		answer:
+			'Many home installs are perfectly fine on a single-phase supply with a 7 kW charger. If you want higher power or multiple units, we assess the supply and advise what is realistic and compliant.',
+	},
+	{
+		question: 'Can EV charging work with my solar and battery?',
+		answer:
+			'Yes, in many cases we can align timing and controls with your renewable setup. The right approach depends on your hardware and goals, which we cover during design.',
+	},
+	{
+		question: 'Are grants or incentives available?',
+		answer:
+			'Government and workplace schemes change over time. We can point you in the right direction and make sure the install is carried out to the standards schemes expect, but eligibility is always confirmed against current rules.',
+	},
+];
 ---
 
 <Layout
-	title="EV charging | Tech Electrical"
-	description="Home and workplace EV charger installation integrated with solar and mains supply across Leicestershire."
+	title="EV Charging | Tech Electrical"
+	description="Home and workplace EV charger installation, load-aware design, and integration with your wider electrical and renewable setup."
 >
 	<SiteHeader />
-	<ServicePageStub
-		title="EV charging"
-		lede="Integrated 7kW (and above) chargers, load management and single-app control alongside solar and battery where required."
+	<ServiceDetailPage
+		eyebrow="EV Charging"
+		title="EV Charging"
+		description="Practical home and workplace electric vehicle charging, designed around your supply, usage, and how you want to use the car day to day."
+		breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'EV Charging' }]}
+		backgroundImage="/hero-solar-roof.png"
+		heroImage="/projects-section-bg.webp"
+		heroImageAlt="Electrical installation and renewable energy project context"
+		featuredImage="/package-solar-battery-ev.png"
+		featuredImageAlt="Electric vehicle charging integrated with solar and battery systems"
+		featuredCaption="Survey, install, commission, and handover by our in-house team."
+		serviceHeading="EV charging that fits your property"
+		serviceBody={serviceBody}
+		keyPoints={keyPoints}
+		includedItems={includedItems}
+		benefits={benefits}
+		audienceItems={audienceItems}
+		faqs={faqs}
 	/>
 </Layout>

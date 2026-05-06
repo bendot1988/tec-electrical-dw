@@ -3,6 +3,108 @@ import Layout from '../layouts/Layout.astro';
 import ServiceDetailPage from '../components/ServiceDetailPage.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 
+const trustedPartnerCategories = [
+	{
+		title: 'Solar Inverters & Storage Brands',
+		brands: [
+			{
+				name: 'Sigenergy',
+				logo: '/partners/sigenergy.png',
+				logoAlt: 'Sigenergy logo',
+				description:
+					'Sigenergy delivers integrated inverter and battery technology designed for efficient energy management in modern properties.',
+			},
+			{
+				name: 'SolarEdge',
+				logo: '/partners/solaredge.png',
+				logoAlt: 'SolarEdge logo',
+				description:
+					'SolarEdge is known for high-performance inverter systems with advanced monitoring and optimiser-led safety features.',
+			},
+			{
+				name: 'Growatt',
+				logo: '/partners/growatt.png',
+				logoAlt: 'Growatt logo',
+				description:
+					'Growatt provides reliable, cost-effective inverter and storage solutions suited to both domestic and small commercial sites.',
+			},
+			{
+				name: 'SolaX Power',
+				logo: '/partners/solax-power.png',
+				logoAlt: 'SolaX Power logo',
+				description:
+					'SolaX Power offers scalable hybrid inverter platforms that support flexible battery integration and long-term system growth.',
+			},
+		],
+	},
+	{
+		title: 'Solar Panel Brands',
+		brands: [
+			{
+				name: 'Solfit',
+				logo: '/partners/solfit.png',
+				logoAlt: 'Solfit logo',
+				description:
+					'Solfit panel systems are selected for consistent generation performance and dependable output across varied UK conditions.',
+			},
+			{
+				name: 'AIKO',
+				logo: '/partners/aiko.png',
+				logoAlt: 'AIKO logo',
+				description:
+					'AIKO manufactures high-efficiency modules engineered to maximise yield where roof space and aesthetics both matter.',
+			},
+			{
+				name: 'Trina Solar',
+				logo: '/partners/trina-solar.png',
+				logoAlt: 'Trina Solar logo',
+				description:
+					'Trina Solar panels combine proven manufacturing quality with strong long-term performance for residential and commercial arrays.',
+			},
+			{
+				name: 'Tigo',
+				logo: '/partners/tigo.png',
+				logoAlt: 'Tigo logo',
+				description:
+					'Tigo supports panel-level optimisation and smart module management to improve uptime, insight, and overall solar performance.',
+			},
+		],
+	},
+	{
+		title: 'EV Charging Brands',
+		brands: [
+			{
+				name: 'myenergi zappi',
+				logo: '/partners/myenergi-zappi.png',
+				logoAlt: 'myenergi zappi logo',
+				description:
+					'myenergi zappi chargers are designed to prioritise self-generated solar power and smart home charging control.',
+			},
+			{
+				name: 'Project EV',
+				logo: '/partners/project-ev.png',
+				logoAlt: 'Project EV logo',
+				description:
+					'Project EV offers practical smart charging hardware with app-based scheduling and load-aware charging features.',
+			},
+			{
+				name: 'Ohme',
+				logo: '/partners/ohme.png',
+				logoAlt: 'Ohme logo',
+				description:
+					'Ohme chargers focus on intelligent tariff-aware charging to reduce running costs while maintaining everyday convenience.',
+			},
+		],
+	},
+];
+
+const tokenPartnerLogos = [
+	{ name: 'Sigenergy', logo: '/partners/sigenergy.png', logoAlt: 'Sigenergy logo' },
+	{ name: 'SolarEdge', logo: '/partners/solaredge.png', logoAlt: 'SolarEdge logo' },
+	{ name: 'SolaX Power', logo: '/partners/solax-power.png', logoAlt: 'SolaX Power logo' },
+	{ name: 'myenergi zappi', logo: '/partners/myenergi-zappi.png', logoAlt: 'myenergi zappi logo' },
+];
+
 const serviceBody = [
 	'Our solar and battery service covers design, supply, installation, commissioning, and handover for domestic and commercial sites. We build systems around how your property uses energy, not just panel count.',
 	'We assess roof orientation, usable roof area, current and future demand, and export potential to create a practical system that performs year-round. Installations can include in-roof or on-roof arrays, hybrid inverters, battery storage, and smart monitoring.',
@@ -16,6 +118,12 @@ const includedItems = [
 	'Battery-ready or battery-integrated options',
 	'App monitoring setup and handover',
 	'Post-install support',
+];
+
+const keyPoints = [
+	'In-roof and on-roof solar options matched to your property',
+	'Battery-ready design with clear upgrade paths',
+	'Installed, tested, and handed over by our in-house electrical team',
 ];
 
 const benefits = [
@@ -102,9 +210,193 @@ const faqs = [
 		featuredCaption="Designed, installed, and commissioned by our in-house electrical team."
 		serviceHeading="Solar and battery done properly"
 		serviceBody={serviceBody}
+		keyPoints={keyPoints}
+		tokenPartnerLogos={tokenPartnerLogos}
 		includedItems={includedItems}
 		benefits={benefits}
 		audienceItems={audienceItems}
 		faqs={faqs}
-	/>
+	>
+		<section slot="after-faq" class="trusted-partners" aria-labelledby="trusted-partners-heading">
+			<div class="trusted-partners__inner">
+				<p class="trusted-partners__eyebrow">Trusted technology network</p>
+				<h2 id="trusted-partners-heading">Trusted Solar, Battery &amp; EV Charging Partners</h2>
+				<p class="trusted-partners__intro">
+					We install proven products from established manufacturers to deliver reliable solar panel, inverter, battery
+					storage, and EV charging performance.
+				</p>
+				<div class="trusted-partners__categories">
+					{
+						trustedPartnerCategories.map((category) => (
+							<section class="trusted-partners__category">
+								<h3>{category.title}</h3>
+								<ul class="trusted-partners__grid">
+									{category.brands.map((brand) => (
+										<li class="trusted-partners__card">
+											<div class="trusted-partners__logo-wrap">
+												{brand.logo ? (
+													<img
+														src={brand.logo}
+														alt={brand.logoAlt}
+														loading="lazy"
+														decoding="async"
+														width="240"
+														height="120"
+													/>
+												) : (
+													<div class="trusted-partners__logo-placeholder" aria-hidden="true">{brand.name}</div>
+												)}
+											</div>
+											<h4>{brand.name}</h4>
+											<p>{brand.description}</p>
+										</li>
+									))}
+								</ul>
+							</section>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	</ServiceDetailPage>
 </Layout>
+
+<style>
+	.trusted-partners {
+		padding: 2rem var(--site-content-padding) 1.2rem;
+	}
+
+	.trusted-partners__inner {
+		max-width: 1200px;
+		margin: 0 auto;
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.95rem;
+		padding: 1.2rem;
+		box-shadow: 0 14px 28px -22px rgba(15, 23, 42, 0.28);
+	}
+
+	.trusted-partners__eyebrow {
+		margin: 0 0 0.5rem;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #2563eb;
+	}
+
+	.trusted-partners h2 {
+		margin: 0;
+		font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+		line-height: 1.2;
+		color: #0f172a;
+	}
+
+	.trusted-partners__intro {
+		max-width: 70ch;
+		margin: 0.85rem 0 1.6rem;
+		color: #475569;
+		line-height: 1.65;
+	}
+
+	.trusted-partners__categories {
+		display: grid;
+		gap: 1.4rem;
+	}
+
+	.trusted-partners__category h3 {
+		margin: 0 0 0.75rem;
+		font-size: 1.05rem;
+		color: #1e293b;
+	}
+
+	.trusted-partners__grid {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 0.9rem;
+	}
+
+	.trusted-partners__card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.9rem;
+		padding: 0.9rem;
+		display: grid;
+		gap: 0.65rem;
+		transition:
+			transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+			box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+			border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+			background-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.trusted-partners__logo-wrap {
+		border: 0;
+		border-radius: 0.7rem;
+		background: transparent;
+		display: grid;
+		place-items: center;
+		min-height: 90px;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	.trusted-partners__logo-wrap img {
+		width: 100%;
+		height: 100%;
+		max-width: none;
+		max-height: none;
+		object-fit: contain;
+		transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), filter 220ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.trusted-partners__logo-placeholder {
+		font-weight: 600;
+		color: #334155;
+		font-size: 0.95rem;
+		text-align: center;
+	}
+
+	.trusted-partners__card h4 {
+		margin: 0;
+		font-size: 1rem;
+		color: #0f172a;
+	}
+
+	.trusted-partners__card p {
+		margin: 0;
+		font-size: 0.92rem;
+		line-height: 1.55;
+		color: #475569;
+	}
+
+	@media (hover: hover) {
+		.trusted-partners__card:hover {
+			transform: translateY(-4px);
+			border-color: #cbdaf3;
+			background-color: #ffffff;
+			box-shadow:
+				0 18px 28px -22px rgba(15, 74, 196, 0.38),
+				0 12px 22px -20px rgba(15, 23, 42, 0.28);
+		}
+
+		.trusted-partners__card:hover .trusted-partners__logo-wrap img {
+			transform: scale(1.03);
+			filter: saturate(1.04);
+		}
+	}
+
+	@media (max-width: 700px) {
+		.trusted-partners {
+			padding-top: 1.35rem;
+			padding-bottom: 0.9rem;
+		}
+
+		.trusted-partners__inner {
+			padding: 1rem;
+		}
+	}
+</style>

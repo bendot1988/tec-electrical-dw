@@ -1,16 +1,127 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ServicePageStub from '../components/ServicePageStub.astro';
+import ServiceDetailPage from '../components/ServiceDetailPage.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+
+const serviceBody = [
+	'We carry out domestic electrical work end to end: from full and partial rewires and consumer unit upgrades through to new-build and extension lighting, power, and compliance documentation. Every job is planned around how you use the home, future loads, and Part P / Building Regulations expectations.',
+	'Fire alarm and emergency-lighting scope can be integrated where your property needs detection or escape lighting, and we keep certification and handover paperwork clear for insurers, building control, or resale.',
+	'Beyond traditional installs we also fit CCTV for home security and low-voltage data runs including fibre optic where you want reliable Wi‑Fi backhaul, TV/data points, or a tidy home-office setup — coordinated with the rest of the electrical design.',
+];
+
+const includedItems = [
+	'Consultation and clear scope before work starts',
+	'Rewires, partial rewires, and circuit alterations',
+	'Consumer unit upgrades and protection coordination',
+	'New-build and extension lighting and power layouts',
+	'Fire alarm and related domestic detection where specified',
+	'Testing, certification, and compliance paperwork',
+	'General domestic installations (sockets, lighting, showers, etc.)',
+	'CCTV cabling and camera positions agreed with you',
+	'Data and fibre optic home installs (routes, containment, terminations)',
+];
+
+const keyPoints = [
+	'Rewires, consumer units, and full domestic installations',
+	'Lighting, fire alarms, and compliance-focused handover',
+	'CCTV and in-home fibre / data as part of a coordinated plan',
+];
+
+const benefits = [
+	{
+		title: 'Safer, up-to-date electrics',
+		description:
+			'Modern consumer units, correct earthing, and properly protected circuits reduce risk and make future changes easier.',
+	},
+	{
+		title: 'Designed around daily life',
+		description:
+			'Lighting scenes, socket positions, and specialist circuits are planned with kitchens, offices, and EV plans in mind.',
+	},
+	{
+		title: 'One team, clear records',
+		description:
+			'Certification and test results are documented so you have what you need for building control, insurers, or a house sale.',
+	},
+];
+
+const audienceItems = [
+	{
+		title: 'Homeowners',
+		description:
+			'Ideal for upgrades, kitchen refits, extra circuits, rewire projects, and making an older installation fit for modern use.',
+		image: '/core-services-new-builds.png',
+		imageAlt: 'Domestic property electrical installation and new build context',
+	},
+	{
+		title: 'Extensions and refurbishments',
+		description:
+			'When you are opening up spaces or adding storeys, we align new circuits, lighting design, and board capacity with the wider build programme.',
+		image: '/project-interior-fitout.png',
+		imageAlt: 'Interior refurbishment where lighting and power are upgraded',
+	},
+	{
+		title: 'New build buyers and self-builders',
+		description:
+			'From first-fix containment and cabling through to second-fix accessories, testing, and handover for a compliant domestic installation.',
+		image: '/project-newbuild-aerial.webp',
+		imageAlt: 'New housing development aerial view',
+	},
+	{
+		title: 'Security and connectivity at home',
+		description:
+			'CCTV positions, cable home runs, and fibre or structured cabling for reliable coverage without a mess of extension leads.',
+		image: '/service-fibre-optic.png',
+		imageAlt: 'Data and fibre optic installation context',
+	},
+];
+
+const faqs = [
+	{
+		question: 'Do I need a full rewire or just a consumer unit change?',
+		answer:
+			'It depends on the age and condition of your installation, cable types, and how your usage has changed. We survey first and recommend the smallest compliant scope — sometimes a CU upgrade plus targeted circuits is enough.',
+	},
+	{
+		question: 'Will you deal with building control and certification?',
+		answer:
+			'Yes. Where notifiable work applies we notify or provide the correct certification path, and we leave you with certificates and test records for your files.',
+	},
+	{
+		question: 'Can you add fire alarms during other electrical work?',
+		answer:
+			'Often yes. We agree the category and coverage with you (and your builder if relevant), install to the agreed specification, and commission so you know how to test and maintain them.',
+	},
+	{
+		question: 'Can CCTV and fibre be done in an older house without damage?',
+		answer:
+			'We plan routes and containment to minimise disruption. Some properties need surface trunking or discrete overboarding; we discuss options and finishes before we commit to a route.',
+	},
+];
 ---
 
 <Layout
-	title="Domestic electrical | Tech Electrical"
-	description="Domestic electrical installations, rewires, testing and compliance for homeowners in Leicestershire."
+	title="Domestic Electrical | Tech Electrical"
+	description="Domestic installations, rewires, consumer units, lighting, fire alarms, compliance, CCTV, and home fibre and data cabling across Leicestershire."
 >
 	<SiteHeader />
-	<ServicePageStub
-		title="Domestic electrical"
-		lede="New builds, extensions, consumer units, lighting and power design, emergency lighting, fire alarms and more for your home."
+	<ServiceDetailPage
+		eyebrow="Domestic"
+		title="Domestic Electrical"
+		description="Rewires, consumer units, lighting, fire alarms, compliant domestic installations, CCTV, and home fibre and data — delivered by our in-house team."
+		breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Domestic Electrical' }]}
+		backgroundImage="/hero-solar-roof.png"
+		heroImage="/projects-section-bg.webp"
+		heroImageAlt="Residential electrical installation project"
+		featuredImage="/core-services-new-builds.png"
+		featuredImageAlt="Domestic electrical work including lighting and installation"
+		featuredCaption="Survey, design support, install, test, certify — all in one place."
+		serviceHeading="Domestic electrical, done properly"
+		serviceBody={serviceBody}
+		keyPoints={keyPoints}
+		includedItems={includedItems}
+		benefits={benefits}
+		audienceItems={audienceItems}
+		faqs={faqs}
 	/>
 </Layout>
