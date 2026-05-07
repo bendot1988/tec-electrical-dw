@@ -177,15 +177,29 @@ const currentLondonLocations = ['High Wycombe', 'Edgware', 'St Charles', 'Torrin
 		width: 100%;
 		justify-content: center;
 		align-items: center;
-		border-radius: 0.55rem;
+		border-radius: var(--radius-button);
 		padding: 0.78rem 0.95rem;
 		font-size: 0.9rem;
 		font-weight: 700;
 	}
 
 	.btn-primary {
-		background: linear-gradient(120deg, #f59e0b, #f97316);
+		border: var(--cta-main-border);
+		background: var(--cta-main-gradient);
 		color: #fff;
+		box-shadow: var(--cta-main-shadow);
+		transition:
+			filter 180ms ease,
+			transform 180ms ease,
+			box-shadow 180ms ease;
+	}
+
+	.btn-primary:hover {
+		filter: brightness(1.06);
+		transform: translateY(-1px);
+		box-shadow:
+			0 14px 32px -14px rgba(194, 65, 12, 0.55),
+			0 6px 16px -8px rgba(251, 146, 60, 0.38);
 	}
 
 	.btn-outline {

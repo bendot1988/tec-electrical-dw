@@ -21,6 +21,8 @@ const includedItems = [
 	'Plain-English summary of outcomes and priorities',
 ];
 
+const tokenPartnerLogos = [{ name: 'NICEIC Approved Contractor', logo: '/cert-niceic-approved.png', logoAlt: 'NICEIC Approved Contractor logo' }];
+
 const serviceModules = [
 	{
 		slug: 'landlord-inspections',
@@ -115,8 +117,8 @@ const serviceModules = [
 	{
 		slug: 'emergency-light-testing',
 		title: 'Emergency light testing',
-		image: '/projects-section-bg.webp',
-		imageAlt: 'Commercial and operational building environments',
+		image: '/emergency-light-testing.png',
+		imageAlt: 'Emergency lighting inspection in a commercial corridor',
 		body: [
 			'Emergency escape lighting must work when mains power fails. Periodic discharge and functional checks confirm batteries, lamps, and control gear are doing their job.',
 			'We follow an agreed test plan and document outcomes so you can demonstrate compliance during audits.',
@@ -130,8 +132,8 @@ const serviceModules = [
 	{
 		slug: 'pat-testing',
 		title: 'PAT testing',
-		image: '/renewable-battery.png',
-		imageAlt: 'Electrical equipment and appliances in service',
+		image: '/pat-testing.png',
+		imageAlt: 'PAT tested plug and workshop bench setup',
 		body: [
 			'Portable Appliance Testing (PAT) is part of a wider maintenance regime for equipment supplied via plug and socket in workplaces, studios, and many rented settings.',
 			'We label, test, and record appliances proportionately to risk, without unnecessary retesting where it adds no value.',
@@ -179,7 +181,7 @@ const faqs = [
 		description="Structured inspection and testing for homes and businesses — from EICRs and landlord reports through to fire alarm, emergency lighting, and PAT programmes."
 		breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Testing Services' }]}
 		backgroundImage="/hero-solar-roof.png"
-		heroImage="/projects-section-bg.webp"
+		heroImage="/hero-electrical-services.png"
 		heroImageAlt="Electrical testing and inspection project context"
 		featuredImage="/core-services-fault-finding.png"
 		featuredImageAlt="Electrical testing and fault finding on site"
@@ -187,6 +189,7 @@ const faqs = [
 		serviceHeading="Inspection and testing, done clearly"
 		serviceBody={serviceBody}
 		keyPoints={keyPoints}
+		tokenPartnerLogos={tokenPartnerLogos}
 		includedItems={includedItems}
 		benefits={[]}
 		audienceItems={[]}

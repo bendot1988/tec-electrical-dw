@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceDetailPage from '../components/ServiceDetailPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+const serviceBody = [
+	'Our design services and load monitoring support gives you a clear baseline before investing in electrical upgrades. We review current usage, identify avoidable losses, and map practical options that improve efficiency without compromising reliability.',
+	'Energy saving surveys are tailored to the property type and operating pattern, whether domestic, commercial, or mixed-use. We assess demand profiles, circuit loading trends, equipment behaviour, and opportunities for staged improvements.',
+	'The result is a practical action plan you can use to prioritise upgrades, control operating costs, and build long-term electrical performance into maintenance planning.',
+];
+
+const includedItems = [
+	'Initial consultation and objective setting',
+	'On-site review of electrical usage and constraints',
+	'Load monitoring strategy and data interpretation',
+	'Energy saving survey with improvement opportunities',
+	'Prioritised recommendations by impact and budget',
+	'Support for phased upgrade planning',
+];
+
+const keyPoints = [
+	'Design support aligned to real-world usage and future demand',
+	'Load monitoring insights to inform investment decisions',
+	'Actionable energy saving recommendations for long-term efficiency',
+];
+
+const benefits = [
+	{
+		title: 'Lower avoidable energy waste',
+		description: 'Identify where consumption can be reduced through better controls, balanced loading, and targeted upgrades.',
+	},
+	{
+		title: 'Better upgrade planning',
+		description: 'Use measured performance insight to phase electrical improvements in the right order and budget cycle.',
+	},
+	{
+		title: 'Stronger long-term efficiency',
+		description: 'Build a repeatable plan that supports maintenance decisions and improves asset performance over time.',
+	},
+];
+
+const audienceItems = [
+	{
+		title: 'Domestic properties',
+		description: 'Useful for homeowners planning renovation, electrification, or bill reduction through informed electrical upgrades.',
+		image: '/core-services-new-builds.png',
+		imageAlt: 'Domestic property where electrical efficiency upgrades are being considered',
+	},
+	{
+		title: 'Commercial premises',
+		description: 'Suitable for offices, workshops, and operational sites where demand patterns drive running costs and downtime risk.',
+		image: '/project-interior-fitout.png',
+		imageAlt: 'Commercial interior where load monitoring and efficiency planning are being carried out',
+	},
+	{
+		title: 'Maintenance-led portfolios',
+		description: 'Ideal for landlords and facilities teams needing a structured route from monitoring data to planned improvement works.',
+		image: '/projects-section-bg.webp',
+		imageAlt: 'Electrical project context for planned maintenance and energy improvement programmes',
+	},
+];
+
+const faqs = [
+	{
+		question: 'What is included in a load monitoring and energy survey?',
+		answer:
+			'We agree objectives first, then review usage behaviour, loading patterns, and installation condition before issuing practical recommendations with priority guidance.',
+	},
+	{
+		question: 'Is this service only for commercial clients?',
+		answer:
+			'No. We provide the same design and efficiency insight for domestic properties where planned upgrades or long-term running costs are a priority.',
+	},
+	{
+		question: 'Will you also carry out the recommended upgrade works?',
+		answer:
+			'Yes. Where you want implementation support, we can scope and deliver the recommended electrical improvements as a phased programme.',
+	},
+	{
+		question: 'Can this support maintenance planning?',
+		answer:
+			'Absolutely. The survey output is structured to help maintenance teams prioritise actions, budget intelligently, and avoid reactive spend.',
+	},
+];
+---
+
+<Layout
+	title="Design Services, Load Monitoring & Energy Saving Surveys | Tech Electrical"
+	description="Design support and energy performance insight to help plan upgrades, reduce waste, and improve long-term electrical efficiency."
+>
+	<SiteHeader />
+	<ServiceDetailPage
+		eyebrow="Design & Efficiency"
+		title="Design Services, Load Monitoring & Energy Saving Surveys"
+		description="Design support and energy performance insight to help you plan upgrades, reduce waste, and improve long-term electrical efficiency."
+		breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Design & Efficiency' }]}
+		backgroundImage="/hero-solar-roof.png"
+		heroImage="/hero-electrical-services.png"
+		heroImageAlt="Electrical design and energy performance planning context"
+		featuredImage="/design-services-load-monitoring.png"
+		featuredImageAlt="Load monitoring survey with clamp meter and tablet diagnostics"
+		featuredCaption="Plan first, invest with confidence, and improve performance over time."
+		serviceHeading="Design and efficiency insight you can act on"
+		serviceBody={serviceBody}
+		keyPoints={keyPoints}
+		includedItems={includedItems}
+		benefits={benefits}
+		audienceItems={audienceItems}
+		faqs={faqs}
+	/>
+</Layout>

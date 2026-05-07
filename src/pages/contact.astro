@@ -285,7 +285,7 @@ const coverageLocations = [
 		border: 1px solid #dbe1eb;
 		background: #f8fafc;
 		color: #475569;
-		border-radius: 999px;
+		border-radius: var(--radius-button);
 		width: 1.75rem;
 		height: 1.75rem;
 		display: inline-flex;
@@ -436,18 +436,27 @@ const coverageLocations = [
 	}
 
 	.contact-form button {
-		border: 0;
-		border-radius: 0.58rem;
-		padding: 0.8rem 1rem;
-		background: linear-gradient(120deg, #f59e0b, #f97316);
+		border: var(--cta-main-border);
+		border-radius: var(--radius-button);
+		padding: 0.8rem 1.2rem;
+		background: var(--cta-main-gradient);
 		color: #fff;
 		font-size: 0.95rem;
 		font-weight: 700;
 		cursor: pointer;
+		box-shadow: var(--cta-main-shadow);
+		transition:
+			filter 180ms ease,
+			transform 180ms ease,
+			box-shadow 180ms ease;
 	}
 
 	.contact-form button:hover {
-		filter: brightness(1.05);
+		filter: brightness(1.06);
+		transform: translateY(-1px);
+		box-shadow:
+			0 14px 32px -14px rgba(194, 65, 12, 0.55),
+			0 6px 16px -8px rgba(251, 146, 60, 0.38);
 	}
 
 	.contact-form small {

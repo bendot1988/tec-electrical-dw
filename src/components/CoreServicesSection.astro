@@ -12,14 +12,12 @@ const serviceCards = [
 			'Intercoms',
 			'Lighting & Power Design',
 		],
-		icon: '🏢',
 	},
 	{
 		title: 'Fault Finding & Maintenance',
 		image: '/core-services-fault-finding.png',
 		imageAlt: 'Electrical testing equipment and open distribution board during fault finding',
 		items: ['In-depth Diagnostics', 'Energy Logging', 'Thermal Imaging', 'Maintenance Packages', 'Landlord EICRs', 'PAT Testing'],
-		icon: '🔎',
 		featured: true,
 	},
 	{
@@ -34,7 +32,6 @@ const serviceCards = [
 			'Optimisation',
 			'EV Charging',
 		],
-		icon: '☀',
 	},
 ];
 
@@ -66,7 +63,6 @@ const serviceTags = ['Domestic', 'Commercial', 'Safety', 'Inspection', 'Maintena
 							<img src={service.image} alt={service.imageAlt} loading="lazy" decoding="async" />
 						</div>
 
-						<div class="card-icon" aria-hidden="true">{service.icon}</div>
 						<h3>{service.title}</h3>
 						<ul>
 							{service.items.map((item) => <li>{item}</li>)}
@@ -159,19 +155,6 @@ const serviceTags = ['Domestic', 'Commercial', 'Safety', 'Inspection', 'Maintena
 		aspect-ratio: 16 / 9;
 		object-fit: cover;
 		border-radius: 0.62rem;
-	}
-
-	.card-icon {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 2.2rem;
-		height: 2.2rem;
-		border-radius: 0.62rem;
-		background: linear-gradient(135deg, #0f4ac4, #0e3a98);
-		color: #fff;
-		font-size: 1rem;
-		margin-bottom: 0.8rem;
 	}
 
 	.service-card h3 {

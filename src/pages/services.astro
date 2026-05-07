@@ -53,7 +53,7 @@ const services = [
 		title: 'Design Services, Load Monitoring & Energy Saving Surveys',
 		summary:
 			'Design support and energy performance insight to help you plan upgrades, reduce waste, and improve long-term electrical efficiency.',
-		href: '/#quote',
+		href: '/design-services-load-monitoring-energy-saving-surveys',
 		image: '/core-services-new-builds.png',
 		tags: ['domestic', 'commercial', 'maintenance'],
 	},
@@ -80,8 +80,8 @@ const services = [
 			title="Service Overview"
 			description="Everything we deliver across Leicestershire and surrounding areas — from solar and EV systems to full domestic and commercial electrical support."
 			backgroundImage="/hero-solar-roof.png"
-			featuredImage="/projects-section-bg.webp"
-			featuredAlt="Electrical and renewable installation project showcase"
+			featuredImage="/hero-electrical-services.png"
+			featuredAlt="Modern electrical services and energy control"
 			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services' }]}
 		/>
 
@@ -172,7 +172,7 @@ const services = [
 
 	.service-filter-btn {
 		padding: 0.58rem 0.9rem;
-		border-radius: 999px;
+		border-radius: var(--radius-button);
 		border: 1px solid #dbe1eb;
 		background: #fff;
 		color: #334155;
@@ -290,7 +290,7 @@ const services = [
 		justify-content: center;
 		white-space: nowrap;
 		padding: 0.28rem 0.56rem;
-		border-radius: 999px;
+		border-radius: var(--radius-button);
 		font-size: 0.72rem;
 		font-weight: 700;
 		line-height: 1;
@@ -307,28 +307,33 @@ const services = [
 		width: 100%;
 		margin-top: auto;
 		padding: 0.72rem 0.95rem;
-		border-radius: 0.55rem;
-		border: 1px solid #1d4ed8;
+		border-radius: var(--radius-button);
+		border: 1px solid #1e40af;
 		font-size: 0.87rem;
 		font-weight: 700;
 		color: #fff;
-		background: #2563eb;
+		background: linear-gradient(145deg, #0f4ac4 0%, #2563eb 100%);
+		box-shadow: 0 10px 22px -16px rgba(15, 74, 196, 0.55);
 		pointer-events: none;
-		transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+		transition:
+			filter 180ms ease,
+			transform 180ms ease,
+			box-shadow 180ms ease,
+			border-color 180ms ease;
 	}
 
 	@media (hover: hover) {
 		.service-card:hover .service-card-cta {
-			border-color: #1e40af;
-			background: #1d4ed8;
-			color: #fff;
+			filter: brightness(1.06);
+			transform: translateY(-1px);
+			border-color: #1d4ed8;
+			box-shadow: 0 14px 28px -14px rgba(15, 74, 196, 0.5);
 		}
 	}
 
 	.service-card:focus-within .service-card-cta {
-		border-color: #1e40af;
-		background: #1d4ed8;
-		color: #fff;
+		filter: brightness(1.06);
+		box-shadow: 0 14px 28px -14px rgba(15, 74, 196, 0.5);
 	}
 
 	.service-empty-state {
