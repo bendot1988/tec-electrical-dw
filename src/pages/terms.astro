@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+---
+
+<Layout
+	title="Terms & Conditions | Tec Electrical Services Ltd"
+	description="Basic terms and conditions for enquiries, quotations, and electrical services provided by Tec Electrical Services Ltd."
+>
+	<SiteHeader />
+
+	<main class="legal-page">
+		<section class="legal-intro" aria-labelledby="terms-page-title">
+			<div class="legal-wrap">
+				<p class="legal-eyebrow">Legal</p>
+				<h1 id="terms-page-title">Terms &amp; Conditions</h1>
+				<p class="legal-lead">Basic terms covering quotations, works, payments, and liability.</p>
+			</div>
+		</section>
+
+		<section class="legal-content" aria-labelledby="terms-content-heading">
+			<div class="legal-wrap">
+				<article class="legal-card">
+					<h2 id="terms-content-heading">Tec Electrical Services Ltd Terms & Conditions</h2>
+					<p><strong>Last updated:</strong> 8 May 2026</p>
+
+					<p>
+						These Terms &amp; Conditions apply to enquiries, quotations, and services provided by Tec Electrical Services Ltd.
+						By instructing us to proceed with work, you agree to these terms.
+					</p>
+
+					<h3>1. Quotations and scope</h3>
+					<ul>
+						<li>Quotations are based on the information available at the time of survey or enquiry.</li>
+						<li>Any additional or changed scope may require a revised quotation.</li>
+						<li>Quoted prices may include assumptions on access, availability, and existing installation condition.</li>
+					</ul>
+
+					<h3>2. Access and site conditions</h3>
+					<ul>
+						<li>Customers are responsible for providing safe and timely site access.</li>
+						<li>We may pause works where conditions are unsafe or materially different from agreed scope.</li>
+					</ul>
+
+					<h3>3. Programme and delays</h3>
+					<ul>
+						<li>Proposed dates are estimates unless confirmed otherwise in writing.</li>
+						<li>We are not liable for delays caused by third parties, weather, supply chain issues, or access restrictions.</li>
+					</ul>
+
+					<h3>4. Payment terms</h3>
+					<ul>
+						<li>Payment terms are stated on your quotation or invoice.</li>
+						<li>Deposits or stage payments may be required depending on project size and materials.</li>
+						<li>Late payment may result in delayed scheduling, paused works, or recovery action where necessary.</li>
+					</ul>
+
+					<h3>5. Variations and remedial work</h3>
+					<p>
+						If hidden defects, non-compliant existing work, or additional requirements are identified, we will discuss options
+						and costs before progressing beyond agreed scope.
+					</p>
+
+					<h3>6. Liability</h3>
+					<ul>
+						<li>We will perform works with reasonable care and skill in line with relevant standards and regulations.</li>
+						<li>Nothing in these terms limits liability where exclusion is not permitted by law.</li>
+					</ul>
+
+					<h3>7. Warranties and manufacturer cover</h3>
+					<p>
+						Product warranties are subject to each manufacturer&apos;s terms. Installation workmanship guarantees (where
+						provided) apply to the specific scope agreed in writing.
+					</p>
+
+					<h3>8. Cancellation</h3>
+					<p>
+						If you need to cancel or reschedule, please notify us as early as possible. Costs already incurred for labour,
+						materials, or bookings may be chargeable.
+					</p>
+
+					<h3>9. Governing law</h3>
+					<p>These terms are governed by the laws of England and Wales.</p>
+
+					<p class="legal-note">
+						Please also review our <a href="/privacy">Privacy Policy</a>.
+					</p>
+				</article>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.legal-page {
+		background: #f8fafc;
+	}
+
+	.legal-content {
+		padding: 1.1rem var(--site-content-padding) 4rem;
+	}
+
+	.legal-wrap {
+		max-width: 980px;
+		margin: 0 auto;
+	}
+
+	.legal-intro {
+		padding: 2.4rem var(--site-content-padding) 0.6rem;
+	}
+
+	.legal-eyebrow {
+		margin: 0;
+		font-size: 0.78rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: #3567ab;
+	}
+
+	.legal-intro h1 {
+		margin: 0.52rem 0 0.35rem;
+		font-size: clamp(2rem, 3vw, 2.65rem);
+		line-height: 1.1;
+		color: #0f172a;
+	}
+
+	.legal-lead {
+		margin: 0;
+		color: #64748b;
+		font-size: 0.98rem;
+		line-height: 1.55;
+	}
+
+	.legal-card {
+		background: #fff;
+		border: 1px solid #e2e8f0;
+		border-radius: 0.95rem;
+		padding: 1.3rem 1.25rem;
+		box-shadow: 0 14px 30px -24px rgba(15, 23, 42, 0.34);
+	}
+
+	.legal-card h2 {
+		margin: 0;
+		font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+		color: #0f172a;
+	}
+
+	.legal-card h3 {
+		margin: 1.1rem 0 0.35rem;
+		font-size: 1.02rem;
+		color: #1e293b;
+	}
+
+	.legal-card p,
+	.legal-card li {
+		font-size: 0.96rem;
+		line-height: 1.62;
+		color: #475569;
+	}
+
+	.legal-card ul {
+		margin: 0.45rem 0 0;
+		padding-left: 1.1rem;
+	}
+
+	.legal-card a {
+		color: #0f4ac4;
+		text-decoration: underline;
+		text-underline-offset: 0.12em;
+	}
+
+	.legal-note {
+		margin-top: 1.4rem;
+		padding-top: 0.95rem;
+		border-top: 1px solid #e2e8f0;
+	}
+</style>

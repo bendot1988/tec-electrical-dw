@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceDetailPage from '../components/ServiceDetailPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+const serviceBody = [
+	'Our data communications and fibre optic installation service covers structured cabling design, containment routes, cabinet setup, and final termination for reliable building connectivity.',
+	'We support projects in education, student accommodation, healthcare, offices, and mixed-use sites where performance, resilience, and clear documentation are critical.',
+	'From small expansions to full-site rollouts, we coordinate with principal contractors, IT teams, and facilities managers to deliver clean handover-ready infrastructure.',
+];
+
+const includedItems = [
+	'Structured cabling surveys and route planning',
+	'Copper and fibre optic install and termination',
+	'Cabinet, patch panel, and containment setup',
+	'Testing, labelling, and as-fitted documentation',
+	'Moves, adds, and changes support',
+	'Upgrade planning for phased network growth',
+];
+
+const keyPoints = [
+	'Commercial-grade data and fibre installs for operational sites',
+	'Delivered with testing, labelling, and clear documentation',
+	'Scalable layouts designed for future capacity and change',
+];
+
+const benefits = [
+	{
+		title: 'More reliable connectivity',
+		description: 'Well-structured cabling and fibre backbones reduce faults, bottlenecks, and unplanned downtime.',
+	},
+	{
+		title: 'Cleaner maintenance and troubleshooting',
+		description: 'Clear labelling and documentation make future moves, adds, and diagnostics faster and safer.',
+	},
+	{
+		title: 'Future-ready infrastructure',
+		description: 'Install layouts are planned to support phased expansion without repeated major rework.',
+	},
+];
+
+const audienceItems = [
+	{
+		title: 'Schools and colleges',
+		description: 'Support for classroom, campus, and back-office connectivity where uptime and safe routing are essential.',
+		image: '/picture-needed-placeholder.svg',
+		imageAlt: 'Picture needed here for schools and colleges data installation',
+	},
+	{
+		title: 'Student accommodation',
+		description: 'Structured cabling and fibre infrastructure for multi-unit environments requiring consistent service quality.',
+		image: '/picture-needed-placeholder.svg',
+		imageAlt: 'Picture needed here for student accommodation data installation',
+	},
+	{
+		title: 'Healthcare and operational buildings',
+		description: 'Practical solutions for environments with strict access control and critical communications requirements.',
+		image: '/picture-needed-placeholder.svg',
+		imageAlt: 'Picture needed here for healthcare and operational data installation',
+	},
+	{
+		title: 'Commercial offices and mixed-use sites',
+		description: 'Flexible network infrastructure to support modern workspaces, comms rooms, and phased upgrades.',
+		image: '/picture-needed-placeholder.svg',
+		imageAlt: 'Picture needed here for commercial office data installation',
+	},
+];
+
+const faqs = [
+	{
+		question: 'Do you install both copper and fibre optic cabling?',
+		answer:
+			'Yes. We deliver copper and fibre infrastructure based on project requirements, including termination, testing, and clear handover information.',
+	},
+	{
+		question: 'Can you work around live operations?',
+		answer:
+			'Yes. We frequently programme works around occupied or operational spaces and coordinate access windows to minimise disruption.',
+	},
+	{
+		question: 'Do you provide testing and labelling?',
+		answer:
+			'Absolutely. Testing, identification, and documentation are core parts of the service so your team can manage the installation properly.',
+	},
+	{
+		question: 'Can you support future moves, adds, and changes?',
+		answer:
+			'Yes. We can design and install with future expansion in mind and provide ongoing support as your layout or occupancy changes.',
+	},
+];
+---
+
+<Layout
+	title="Data Communications & Fibre Optic Installs | Tec Electrical"
+	description="Commercial data communications and fibre optic installation, testing, labelling, and documentation for reliable site connectivity."
+>
+	<SiteHeader />
+	<ServiceDetailPage
+		eyebrow="Data & Fibre"
+		title="Data Communications & Fibre Optic Installs"
+		description="Structured cabling and fibre optic installation for commercial and operational buildings, delivered with clear testing and handover documentation."
+		breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Services', href: '/services' }, { label: 'Data & Fibre' }]}
+		backgroundImage="/hero-electrical-services.png"
+		heroImage="/picture-needed-placeholder.svg"
+		heroImageAlt="Picture needed here for data communications hero image"
+		featuredImage="/picture-needed-placeholder.svg"
+		featuredImageAlt="Picture needed here for data communications featured image"
+		featuredCaption="Picture needed here."
+		serviceHeading="Data and fibre infrastructure done properly"
+		serviceBody={serviceBody}
+		keyPoints={keyPoints}
+		includedItems={includedItems}
+		benefits={benefits}
+		audienceItems={audienceItems}
+		faqs={faqs}
+	/>
+</Layout>
