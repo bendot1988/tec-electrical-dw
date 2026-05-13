@@ -143,6 +143,10 @@ const serviceTags = ['Domestic', 'Commercial', 'Safety', 'Inspection', 'Maintena
 	}
 
 	.service-card {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		min-height: 0;
 		background: #fff;
 		border: 1px solid #e2e8f0;
 		border-top: 3px solid #3b82f6;
@@ -178,7 +182,7 @@ const serviceTags = ['Domestic', 'Commercial', 'Safety', 'Inspection', 'Maintena
 	}
 
 	.service-card ul {
-		margin: 0.9rem 0 0;
+		margin: 0.9rem 0 1rem;
 		padding: 0;
 		list-style: none;
 		display: grid;
@@ -205,7 +209,7 @@ const serviceTags = ['Domestic', 'Commercial', 'Safety', 'Inspection', 'Maintena
 		align-items: center;
 		justify-content: center;
 		width: 100%;
-		margin-top: 1rem;
+		margin-top: auto;
 		padding: 0.65rem 0.85rem;
 		border-radius: var(--radius-button);
 		border: 1px solid #1e40af;
