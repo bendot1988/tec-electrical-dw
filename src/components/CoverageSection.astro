@@ -12,6 +12,11 @@ const coveragePoints = [
 	{ name: 'Stamford', lat: 52.6521, lng: -0.4816 },
 	{ name: 'Grantham', lat: 52.9115, lng: -0.6411 },
 	{ name: 'Newark', lat: 53.0761, lng: -0.8084 },
+	{ name: 'Wakefield', lat: 53.6833, lng: -1.4977 },
+	{ name: 'Rotherham', lat: 53.4326, lng: -1.3635 },
+	{ name: 'Central London', lat: 51.4975, lng: -0.1357 },
+	{ name: 'Croydon', lat: 51.3762, lng: -0.0982 },
+	{ name: 'Stratford, London', lat: 51.5432, lng: -0.0015 },
 ];
 ---
 
@@ -21,7 +26,7 @@ const coveragePoints = [
 			<p>Coverage</p>
 			<h2 id="coverage-heading">Areas We Cover</h2>
 			<span>
-				Comprehensive electrical services across Leicestershire, Nottinghamshire and Derbyshire -- both urban
+				Comprehensive electrical services across the Midlands, Greater London, and South Yorkshire — both urban
 				and rural, with the same high standard.
 			</span>
 			<small>Don&apos;t see your area? Get in touch -- we often travel further for larger projects.</small>
@@ -202,7 +207,7 @@ const coveragePoints = [
 
 		const map = window.L.map(MAP_ID, {
 			scrollWheelZoom: false,
-		}).setView([52.75, -1.05], 9);
+		}).setView([52.35, -0.55], 8);
 
 		window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
@@ -221,7 +226,7 @@ const coveragePoints = [
 		});
 
 		const group = window.L.featureGroup(markers);
-		map.fitBounds(group.getBounds().pad(0.22));
+		map.fitBounds(group.getBounds().pad(0.3));
 	};
 
 	const ensureLeaflet = async () => {
