@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceDetailPage from '../components/ServiceDetailPage.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+const serviceBody = [
+	'When something keeps tripping, a circuit fails under load, or you need a structured maintenance plan rather than one-off callouts, we work methodically: safe isolation, measurement, thermal checks where useful, and clear records of what we found and what we recommend next.',
+	'We support homeowners, landlords, agents, and commercial clients who want fewer surprises from their electrical installation — from in-depth diagnostics and energy logging through to agreed maintenance visits and compliance-aligned testing where it fits your programme.',
+	'Job reports can be tailored for end-user notifications and for landlord–tenant workflows: clear summaries that go to the right people, with wording and branding aligned to your business so recipients know who carried out the work and what action, if any, is required.',
+];
+
+const includedItems = [
+	'Structured fault investigation and documented outcomes',
+	'Thermal imaging and energy logging where they add value to diagnosis',
+	'Planned maintenance packages scoped to your property or estate',
+	'Landlord EICRs and PAT where they sit alongside your maintenance plan',
+	'Job reports for end-user notifications and clients — including landlord and tenant cases — personalised to your business',
+	'Plain-English handover and remedial quotations when repair work is needed',
+];
+
+const keyPoints = [
+	'Diagnostics-led approach instead of repeated guesswork callouts',
+	'Maintenance programmes that fit domestic, HMO, and commercial estates',
+	'Reporting formats that work for duty holders, agents, and occupants',
+];
+
+const benefits = [
+	{
+		title: 'Clear job reports, your way',
+		description:
+			'We can produce job reports suited to end-user notifications and landlord or tenant chains, with layouts and detail levels matched to how your organisation communicates — so everyone sees consistent, professional documentation.',
+	},
+	{
+		title: 'Fewer repeat faults',
+		description:
+			'Root-cause investigation reduces the cycle of temporary fixes and callbacks, and helps you budget for the right repair rather than chasing symptoms.',
+	},
+	{
+		title: 'Maintenance you can plan around',
+		description:
+			'Agreed visit patterns, access coordination, and combined scopes (for example inspection plus remedial follow-up) keep sites safer and paperwork predictable.',
+	},
+];
+
+const audienceItems = [
+	{
+		title: 'Landlords and letting agents',
+		description:
+			'Combine condition reporting, remedial tracking, and tenant-ready summaries so changeovers and voids are easier to manage.',
+		image: '/project-interior-fitout.png',
+		imageAlt: 'Let property interior where electrical maintenance and reporting matter',
+	},
+	{
+		title: 'Facilities and commercial clients',
+		description:
+			'Support for intermittent faults, out-of-hours investigation where agreed, and maintenance aligned to operational downtime.',
+		image: '/core-services-fault-finding.png',
+		imageAlt: 'Commercial electrical distribution and fault finding context',
+	},
+	{
+		title: 'Homeowners',
+		description:
+			'Nuisance tripping, upgrade planning after a survey, and reassurance when an older installation is showing signs of stress.',
+		image: '/core-services-new-builds.png',
+		imageAlt: 'Domestic electrical context for homeowners',
+	},
+];
+
+const faqs = [
+	{
+		question: 'How is this different from your Testing Services page?',
+		answer:
+			'Testing Services focuses on formal inspection and testing programmes such as EICRs, PAT, fire alarm, and emergency lighting cycles. Fault finding and maintenance is broader: reactive diagnostics, thermal and logging work where needed, and ongoing maintenance agreements — with reporting tuned to how you operate.',
+	},
+	{
+		question: 'Can job reports use our logo and wording?',
+		answer:
+			'Yes. We can align report headers, footers, and summary sections with your brand and the level of detail you need for landlords, tenants, or internal stakeholders.',
+	},
+	{
+		question: 'Do you offer maintenance contracts?',
+		answer:
+			'We can agree periodic maintenance visits and combined scopes depending on portfolio size and location. Talk to us about what you need to cover and how often you want us on site.',
+	},
+	{
+		question: 'What if the fault needs immediate repair?',
+		answer:
+			'Where it is safe and proportionate we can often carry out remedial work in the same visit; otherwise we provide a clear finding and a quoted fix so you can prioritise.',
+	},
+];
+---
+
+<Layout
+	title="Fault Finding & Maintenance | Tech Electrical"
+	description="Electrical fault finding, diagnostics, thermal imaging, energy logging, and maintenance packages — with job reports tailored for landlords, tenants, and clients."
+>
+	<SiteHeader />
+	<ServiceDetailPage
+		eyebrow="Diagnostics & care"
+		title="Fault Finding & Maintenance"
+		description="Methodical diagnostics, maintenance programmes, and job reports personalised to your business — ideal when landlords, tenants, and end users all need clear, consistent communication."
+		breadcrumbs={[
+			{ label: 'Home', href: '/' },
+			{ label: 'Services', href: '/services' },
+			{ label: 'Fault Finding & Maintenance' },
+		]}
+		backgroundImage="/hero-solar-roof.png"
+		heroImage="/hero-electrical-services.png"
+		heroImageAlt="Electrical engineer investigating a fault on site"
+		featuredImage="/core-services-fault-finding.png"
+		featuredImageAlt="Electrical testing equipment and distribution board during fault finding"
+		featuredCaption="Investigate, document, maintain — with reporting that fits your process."
+		serviceHeading="Fault finding and maintenance, documented properly"
+		serviceBody={serviceBody}
+		keyPoints={keyPoints}
+		includedItems={includedItems}
+		benefits={benefits}
+		audienceItems={audienceItems}
+		faqs={faqs}
+	/>
+</Layout>
