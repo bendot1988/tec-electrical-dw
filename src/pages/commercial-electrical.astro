@@ -66,6 +66,19 @@ const audienceItems = [
 	},
 ];
 
+const overviewGallery = {
+	heading: 'On recent commercial sites',
+	intro: 'A few photographs from live projects — installs, distribution, and fit-out environments.',
+	images: [
+		{ src: '/Commercial/IMG_8113.webp', alt: 'Commercial electrical installation work on site' },
+		{ src: '/Commercial/IMG_8122.webp', alt: 'Electrical containment and cabling on a commercial project' },
+		{ src: '/Commercial/IMG_0378.webp', alt: 'Commercial building electrical works in progress' },
+		{ src: '/Commercial/IMG_7325.webp', alt: 'Distribution and power works in a commercial setting' },
+		{ src: '/Commercial/IMG_1490.webp', alt: 'Interior commercial electrical fit-out' },
+		{ src: '/Commercial/IMG_7019.webp', alt: 'On-site commercial electrical installation' },
+	],
+} as const;
+
 const faqs = [
 	{
 		question: 'Can you work in live commercial buildings?',
@@ -145,6 +158,7 @@ const sidebarForm = {
 		keyPoints={keyPoints}
 		includedItems={includedItems}
 		sidebarForm={sidebarForm}
+		overviewGallery={overviewGallery}
 		benefits={benefits}
 		audienceItems={audienceItems}
 		faqs={faqs}
