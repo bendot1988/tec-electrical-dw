@@ -71,6 +71,17 @@ interface SidebarFormConfig {
 	fields: SidebarFormField[];
 }
 
+interface OverviewGalleryImage {
+	src: string;
+	alt: string;
+}
+
+interface OverviewGallery {
+	heading?: string;
+	intro?: string;
+	images: OverviewGalleryImage[];
+}
+
 interface Props {
 	eyebrow?: string;
 	title: string;
@@ -94,6 +105,8 @@ interface Props {
 	serviceModules?: ServiceModule[];
 	/** Optional sidebar form shown in place of the featured image. Visual-only by default. */
 	sidebarForm?: SidebarFormConfig;
+	/** Optional image grid in the overview left column (below key points) to balance a tall sidebar. */
+	overviewGallery?: OverviewGallery;
 	faqs: FaqItem[];
 }
 
@@ -118,8 +131,12 @@ const {
 	audienceItems = [],
 	serviceModules = [],
 	sidebarForm,
+	overviewGallery,
 	faqs,
 } = Astro.props;
+
+	const overviewGalleryImages = overviewGallery?.images ?? [];
+	const hasOverviewGallery = overviewGalleryImages.length > 0;
 
 	const hasServiceModules = serviceModules.length > 0;
 ---
@@ -146,6 +163,49 @@ const {
 							<ul class="service-key-points" aria-label="Key points" data-reveal-stagger="90">
 								{keyPoints.map((point) => <li data-reveal="zoom">{point}</li>)}
 							</ul>
+						)
+					}
+					{
+						hasOverviewGallery && (
+							<div
+								class="service-overview-gallery"
+								aria-label={overviewGallery?.heading ?? 'Project photography'}
+								data-reveal="fade-up"
+							>
+								{(overviewGallery?.heading || overviewGallery?.intro) && (
+									<div class="service-overview-gallery-head">
+										{overviewGallery?.heading && <h3 class="service-overview-gallery-title">{overviewGallery.heading}</h3>}
+										{overviewGallery?.intro && <p class="service-overview-gallery-intro">{overviewGallery.intro}</p>}
+									</div>
+								)}
+								<ul class="service-overview-gallery-grid" data-reveal-stagger="80">
+									{
+										overviewGalleryImages.map((img) => (
+											<li class="service-overview-gallery-item">
+												<button
+													type="button"
+													class="service-overview-gallery-trigger"
+													data-overview-gallery-src={img.src}
+													data-overview-gallery-alt={img.alt}
+													aria-haspopup="dialog"
+													aria-controls="service-overview-gallery-dialog"
+													aria-label={`View larger photo: ${img.alt}`}
+												>
+													<img src={img.src} alt="" loading="lazy" decoding="async" width="640" height="480" />
+												</button>
+											</li>
+										))
+									}
+								</ul>
+								<dialog id="service-overview-gallery-dialog" class="overview-gallery-dialog" aria-modal="true">
+									<div class="overview-gallery-dialog-panel">
+										<button type="button" class="overview-gallery-dialog-close" aria-label="Close">
+											<span aria-hidden="true">×</span>
+										</button>
+										<img class="overview-gallery-dialog-img" src="" alt="" />
+									</div>
+								</dialog>
+							</div>
 						)
 					}
 					{
@@ -405,6 +465,46 @@ const {
 	</section>
 </main>
 
+<script>
+	function initServiceOverviewGalleryLightbox() {
+		const dialog = document.getElementById('service-overview-gallery-dialog');
+		const img = dialog?.querySelector('.overview-gallery-dialog-img');
+		const closeBtn = dialog?.querySelector('.overview-gallery-dialog-close');
+		const panel = dialog?.querySelector('.overview-gallery-dialog-panel');
+		if (!dialog || !img || !closeBtn || !panel) return;
+
+		function openFromTrigger(btn) {
+			const src = btn.getAttribute('data-overview-gallery-src');
+			const alt = btn.getAttribute('data-overview-gallery-alt') ?? '';
+			if (!src) return;
+			img.setAttribute('src', src);
+			img.setAttribute('alt', alt);
+			dialog.showModal();
+		}
+
+		document.querySelectorAll('[data-overview-gallery-src]').forEach((btn) => {
+			btn.addEventListener('click', () => openFromTrigger(btn));
+		});
+
+		closeBtn.addEventListener('click', () => dialog.close());
+
+		panel.addEventListener('click', (e) => {
+			if (e.target === panel) dialog.close();
+		});
+
+		dialog.addEventListener('close', () => {
+			img.removeAttribute('src');
+			img.setAttribute('alt', '');
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initServiceOverviewGalleryLightbox, { once: true });
+	} else {
+		initServiceOverviewGalleryLightbox();
+	}
+</script>
+
 <style>
 	.service-detail-page {
 		background: #f8fafc;
@@ -503,6 +603,159 @@ const {
 		border-left: 2px solid #fff;
 		border-bottom: 2px solid #fff;
 		transform: rotate(-45deg);
+	}
+
+	.service-overview-gallery {
+		margin-top: 1.05rem;
+		padding-top: 1rem;
+		border-top: 1px solid #e2e8f0;
+	}
+
+	.service-overview-gallery-head {
+		margin-bottom: 0.72rem;
+	}
+
+	.service-overview-gallery-title {
+		margin: 0;
+		font-size: 1.02rem;
+		font-weight: 700;
+		color: #0f172a;
+		letter-spacing: -0.02em;
+	}
+
+	.service-overview-gallery-intro {
+		margin: 0.35rem 0 0;
+		font-size: 0.88rem;
+		line-height: 1.55;
+		color: #64748b;
+	}
+
+	.service-overview-gallery-grid {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.55rem;
+	}
+
+	.service-overview-gallery-item {
+		list-style: none;
+		border-radius: 0.65rem;
+		overflow: hidden;
+		border: 1px solid #dbe1eb;
+		background: #f1f5f9;
+		box-shadow: 0 8px 20px -16px rgba(15, 23, 42, 0.35);
+	}
+
+	.service-overview-gallery-item::marker {
+		content: '';
+	}
+
+	.service-overview-gallery-trigger {
+		display: block;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: zoom-in;
+		line-height: 0;
+	}
+
+	.service-overview-gallery-trigger:focus-visible {
+		outline: 3px solid #3b82f6;
+		outline-offset: 2px;
+	}
+
+	.service-overview-gallery-trigger img {
+		display: block;
+		width: 100%;
+		height: clamp(120px, 22vw, 168px);
+		object-fit: cover;
+		transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), filter 240ms cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	@media (hover: hover) {
+		.service-overview-gallery-trigger:hover img {
+			transform: scale(1.03);
+			filter: saturate(1.05) contrast(1.02);
+		}
+	}
+
+	.overview-gallery-dialog {
+		margin: 0;
+		max-width: none;
+		max-height: none;
+		width: min(100vw, 100%);
+		height: min(100vh, 100%);
+		padding: 0;
+		border: none;
+		background: transparent;
+	}
+
+	.overview-gallery-dialog::backdrop {
+		background: rgba(248, 250, 252, 0.94);
+		backdrop-filter: blur(2px);
+	}
+
+	.overview-gallery-dialog-panel {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 100dvh;
+		padding: 3.25rem 1rem 1.5rem;
+		box-sizing: border-box;
+	}
+
+	.overview-gallery-dialog-close {
+		position: fixed;
+		top: 1rem;
+		right: 1rem;
+		z-index: 2;
+		display: grid;
+		place-items: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		margin: 0;
+		padding: 0;
+		border: 1px solid #cbd5e1;
+		border-radius: 999px;
+		background: #fff;
+		color: #0f172a;
+		font-size: 1.65rem;
+		line-height: 1;
+		font-weight: 400;
+		cursor: pointer;
+		box-shadow: 0 8px 24px -12px rgba(15, 23, 42, 0.35);
+		transition:
+			background 180ms ease,
+			border-color 180ms ease,
+			transform 180ms ease;
+	}
+
+	.overview-gallery-dialog-close:hover {
+		background: #f8fafc;
+		border-color: #94a3b8;
+	}
+
+	.overview-gallery-dialog-close:focus-visible {
+		outline: 3px solid #3b82f6;
+		outline-offset: 2px;
+	}
+
+	.overview-gallery-dialog-img {
+		display: block;
+		max-width: min(92vw, 1200px);
+		max-height: min(82vh, 900px);
+		width: auto;
+		height: auto;
+		object-fit: contain;
+		border-radius: 0.5rem;
+		border: 1px solid #e2e8f0;
+		box-shadow: 0 24px 48px -28px rgba(15, 23, 42, 0.35);
+		background: #fff;
 	}
 
 	.service-token-logos {
