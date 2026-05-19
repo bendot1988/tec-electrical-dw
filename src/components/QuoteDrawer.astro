@@ -1,3 +1,8 @@
+---
+import EnquiryFormFeedback from './EnquiryFormFeedback.astro';
+import EnquiryHoneypot from './EnquiryHoneypot.astro';
+---
+
 <div
 	class="quote-drawer"
 	id="quote-drawer"
@@ -28,36 +33,40 @@
 		</div>
 
 		<div class="quote-drawer-body">
-			<form class="quote-drawer-form" id="quote-drawer-form">
-				<div class="field-grid">
+			<div class="enquiry-form-shell">
+				<form
+					class="quote-drawer-form"
+					id="quote-drawer-form"
+					data-enquiry-form
+					data-form-source="quote"
+				>
+					<div class="field-grid">
+						<label>
+							<span>Name *</span>
+							<input type="text" name="name" placeholder="John Smith" required autocomplete="name" />
+						</label>
+						<label>
+							<span>Phone *</span>
+							<input type="tel" name="phone" placeholder="07…" required autocomplete="tel" />
+						</label>
+					</div>
 					<label>
-						<span>Name *</span>
-						<input type="text" name="name" placeholder="John Smith" required autocomplete="name" />
+						<span>Postcode *</span>
+						<input type="text" name="postcode" placeholder="LE7 7QN" required autocomplete="postal-code" />
 					</label>
 					<label>
-						<span>Phone *</span>
-						<input type="tel" name="phone" placeholder="07…" required autocomplete="tel" />
+						<span>Brief job description *</span>
+						<textarea name="job" rows="4" placeholder="Describe your electrical or solar requirements…" required
+						></textarea>
 					</label>
-				</div>
-				<label>
-					<span>Postcode *</span>
-					<input type="text" name="postcode" placeholder="LE7 7QN" required autocomplete="postal-code" />
-				</label>
-				<label>
-					<span>Brief job description *</span>
-					<textarea name="job" rows="4" placeholder="Describe your electrical or solar requirements…" required
-					></textarea>
-				</label>
-				<button type="submit">Get my free quote</button>
-				<small>We&apos;ll call you within 1 hour</small>
-			</form>
-
-			<div class="quote-drawer-success" id="quote-drawer-success" hidden>
-				<p class="quote-drawer-success-title">Thanks — you&apos;re on the list</p>
-				<p class="quote-drawer-success-text">
-					We&apos;ve got your details. A member of the team will call you shortly.
-				</p>
-				<button type="button" class="quote-drawer-success-btn" data-quote-close>Close</button>
+					<EnquiryHoneypot />
+					<button type="submit">Get my free quote</button>
+					<small>We&apos;ll call you within 1 hour</small>
+				</form>
+				<EnquiryFormFeedback />
+				<button type="button" class="quote-drawer-success-btn" data-quote-close hidden data-quote-success-close>
+					Close
+				</button>
 			</div>
 		</div>
 	</div>
@@ -268,6 +277,12 @@
 		color: var(--qd-brand);
 	}
 
+	.quote-drawer-body [data-quote-success-close]:not([hidden]) {
+		display: block;
+		width: 100%;
+		margin-top: 0.25rem;
+	}
+
 	@media (max-width: 520px) {
 		.quote-drawer-form .field-grid {
 			grid-template-columns: 1fr;
@@ -287,8 +302,9 @@
 		const root = document.querySelector('[data-quote-drawer]');
 		if (!root) return;
 
+		const shell = root.querySelector('.enquiry-form-shell');
 		const form = document.getElementById('quote-drawer-form');
-		const success = document.getElementById('quote-drawer-success');
+		const successClose = root.querySelector('[data-quote-success-close]');
 
 		/** @type {HTMLElement | null} */
 		let lastFocus = null;
@@ -319,11 +335,14 @@
 		}
 
 		function resetPanel() {
-			if (form && success) {
-				form.hidden = false;
-				success.hidden = true;
-				form.reset();
-			}
+			if (!shell || !form) return;
+			form.hidden = false;
+			form.reset();
+			shell.querySelector('.enquiry-form-success')?.setAttribute('hidden', '');
+			shell.querySelector('.enquiry-form-error')?.setAttribute('hidden', '');
+			const error = shell.querySelector('.enquiry-form-error');
+			if (error) error.textContent = '';
+			successClose?.setAttribute('hidden', '');
 		}
 
 		document.addEventListener(
@@ -368,13 +387,8 @@
 			}
 		});
 
-		form?.addEventListener('submit', (e) => {
-			e.preventDefault();
-			if (!success || !form) return;
-			form.hidden = true;
-			success.hidden = false;
-			const btn = success.querySelector('button');
-			btn?.focus();
+		shell?.addEventListener('enquiry-success', () => {
+			successClose?.removeAttribute('hidden');
 		});
 	})();
 </script>

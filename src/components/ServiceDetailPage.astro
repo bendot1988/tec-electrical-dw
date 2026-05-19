@@ -1,4 +1,6 @@
 ---
+import EnquiryFormFeedback from './EnquiryFormFeedback.astro';
+import EnquiryHoneypot from './EnquiryHoneypot.astro';
 import InnerPageHero from './InnerPageHero.astro';
 import { siteContact } from '../data/siteContact';
 
@@ -232,7 +234,14 @@ const {
 				<aside class:list={['service-sidebar', sidebarForm && 'has-form']} data-reveal="fade-right" style="--reveal-delay: 110ms;">
 					{
 						sidebarForm ? (
-							<form class="service-sidebar-form" data-reveal="zoom" style="--reveal-delay: 130ms;">
+							<div class="enquiry-form-shell">
+							<form
+								class="service-sidebar-form"
+								data-enquiry-form
+								data-form-source="commercial"
+								data-reveal="zoom"
+								style="--reveal-delay: 130ms;"
+							>
 								<div class="service-sidebar-form-head">
 									<p class="service-sidebar-form-eyebrow">Quick Enquiry</p>
 									<h3>{sidebarForm.title}</h3>
@@ -270,14 +279,17 @@ const {
 									}
 								</div>
 								<label class="service-sidebar-consent">
-									<input type="checkbox" required />
+									<input type="checkbox" name="consent_legal" value="yes" required />
 									<span
 										>{sidebarForm.consentLabel ??
 											'I confirm I agree to the Terms & Conditions and understand how my data will be processed in line with GDPR.'}</span
 									>
 								</label>
+								<EnquiryHoneypot />
 								<button type="submit">{sidebarForm.submitLabel ?? 'Send enquiry'}</button>
 							</form>
+							<EnquiryFormFeedback />
+							</div>
 						) : (
 							<figure class="service-sidebar-image" data-reveal="zoom" style="--reveal-delay: 130ms;">
 								<img src={featuredImage} alt={featuredImageAlt} loading="eager" decoding="async" />

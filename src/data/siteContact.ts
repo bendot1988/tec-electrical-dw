@@ -1,6 +1,6 @@
 /** Public contact details — single source for header, footer, CTAs */
 export const siteContact = {
-	email: 'hello@tecservicesltd.com',
+	email: 'info@tecservicesltd.com',
 	telHref: 'tel:+441162352999',
 	telDisplay: '0116 235 2999',
 	mobileHref: 'tel:+447736323078',

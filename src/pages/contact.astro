@@ -1,4 +1,6 @@
 ---
+import EnquiryFormFeedback from '../components/EnquiryFormFeedback.astro';
+import EnquiryHoneypot from '../components/EnquiryHoneypot.astro';
 import InnerPageHero from '../components/InnerPageHero.astro';
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
@@ -117,7 +119,8 @@ const coverageLocations = [
 					<h2>Request a quote</h2>
 					<p>We’ll review your enquiry and get back to you as soon as possible.</p>
 
-					<form class="contact-form">
+					<div class="enquiry-form-shell">
+					<form class="contact-form" data-enquiry-form data-form-source="contact">
 						<div class="field-grid">
 							<label>
 								<span>Full name *</span>
@@ -197,9 +200,11 @@ const coverageLocations = [
 							</span>
 						</label>
 
+						<EnquiryHoneypot />
 						<button type="submit">Send enquiry</button>
-						<small>Form processing will be connected to Resend shortly.</small>
 					</form>
+					<EnquiryFormFeedback />
+					</div>
 				</div>
 			</div>
 		</section>

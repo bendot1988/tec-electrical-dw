@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import { siteContact } from '../data/siteContact';
 ---
 
 <Layout
@@ -83,7 +84,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 					<h3>8. Contact us about privacy</h3>
 					<p>
 						If you have any privacy-related queries, please contact us at
-						<a href="mailto:hello@tecservicesltd.com">hello@tecservicesltd.com</a>.
+						<a href={`mailto:${siteContact.email}`}>{siteContact.email}</a>.
 					</p>
 
 					<p class="legal-note">
