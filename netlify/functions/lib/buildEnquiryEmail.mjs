@@ -1,5 +1,5 @@
 const SITE_URL = 'https://tecservicesltd.com';
-const LOGO_URL = `${SITE_URL}/tech-electrical-logo.png`;
+const ICON_URL = `${SITE_URL}/favicon.png`;
 
 const SOURCE_LABELS = {
 	quote: 'Quick quote enquiry',
@@ -59,7 +59,7 @@ export function buildEnquiryEmail({ source, fields }) {
           <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:620px;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #dbe1eb;box-shadow:0 18px 40px -28px rgba(15,23,42,0.28);">
             <tr>
               <td style="padding:24px 28px;background:linear-gradient(102deg,#0a1f4d 0%,#0f4ac4 52%,#0c3d9e 100%);">
-                <img src="${LOGO_URL}" alt="Tech Electrical Services Ltd" width="180" style="display:block;max-width:180px;height:auto;" />
+                <img src="${ICON_URL}" alt="Tec Electrical" width="56" height="56" style="display:block;width:56px;height:56px;border-radius:50%;" />
                 <p style="margin:14px 0 0;color:rgba(248,250,252,0.92);font-size:14px;line-height:1.5;">
                   New enquiry from <strong style="color:#fff;">tecservicesltd.com</strong>
                 </p>
