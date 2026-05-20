@@ -37,7 +37,13 @@ const { project } = Astro.props;
 		<section class="project-detail-main" aria-labelledby="project-detail-heading">
 			<div class="project-detail-wrap">
 				<aside class="project-meta">
-					<span class:list={['project-status', project.status === 'complete' && 'is-complete']}>
+					<span
+						class:list={[
+							'project-status',
+							project.status === 'complete' && 'is-complete',
+							project.status === 'in-progress' && 'is-in-progress',
+						]}
+					>
 						{project.status === 'complete' ? 'Complete' : 'In progress'}
 					</span>
 					<dl>
@@ -73,7 +79,7 @@ const { project } = Astro.props;
 			<div class="project-gallery-wrap">
 				<header>
 					<h2 id="project-gallery-heading">On site</h2>
-					<p>Photography from the completed build showing flats, communal areas, and systems infrastructure.</p>
+					<p>Photography from the site, including plant, pool, and electrical installation work.</p>
 				</header>
 
 				<div class="gallery-grid">
@@ -125,6 +131,12 @@ const { project } = Astro.props;
 		background: #ecfdf5;
 		color: #047857;
 		border: 1px solid #a7f3d0;
+	}
+
+	.project-status.is-in-progress {
+		background: #eff6ff;
+		color: #1d4ed8;
+		border: 1px solid #bfdbfe;
 	}
 
 	.project-meta dl {

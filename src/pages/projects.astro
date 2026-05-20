@@ -2,7 +2,9 @@
 import InnerPageHero from '../components/InnerPageHero.astro';
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import { projects } from '../data/projects';
+import { getProjectsByDate } from '../data/projects';
+
+const projects = getProjectsByDate();
 ---
 
 <Layout
@@ -34,7 +36,13 @@ import { projects } from '../data/projects';
 							<a class="project-card" href={`/projects/${project.slug}`}>
 								<div class="project-card-image">
 									<img src={project.featuredImage} alt={project.featuredAlt} loading="lazy" decoding="async" />
-									<span class:list={['project-status', project.status === 'complete' && 'is-complete']}>
+									<span
+										class:list={[
+											'project-status',
+											project.status === 'complete' && 'is-complete',
+											project.status === 'in-progress' && 'is-in-progress',
+										]}
+									>
 										{project.status === 'complete' ? 'Complete' : 'In progress'}
 									</span>
 								</div>
@@ -131,6 +139,12 @@ import { projects } from '../data/projects';
 		background: #ecfdf5;
 		color: #047857;
 		border: 1px solid #a7f3d0;
+	}
+
+	.project-status.is-in-progress {
+		background: #eff6ff;
+		color: #1d4ed8;
+		border: 1px solid #bfdbfe;
 	}
 
 	.project-card-body {
