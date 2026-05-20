@@ -1,4 +1,4 @@
-/** Public contact details — single source for header, footer, CTAs */
+/** Public contact details, single source for header, footer, CTAs */
 export const siteContact = {
 	email: 'info@tecservicesltd.com',
 	telHref: 'tel:+441162352999',

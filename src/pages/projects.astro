@@ -1,16 +1,181 @@
 ---
+import InnerPageHero from '../components/InnerPageHero.astro';
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
-import ServicePageStub from '../components/ServicePageStub.astro';
+import { projects } from '../data/projects';
 ---
 
 <Layout
 	title="Projects | Tech Electrical"
-	description="Project gallery and case studies from Tec Electrical — domestic, commercial, solar, and renewable installs across Leicestershire. Coming soon."
+	description="Case studies and project photography from Tec Electrical across commercial, student accommodation, and specialist electrical installs."
 >
 	<SiteHeader />
-	<ServicePageStub
-		title="Projects"
-		lede="We&apos;re putting together a gallery of recent installs and case studies — from commercial fit-outs and student accommodation to solar, EV, and domestic work."
-	/>
+
+	<main class="projects-page">
+		<InnerPageHero
+			eyebrow="Our work"
+			title="Projects"
+			description="A snapshot of completed installs, from student accommodation and commercial fit-outs to life-safety and security systems."
+			featuredImage="/hero-electrical-services.png"
+			featuredAlt="Electrical services installation by Tech Electrical"
+			breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Projects' }]}
+		/>
+
+		<section class="projects-overview" aria-labelledby="projects-overview-heading">
+			<div class="projects-overview-wrap">
+				<header class="projects-overview-head">
+					<h2 id="projects-overview-heading">Recent case studies</h2>
+					<p>Select a project for the full overview, remit, and site photography.</p>
+				</header>
+
+				<div class="projects-grid">
+					{
+						projects.map((project) => (
+							<a class="project-card" href={`/projects/${project.slug}`}>
+								<div class="project-card-image">
+									<img src={project.featuredImage} alt={project.featuredAlt} loading="lazy" decoding="async" />
+									<span class:list={['project-status', project.status === 'complete' && 'is-complete']}>
+										{project.status === 'complete' ? 'Complete' : 'In progress'}
+									</span>
+								</div>
+								<div class="project-card-body">
+									<small>
+										{project.location} · {project.year}
+									</small>
+									<h3>{project.title}</h3>
+									<p>{project.summary}</p>
+									<span class="project-card-link">View case study</span>
+								</div>
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	</main>
 </Layout>
+
+<style>
+	.projects-overview {
+		padding: 3rem var(--site-content-padding) 4.5rem;
+		background: #f8fafc;
+	}
+
+	.projects-overview-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.projects-overview-head {
+		max-width: 640px;
+		margin-bottom: 1.75rem;
+	}
+
+	.projects-overview-head h2 {
+		margin: 0 0 0.5rem;
+		font-size: clamp(1.5rem, 2.4vw, 2rem);
+		color: #0f172a;
+	}
+
+	.projects-overview-head p {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: #64748b;
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+		gap: 1.1rem;
+	}
+
+	.project-card {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		border-radius: 0.9rem;
+		border: 1px solid #e2e8f0;
+		background: #fff;
+		color: inherit;
+		transition:
+			transform 220ms ease,
+			box-shadow 220ms ease,
+			border-color 220ms ease;
+	}
+
+	.project-card-image {
+		position: relative;
+	}
+
+	.project-card-image img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+	}
+
+	.project-status {
+		position: absolute;
+		top: 0.65rem;
+		right: 0.65rem;
+		padding: 0.22rem 0.62rem;
+		font-size: 0.72rem;
+		font-weight: 700;
+		border-radius: 999px;
+		background: rgba(248, 250, 252, 0.96);
+		color: #334155;
+	}
+
+	.project-status.is-complete {
+		background: #ecfdf5;
+		color: #047857;
+		border: 1px solid #a7f3d0;
+	}
+
+	.project-card-body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 0.95rem 1.05rem 1.1rem;
+	}
+
+	.project-card-body small {
+		font-size: 0.82rem;
+		color: #64748b;
+	}
+
+	.project-card-body h3 {
+		margin: 0.35rem 0 0.5rem;
+		font-size: 1.45rem;
+		line-height: 1.2;
+		color: #0f172a;
+	}
+
+	.project-card-body p {
+		margin: 0;
+		font-size: 0.94rem;
+		line-height: 1.55;
+		color: #475569;
+		flex: 1;
+	}
+
+	.project-card-link {
+		margin-top: 0.85rem;
+		font-size: 0.86rem;
+		font-weight: 700;
+		color: #0f4ac4;
+	}
+
+	@media (hover: hover) {
+		.project-card:hover {
+			transform: translateY(-6px);
+			border-color: #c2cfdf;
+			box-shadow: 0 22px 40px -28px rgba(15, 23, 42, 0.55);
+		}
+
+		.project-card:hover .project-card-link {
+			text-decoration: underline;
+		}
+	}
+</style>

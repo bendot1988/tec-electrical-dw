@@ -117,7 +117,7 @@ function bindForm(form: HTMLFormElement) {
 			showSuccess(shell);
 			shell.dispatchEvent(new CustomEvent('enquiry-success', { bubbles: true }));
 		} catch {
-			showError(shell, 'Network error — please check your connection or call us directly.');
+			showError(shell, 'Network error, please check your connection or call us directly.');
 		} finally {
 			setSubmitting(form, false);
 		}

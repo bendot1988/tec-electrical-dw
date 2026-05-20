@@ -1,0 +1,285 @@
+---
+import InnerPageHero from '../../components/InnerPageHero.astro';
+import Layout from '../../layouts/Layout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import { getProject, projects } from '../../data/projects';
+
+export function getStaticPaths() {
+	return projects.map((project) => ({
+		params: { slug: project.slug },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout
+	title={`${project.title} | Projects | Tech Electrical`}
+	description={project.summary}
+>
+	<SiteHeader />
+
+	<main class="project-detail">
+		<InnerPageHero
+			eyebrow="Case study"
+			title={project.title}
+			description={project.summary}
+			featuredImage={project.featuredImage}
+			featuredAlt={project.featuredAlt}
+			breadcrumbs={[
+				{ label: 'Home', href: '/' },
+				{ label: 'Projects', href: '/projects' },
+				{ label: project.title },
+			]}
+		/>
+
+		<section class="project-detail-main" aria-labelledby="project-detail-heading">
+			<div class="project-detail-wrap">
+				<aside class="project-meta">
+					<span class:list={['project-status', project.status === 'complete' && 'is-complete']}>
+						{project.status === 'complete' ? 'Complete' : 'In progress'}
+					</span>
+					<dl>
+						<div>
+							<dt>Client</dt>
+							<dd>{project.client}</dd>
+						</div>
+						<div>
+							<dt>Location</dt>
+							<dd>{project.location}</dd>
+						</div>
+						<div>
+							<dt>Year</dt>
+							<dd>{project.year}</dd>
+						</div>
+					</dl>
+					<a class="back-link" href="/projects">← All projects</a>
+				</aside>
+
+				<div class="project-copy">
+					<h2 id="project-detail-heading">Overview</h2>
+					{project.overview.map((paragraph) => <p>{paragraph}</p>)}
+
+					<h3>Our remit</h3>
+					<ul class="remit-list">
+						{project.remit.map((item) => <li>{item}</li>)}
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="project-gallery" aria-labelledby="project-gallery-heading">
+			<div class="project-gallery-wrap">
+				<header>
+					<h2 id="project-gallery-heading">On site</h2>
+					<p>Photography from the completed build showing flats, communal areas, and systems infrastructure.</p>
+				</header>
+
+				<div class="gallery-grid">
+					{
+						project.gallery.map((image, index) => (
+							<figure class:list={[index === 0 && 'gallery-feature']}>
+								<img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+							</figure>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.project-detail-main {
+		padding: 2.5rem var(--site-content-padding) 1.5rem;
+		background: #fff;
+	}
+
+	.project-detail-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(200px, 260px) 1fr;
+		gap: 2rem 2.5rem;
+		align-items: start;
+	}
+
+	.project-meta {
+		position: sticky;
+		top: 1.25rem;
+	}
+
+	.project-status {
+		display: inline-block;
+		margin-bottom: 1rem;
+		padding: 0.28rem 0.72rem;
+		font-size: 0.78rem;
+		font-weight: 700;
+		border-radius: 999px;
+		background: #f1f5f9;
+		color: #334155;
+	}
+
+	.project-status.is-complete {
+		background: #ecfdf5;
+		color: #047857;
+		border: 1px solid #a7f3d0;
+	}
+
+	.project-meta dl {
+		margin: 0;
+		display: grid;
+		gap: 0.85rem;
+	}
+
+	.project-meta dt {
+		margin: 0;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.07em;
+		color: #64748b;
+	}
+
+	.project-meta dd {
+		margin: 0.2rem 0 0;
+		font-size: 0.98rem;
+		font-weight: 600;
+		color: #0f172a;
+	}
+
+	.back-link {
+		display: inline-block;
+		margin-top: 1.35rem;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: #0f4ac4;
+	}
+
+	.back-link:hover {
+		text-decoration: underline;
+	}
+
+	.project-copy h2 {
+		margin: 0 0 0.75rem;
+		font-size: 1.5rem;
+		color: #0f172a;
+	}
+
+	.project-copy h3 {
+		margin: 1.5rem 0 0.65rem;
+		font-size: 1.1rem;
+		color: #0f172a;
+	}
+
+	.project-copy p {
+		margin: 0 0 0.85rem;
+		font-size: 1rem;
+		line-height: 1.65;
+		color: #475569;
+		max-width: 68ch;
+	}
+
+	.remit-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		max-width: 68ch;
+	}
+
+	.remit-list li {
+		font-size: 0.82rem;
+		font-weight: 600;
+		padding: 0.32rem 0.62rem;
+		border-radius: 999px;
+		background: #f1f5f9;
+		color: #334155;
+	}
+
+	.project-gallery {
+		padding: 1.5rem var(--site-content-padding) 4rem;
+		background: #f8fafc;
+		border-top: 1px solid #e2e8f0;
+	}
+
+	.project-gallery-wrap {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.project-gallery header {
+		margin-bottom: 1.25rem;
+	}
+
+	.project-gallery h2 {
+		margin: 0 0 0.4rem;
+		font-size: 1.5rem;
+		color: #0f172a;
+	}
+
+	.project-gallery header p {
+		margin: 0;
+		font-size: 0.98rem;
+		color: #64748b;
+	}
+
+	.gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		gap: 0.75rem;
+	}
+
+	.gallery-grid figure {
+		margin: 0;
+		overflow: hidden;
+		border-radius: 0.75rem;
+		border: 1px solid #e2e8f0;
+		background: #fff;
+		grid-column: span 4;
+	}
+
+	.gallery-grid .gallery-feature {
+		grid-column: span 8;
+		grid-row: span 2;
+	}
+
+	.gallery-grid img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		min-height: 200px;
+		object-fit: cover;
+		aspect-ratio: 4 / 3;
+	}
+
+	.gallery-grid .gallery-feature img {
+		min-height: 280px;
+		aspect-ratio: 16 / 10;
+	}
+
+	@media (max-width: 900px) {
+		.project-detail-wrap {
+			grid-template-columns: 1fr;
+		}
+
+		.project-meta {
+			position: static;
+		}
+
+		.gallery-grid figure,
+		.gallery-grid .gallery-feature {
+			grid-column: span 6;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.gallery-grid figure,
+		.gallery-grid .gallery-feature {
+			grid-column: span 12;
+		}
+	}
+</style>

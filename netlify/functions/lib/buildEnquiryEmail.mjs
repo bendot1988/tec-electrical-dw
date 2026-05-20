@@ -43,7 +43,7 @@ export function buildEnquiryEmail({ source, fields }) {
 		.join('');
 
 	const submitterName = fields.name || fields.contactName || 'Website visitor';
-	const subject = `New ${sourceLabel} — ${submitterName}`;
+	const subject = `New ${sourceLabel}, ${submitterName}`;
 
 	const html = `<!DOCTYPE html>
 <html lang="en">
