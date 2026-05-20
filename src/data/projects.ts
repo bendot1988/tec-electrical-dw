@@ -198,6 +198,93 @@ export const projects: Project[] = [
 		],
 	},
 	{
+		slug: 'domestic-home-charnwood',
+		title: 'Domestic Home, Charnwood',
+		location: 'Charnwood, Leicestershire',
+		client: 'Private residential',
+		year: '2024',
+		status: 'complete',
+		summary:
+			'Garden LED lighting at a domestic home in Charnwood, including pergola, planters, and feature wall lighting.',
+		featuredImage: '/projects/domestic-home-charnwood/featured.png',
+		featuredAlt: 'Domestic garden at dusk with integrated LED lighting in Charnwood',
+		overview: [
+			'Outdoor LED lighting for a domestic property in Charnwood, Leicestershire.',
+			'Installation included LED strips to pergola and raised planters, spotlighting to planting, decorative backlighting to feature panels, and festoon lighting to the rear terrace.',
+		],
+		remit: [
+			'LED strip lighting',
+			'Garden spotlights',
+			'Pergola lighting',
+			'Feature wall lighting',
+			'Festoon lighting',
+		],
+		gallery: [
+			{
+				src: '/projects/domestic-home-charnwood/featured.png',
+				alt: 'Domestic garden in Charnwood with LED lighting at dusk',
+			},
+		],
+	},
+	{
+		slug: 'college-of-policing',
+		title: 'College of Policing',
+		location: 'Ryton-on-Dunsmore',
+		client: 'College of Policing',
+		year: '2024',
+		status: 'complete',
+		summary:
+			'Electrical and AV fit-out across classrooms, lecture theatres, and training suites at the College of Policing.',
+		featuredImage: '/projects/college-of-policing/featured.png',
+		featuredAlt: 'Tiered lecture theatre with LED ceiling lighting at the College of Policing',
+		overview: [
+			'Works at the College of Policing covered teaching spaces, seminar rooms, and circulation areas across the campus.',
+			'Scope included LED ceiling lighting, projector and screen installations, interactive displays, power and data trunking at desk height, and general small power for training and conference rooms.',
+		],
+		remit: [
+			'LED panel lighting',
+			'Lecture theatre AV',
+			'Interactive displays',
+			'Power and data trunking',
+			'Classroom small power',
+			'Corridor lighting',
+		],
+		gallery: [
+			{
+				src: '/projects/college-of-policing/featured.png',
+				alt: 'Lecture theatre with tiered seating and ceiling lighting',
+			},
+			{
+				src: '/projects/college-of-policing/classroom-signage.png',
+				alt: 'College of Policing classroom door signage',
+			},
+			{
+				src: '/projects/college-of-policing/training-room.png',
+				alt: 'Training room with wall-mounted display and trunking',
+			},
+			{
+				src: '/projects/college-of-policing/seminar-room.png',
+				alt: 'Seminar room with modular tables and recessed lighting',
+			},
+			{
+				src: '/projects/college-of-policing/training-suite.png',
+				alt: 'Large training suite with LED panels and projector',
+			},
+			{
+				src: '/projects/college-of-policing/interactive-display.png',
+				alt: 'Wall-mounted interactive display with integrated power and data',
+			},
+			{
+				src: '/projects/college-of-policing/ceiling-lighting-install.png',
+				alt: 'LED panel lighting installation in teaching space',
+			},
+			{
+				src: '/projects/college-of-policing/corridor.png',
+				alt: 'Refurbished corridor with recessed downlights',
+			},
+		],
+	},
+	{
 		slug: 'nhs-kitchen-refurb',
 		title: 'NHS Kitchen Refurb',
 		location: 'NHS site',
