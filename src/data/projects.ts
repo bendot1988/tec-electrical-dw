@@ -18,6 +18,7 @@ export type Project = {
 	overview: string[];
 	remit: string[];
 	gallery: ProjectImage[];
+	galleryIntro?: string;
 };
 
 export const projects: Project[] = [
@@ -219,6 +220,8 @@ export const projects: Project[] = [
 			'Feature wall lighting',
 			'Festoon lighting',
 		],
+		galleryIntro:
+			'Photography from the site, including planting and electrical installation work.',
 		gallery: [
 			{
 				src: '/projects/domestic-home-charnwood/featured.png',

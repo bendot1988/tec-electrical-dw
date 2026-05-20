@@ -79,7 +79,10 @@ const { project } = Astro.props;
 			<div class="project-gallery-wrap">
 				<header>
 					<h2 id="project-gallery-heading">On site</h2>
-					<p>Photography from the site, including plant, pool, and electrical installation work.</p>
+					<p>
+						{project.galleryIntro ??
+							'Photography from the site, including plant, pool, and electrical installation work.'}
+					</p>
 				</header>
 
 				<div class="gallery-grid">
