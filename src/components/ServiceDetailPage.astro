@@ -193,7 +193,14 @@ const {
 													aria-controls="service-overview-gallery-dialog"
 													aria-label={`View larger photo: ${img.alt}`}
 												>
-													<img src={img.src} alt="" loading="lazy" decoding="async" width="640" height="480" />
+													<img
+														src={img.src}
+														alt={img.alt}
+														loading="lazy"
+														decoding="async"
+														width="640"
+														height="480"
+													/>
 												</button>
 											</li>
 										))
@@ -292,7 +299,13 @@ const {
 							</div>
 						) : (
 							<figure class="service-sidebar-image" data-reveal="zoom" style="--reveal-delay: 130ms;">
-								<img src={featuredImage} alt={featuredImageAlt} loading="eager" decoding="async" />
+								<img
+									src={featuredImage}
+									alt={featuredImageAlt}
+									loading="eager"
+									fetchpriority="high"
+									decoding="async"
+								/>
 								{featuredCaption && <figcaption>{featuredCaption}</figcaption>}
 							</figure>
 						)

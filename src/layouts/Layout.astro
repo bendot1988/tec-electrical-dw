@@ -1,21 +1,36 @@
 ---
+import CookieBanner from '../components/CookieBanner.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import QuoteDrawer from '../components/QuoteDrawer.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import {
+	absoluteUrl,
+	defaultOgImage,
+	defaultOgImageHeight,
+	defaultOgImageWidth,
+	getCanonicalUrl,
+	siteName,
+} from '../data/siteSeo';
 
 interface Props {
 	title?: string;
 	description?: string;
 	canonical?: string;
+	ogImage?: string;
+	ogImageAlt?: string;
 	noindex?: boolean;
 }
 
 const {
-	title = 'Tech Electrical | Solar, Battery & EV Specialists',
-	description = 'Trusted MCS-certified installers for solar, battery storage, and EV charging across Leicestershire.',
-	canonical = Astro.url.href,
+	title = 'Tec Electrical | Electricians Leicestershire',
+	description = 'NICEIC-approved electricians for installs, testing, solar, battery storage and EV charging across Leicestershire.',
+	ogImage = defaultOgImage,
+	ogImageAlt = 'Tec Electrical electrical and solar installation services',
 	noindex = false,
 } = Astro.props;
+
+const canonical = getCanonicalUrl(Astro.url.pathname);
+const ogImageUrl = absoluteUrl(ogImage);
 ---
 
 <!doctype html>
@@ -31,25 +46,41 @@ const {
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonical} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:locale" content="en_GB" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:width" content={String(defaultOgImageWidth)} />
+		<meta property="og:image:height" content={String(defaultOgImageHeight)} />
+		<meta property="og:image:alt" content={ogImageAlt} />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<meta name="twitter:image" content={ogImageUrl} />
+		<meta name="twitter:image:alt" content={ogImageAlt} />
+		{noindex ? (
+			<meta name="robots" content="noindex, nofollow" />
+		) : (
+			<meta name="robots" content="index, follow, max-image-preview:large" />
+		)}
+		<slot name="head" />
 	</head>
 	<body>
 		<slot />
 		<QuoteDrawer />
 		<SiteFooter />
+		<CookieBanner />
 		<script>
 			import '../scripts/enquiryForms';
 		</script>

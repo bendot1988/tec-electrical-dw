@@ -5,3 +5,28 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+[[redirects]]
+  from = "http://tecservicesltd.com/*"
+  to = "https://tecservicesltd.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.tecservicesltd.com/*"
+  to = "https://tecservicesltd.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.tecservicesltd.com/*"
+  to = "https://tecservicesltd.com/:splat"
+  status = 301
+  force = true
+
+# Prefer non-trailing-slash URLs (matches canonicals and sitemap)
+[[redirects]]
+  from = "/*/"
+  to = "/:splat"
+  status = 301
+  force = false

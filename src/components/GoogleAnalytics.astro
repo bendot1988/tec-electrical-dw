@@ -1,19 +1,27 @@
 ---
-import { gaMeasurementId } from '../data/siteAnalytics';
+import { cookieConsentName } from '../data/siteAnalytics';
 ---
 
-{
-	gaMeasurementId && (
-		<>
-			<script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`} />
-			<script is:inline define:vars={{ gaMeasurementId }}>
-				window.dataLayer = window.dataLayer || [];
-				function gtag() {
-					dataLayer.push(arguments);
-				}
-				gtag('js', new Date());
-				gtag('config', gaMeasurementId);
-			</script>
-		</>
-	)
-}
+<!-- Consent Mode defaults: analytics blocked until the visitor accepts cookies -->
+<script is:inline define:vars={{ cookieConsentName }}>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	window.gtag = gtag;
+
+	gtag('consent', 'default', {
+		analytics_storage: 'denied',
+		ad_storage: 'denied',
+		ad_user_data: 'denied',
+		ad_personalization: 'denied',
+		wait_for_update: 500,
+	});
+
+	const consentMatch = document.cookie.match(
+		new RegExp(`(?:^|; )${cookieConsentName}=([^;]*)`),
+	);
+	if (consentMatch && decodeURIComponent(consentMatch[1]) === 'accepted') {
+		gtag('consent', 'update', { analytics_storage: 'granted' });
+	}
+</script>

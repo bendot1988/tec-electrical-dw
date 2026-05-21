@@ -1,0 +1,41 @@
+---
+import { siteContact } from '../data/siteContact';
+import { absoluteUrl, legalName, siteUrl } from '../data/siteSeo';
+---
+
+<script type="application/ld+json" set:html={JSON.stringify({
+	'@context': 'https://schema.org',
+	'@type': 'ElectricalContractor',
+	name: legalName,
+	url: siteUrl,
+	logo: absoluteUrl('/tech-electrical-logo.png'),
+	image: absoluteUrl('/og-image.png'),
+	telephone: siteContact.telDisplay,
+	email: siteContact.email,
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: siteContact.addressLine1,
+		addressLocality: 'Anstey',
+		addressRegion: 'Leicestershire',
+		postalCode: siteContact.postcode,
+		addressCountry: 'GB',
+	},
+	openingHoursSpecification: [
+		{
+			'@type': 'OpeningHoursSpecification',
+			dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+			opens: '07:00',
+			closes: '18:00',
+		},
+		{
+			'@type': 'OpeningHoursSpecification',
+			dayOfWeek: 'Saturday',
+			opens: '08:00',
+			closes: '16:00',
+		},
+	],
+	areaServed: {
+		'@type': 'AdministrativeArea',
+		name: 'Leicestershire',
+	},
+})} />

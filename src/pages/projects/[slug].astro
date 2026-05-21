@@ -15,8 +15,10 @@ const { project } = Astro.props;
 ---
 
 <Layout
-	title={`${project.title} | Projects | Tech Electrical`}
+	title={`${project.title} | Tec Electrical`}
 	description={project.summary}
+	ogImage={project.featuredImage}
+	ogImageAlt={project.featuredAlt}
 >
 	<SiteHeader />
 
@@ -89,7 +91,13 @@ const { project } = Astro.props;
 					{
 						project.gallery.map((image, index) => (
 							<figure class:list={[index === 0 && 'gallery-feature']}>
-								<img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+								<img
+									src={image.src}
+									alt={image.alt}
+									loading={index === 0 ? 'eager' : 'lazy'}
+									fetchpriority={index === 0 ? 'high' : undefined}
+									decoding="async"
+								/>
 							</figure>
 						))
 					}

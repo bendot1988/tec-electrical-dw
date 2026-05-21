@@ -53,7 +53,13 @@ const {
 		</div>
 
 		<div class:list={['inner-hero-image-wrap', featuredImageVariant === 'logo' && 'is-logo']}>
-			<img src={featuredImage} alt={featuredAlt} loading="eager" decoding="async" />
+			<img
+				src={featuredImage}
+				alt={featuredAlt}
+				loading="eager"
+				fetchpriority="high"
+				decoding="async"
+			/>
 		</div>
 	</div>
 </section>

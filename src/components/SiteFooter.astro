@@ -146,6 +146,8 @@ import { siteContact } from '../data/siteContact';
 			<div class="footer-bottom-right">
 				<a href="/privacy">Privacy Policy</a>
 				<div class="dot" aria-hidden="true"></div>
+				<button type="button" class="footer-link-btn" data-cookie-settings>Cookie settings</button>
+				<div class="dot" aria-hidden="true"></div>
 				<a href="/terms">Terms &amp; Conditions</a>
 				<div class="dot" aria-hidden="true"></div>
 				<span class="dotwall-credit"
@@ -457,13 +459,28 @@ import { siteContact } from '../data/siteContact';
 		align-items: center;
 	}
 
-	.footer-bottom-right a {
-		font-size: 0.82rem;
+	.footer-bottom-right a,
+	.footer-link-btn {
+		font-size: 0.875rem;
 		color: #64748b;
 		text-decoration: none;
 	}
 
 	.footer-bottom-right a:hover {
+		color: #0f4ac4;
+	}
+
+	.footer-link-btn {
+		font: inherit;
+		color: #64748b;
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		text-decoration: none;
+	}
+
+	.footer-link-btn:hover {
 		color: #0f4ac4;
 	}
 
