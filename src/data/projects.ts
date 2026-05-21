@@ -284,6 +284,51 @@ export const projects: Project[] = [
 		],
 	},
 	{
+		slug: 'brookfield-house-wymswold',
+		title: 'Brookfield House, Wymswold',
+		location: 'Wymswold, Leicestershire',
+		client: 'Private residence',
+		year: '2026',
+		status: 'complete',
+		summary:
+			'Full electrical kit for a private residence at Brookfield House, Wymswold, including kitchen lighting, exterior feature lights, solar PV, gate automation, and video intercom.',
+		featuredImage: '/projects/brookfield-house-wymswold/featured.png',
+		featuredAlt: 'Brookfield House at dusk with exterior lighting, solar panels, and modern extension',
+		overview: [
+			'Complete electrical installation for a high-spec private home at Brookfield House, Wymswold.',
+			'Works included a full kitchen electrical kit with recessed, pendant, and LED strip lighting, exterior up-and-down wall lights, garden and patio feature lighting, solar PV, automated entrance gates with access control, and a Hikvision video intercom.',
+		],
+		remit: [
+			'Full kitchen electrical kit',
+			'Recessed and feature lighting',
+			'Exterior wall lights',
+			'Garden and patio lighting',
+			'Solar PV',
+			'Gate automation',
+			'Video intercom',
+		],
+		galleryIntro:
+			'Photography from the site, including planting and electrical installation work.',
+		gallery: [
+			{
+				src: '/projects/brookfield-house-wymswold/featured.png',
+				alt: 'Brookfield House exterior at dusk with lighting and rooftop solar panels',
+			},
+			{
+				src: '/projects/brookfield-house-wymswold/kitchen-electrical-kit.png',
+				alt: 'Modern kitchen with recessed downlights, pendant, and under-cabinet LED lighting',
+			},
+			{
+				src: '/projects/brookfield-house-wymswold/automated-gates.png',
+				alt: 'Automated driveway gates with brick pillars, pillar lights, and keypad entry',
+			},
+			{
+				src: '/projects/brookfield-house-wymswold/hikvision-intercom.png',
+				alt: 'Hikvision video intercom and keypad with exterior wall light on brick pillar',
+			},
+		],
+	},
+	{
 		slug: 'college-of-policing',
 		title: 'College of Policing',
 		location: 'Ryton-on-Dunsmore',
