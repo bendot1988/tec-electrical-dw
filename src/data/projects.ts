@@ -230,6 +230,60 @@ export const projects: Project[] = [
 		],
 	},
 	{
+		slug: 'fairfax-communal-gym',
+		title: 'Fairfax Communal Areas & Gym',
+		location: 'Blaby, Leicestershire',
+		client: 'Blaby District Council',
+		year: '2025',
+		status: 'complete',
+		summary:
+			'Electrical works for Fairfax communal areas and gym at Blaby District Council, including exterior lighting, entrance features, and pathway lighting.',
+		featuredImage: '/projects/fairfax-communal-gym/featured.png',
+		featuredAlt: 'Fairfax communal building entrance with illuminated glass canopy at dusk',
+		overview: [
+			'Electrical installation and lighting for Fairfax communal areas and gym facilities at the Blaby District Council offices.',
+			'Works covered exterior and entrance lighting, ground-mounted uplights to signage and landscaping, feature downlights to brick and stone facades, and power and lighting to communal circulation routes.',
+		],
+		remit: [
+			'Exterior feature lighting',
+			'Entrance canopy lighting',
+			'Pathway and ground lights',
+			'Communal area power',
+			'Gym electrical fit-out',
+			'Signage lighting',
+		],
+		gallery: [
+			{
+				src: '/projects/fairfax-communal-gym/featured.png',
+				alt: 'Fairfax communal entrance with red-lit glass canopy at night',
+			},
+			{
+				src: '/projects/fairfax-communal-gym/glass-entrance-extension.png',
+				alt: 'Modern glass entrance extension with stone pillar and exterior spotlights',
+			},
+			{
+				src: '/projects/fairfax-communal-gym/council-offices-pathway.png',
+				alt: 'Brick pathway with recessed ground lights leading to council entrance',
+			},
+			{
+				src: '/projects/fairfax-communal-gym/council-welcome-sign-night.png',
+				alt: 'Illuminated Blaby District Council welcome sign at night',
+			},
+			{
+				src: '/projects/fairfax-communal-gym/council-sign-landscaping.png',
+				alt: 'Council offices welcome sign in landscaped grounds',
+			},
+			{
+				src: '/projects/fairfax-communal-gym/stone-wall-downlights.png',
+				alt: 'Curved stone boundary wall with warm downlighting at dusk',
+			},
+			{
+				src: '/projects/fairfax-communal-gym/brick-facade-exterior-lighting.png',
+				alt: 'Brick communal building facade with exterior downlights at dusk',
+			},
+		],
+	},
+	{
 		slug: 'college-of-policing',
 		title: 'College of Policing',
 		location: 'Ryton-on-Dunsmore',
