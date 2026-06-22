@@ -230,56 +230,188 @@ export const projects: Project[] = [
 		],
 	},
 	{
-		slug: 'fairfax-communal-gym',
-		title: 'Fairfax Communal Areas & Gym',
+		slug: 'blaby-council-amenity-lighting',
+		title: 'Blaby Council Amenity Lighting',
 		location: 'Blaby, Leicestershire',
 		client: 'Blaby District Council',
-		year: '2025',
+		year: '2021',
 		status: 'complete',
 		summary:
-			'Electrical works for Fairfax communal areas and gym at Blaby District Council, including exterior lighting, entrance features, and pathway lighting.',
-		featuredImage: '/projects/fairfax-communal-gym/featured.png',
-		featuredAlt: 'Fairfax communal building entrance with illuminated glass canopy at dusk',
+			'Exterior amenity lighting at Blaby District Council offices, including entrance canopy lighting, pathway ground lights, signage illumination, and feature facade lighting.',
+		featuredImage: '/projects/blaby-council-amenity-lighting/featured.png',
+		featuredAlt: 'Blaby District Council offices entrance with illuminated glass canopy at dusk',
 		overview: [
-			'Electrical installation and lighting for Fairfax communal areas and gym facilities at the Blaby District Council offices.',
-			'Works covered exterior and entrance lighting, ground-mounted uplights to signage and landscaping, feature downlights to brick and stone facades, and power and lighting to communal circulation routes.',
+			'Exterior electrical and amenity lighting works at Blaby District Council offices in Blaby, Leicestershire.',
+			'Scope included entrance canopy lighting, ground-mounted uplights to signage and landscaping, feature downlights to brick and stone facades, and pathway lighting to the main approach routes.',
 		],
 		remit: [
 			'Exterior feature lighting',
 			'Entrance canopy lighting',
 			'Pathway and ground lights',
-			'Communal area power',
-			'Gym electrical fit-out',
 			'Signage lighting',
+			'Facade downlights',
+			'Landscaping uplights',
 		],
 		gallery: [
 			{
-				src: '/projects/fairfax-communal-gym/featured.png',
-				alt: 'Fairfax communal entrance with red-lit glass canopy at night',
+				src: '/projects/blaby-council-amenity-lighting/featured.png',
+				alt: 'Council offices entrance with red-lit glass canopy at night',
 			},
 			{
-				src: '/projects/fairfax-communal-gym/glass-entrance-extension.png',
+				src: '/projects/blaby-council-amenity-lighting/glass-entrance-extension.png',
 				alt: 'Modern glass entrance extension with stone pillar and exterior spotlights',
 			},
 			{
-				src: '/projects/fairfax-communal-gym/council-offices-pathway.png',
+				src: '/projects/blaby-council-amenity-lighting/council-offices-pathway.png',
 				alt: 'Brick pathway with recessed ground lights leading to council entrance',
 			},
 			{
-				src: '/projects/fairfax-communal-gym/council-welcome-sign-night.png',
+				src: '/projects/blaby-council-amenity-lighting/council-welcome-sign-night.png',
 				alt: 'Illuminated Blaby District Council welcome sign at night',
 			},
 			{
-				src: '/projects/fairfax-communal-gym/council-sign-landscaping.png',
+				src: '/projects/blaby-council-amenity-lighting/council-sign-landscaping.png',
 				alt: 'Council offices welcome sign in landscaped grounds',
 			},
 			{
-				src: '/projects/fairfax-communal-gym/stone-wall-downlights.png',
+				src: '/projects/blaby-council-amenity-lighting/stone-wall-downlights.png',
 				alt: 'Curved stone boundary wall with warm downlighting at dusk',
 			},
 			{
-				src: '/projects/fairfax-communal-gym/brick-facade-exterior-lighting.png',
-				alt: 'Brick communal building facade with exterior downlights at dusk',
+				src: '/projects/blaby-council-amenity-lighting/brick-facade-exterior-lighting.png',
+				alt: 'Brick council building facade with exterior downlights at dusk',
+			},
+		],
+	},
+	{
+		slug: 'code-fairfax-communal-gym',
+		title: 'CODE Fairfax – Communal Areas & Gym',
+		location: 'Leicester, Leicestershire',
+		client: 'CODE Student Accommodation',
+		year: '2021',
+		status: 'complete',
+		summary:
+			'Electrical and lighting fit-out for communal areas and gym at CODE Fairfax student accommodation, including study spaces, games room, and fitness facilities.',
+		featuredImage: '/projects/code-fairfax-communal-gym/featured.png',
+		featuredAlt: 'CODE Fairfax student accommodation tower with vertical CODE branding',
+		overview: [
+			'Electrical installation and amenity lighting for communal areas and gym facilities at CODE Fairfax student accommodation in Leicester.',
+			'Works covered study and social spaces, games room lighting with feature pendants and track spots, gym power and lighting, and integrated small power to communal furniture and circulation areas.',
+		],
+		remit: [
+			'Communal area lighting',
+			'Study booth power and lighting',
+			'Games room fit-out',
+			'Gym electrical installation',
+			'Feature pendant lighting',
+			'Track and spot lighting',
+		],
+		gallery: [
+			{
+				src: '/projects/code-fairfax-communal-gym/featured.png',
+				alt: 'CODE Fairfax student accommodation exterior with Starbucks at ground level',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/games-room-pool-foosball.png',
+				alt: 'Games room with pool table, foosball, and feature pendant lighting',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/games-room-ping-pong.png',
+				alt: 'Games area with ping-pong tables and Edison-style pendant lights',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/communal-study-area.png',
+				alt: 'Communal study booths with recessed ceiling lighting',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/communal-study-booths.png',
+				alt: 'Study booths with integrated table power and slat screening',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/communal-mailboxes.png',
+				alt: 'Communal area with student mailboxes and booth seating',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/gym-fit-out.png',
+				alt: 'Gym space with recessed LED lighting during fit-out',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/communal-lighting.png',
+				alt: 'Communal circulation area with feature ceiling lighting',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/student-lounge.png',
+				alt: 'Student lounge with seating and amenity lighting',
+			},
+			{
+				src: '/projects/code-fairfax-communal-gym/communal-seating.png',
+				alt: 'Communal seating area with integrated lighting',
+			},
+		],
+	},
+	{
+		slug: 'gilbert-hall-plumtree-development',
+		title: 'Gilbert and Hall – Plumtree Development',
+		location: 'Plumtree, Nottinghamshire',
+		client: 'Gilbert and Hall',
+		year: '2026',
+		status: 'complete',
+		summary:
+			'Full electrical installation for a pair of luxury new-build homes at Plumtree for Gilbert and Hall, including kitchen lighting, interiors, solar PV, and garden patio lighting.',
+		featuredImage: '/projects/gilbert-hall-plumtree-development/featured.png',
+		featuredAlt: 'Aerial view of two luxury new-build homes at Plumtree with solar panels',
+		overview: [
+			'Complete electrical installation for two high-specification new-build homes at Plumtree, delivered for Gilbert and Hall.',
+			'Works included kitchen and interior lighting with feature pendants and LED accents, bathroom and bedroom circuits, solar PV to both properties, and power and lighting to patios and rear gardens.',
+		],
+		remit: [
+			'Full new-build electrical kit',
+			'Kitchen feature lighting',
+			'Interior LED lighting',
+			'Solar PV',
+			'Bathroom electrical fit-out',
+			'Garden and patio lighting',
+		],
+		gallery: [
+			{
+				src: '/projects/gilbert-hall-plumtree-development/featured.png',
+				alt: 'Aerial view of twin luxury homes with landscaped gardens and solar panels',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/exterior-front-elevation.png',
+				alt: 'Front elevation of luxury brick new build with solar panels and paved driveway',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/kitchen-island-lighting.png',
+				alt: 'Kitchen with island pendant lights and integrated LED strip lighting',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/kitchen-dining-area.png',
+				alt: 'Open-plan kitchen and dining area with marble island and downlights',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/living-space.png',
+				alt: 'Living space with bi-fold doors and inset fireplace',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/living-room.png',
+				alt: 'Furnished living room with sliding doors to garden',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/bathroom-fit-out.png',
+				alt: 'Luxury bathroom with walk-in shower and feature lighting',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/bedroom-lighting.png',
+				alt: 'Bedroom with built-in wardrobe and recessed lighting',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/kitchen-detail.png',
+				alt: 'Kitchen detail showing island lighting and slat wall feature',
+			},
+			{
+				src: '/projects/gilbert-hall-plumtree-development/patio-doors.png',
+				alt: 'Rear patio with bi-fold doors and garden outlook',
 			},
 		],
 	},
@@ -503,7 +635,11 @@ export function getProjectsByDate(): Project[] {
 }
 
 /** Case studies shown on the homepage “Recent work” grid (order preserved). */
-export const homepageFeaturedSlugs = ['code-harper-road'] as const;
+export const homepageFeaturedSlugs = [
+	'gilbert-hall-plumtree-development',
+	'code-fairfax-communal-gym',
+	'code-harper-road',
+] as const;
 
 export function getHomepageFeaturedProjects(): Project[] {
 	return homepageFeaturedSlugs

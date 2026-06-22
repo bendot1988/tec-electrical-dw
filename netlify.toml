@@ -30,3 +30,8 @@
   to = "/:splat"
   status = 301
   force = false
+
+[[redirects]]
+  from = "/projects/fairfax-communal-gym"
+  to = "/projects/blaby-council-amenity-lighting"
+  status = 301
