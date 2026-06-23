@@ -416,6 +416,72 @@ export const projects: Project[] = [
 		],
 	},
 	{
+		slug: 'the-kilns-earl-shilton',
+		title: 'The Kilns, Earl Shilton',
+		location: 'Earl Shilton, Leicestershire',
+		client: 'Stronghold Homes',
+		year: '2026',
+		status: 'complete',
+		summary:
+			'Complete electrical package across nine luxury homes at The Kilns for Stronghold Homes, including bespoke lighting, smart home technology, integrated audio, and solar PV.',
+		featuredImage: '/projects/the-kilns-earl-shilton/featured.png',
+		featuredAlt: 'The Kilns luxury development at Earl Shilton with contemporary gabled homes and solar PV',
+		overview: [
+			'The Kilns, Earl Shilton is an exclusive development of nine luxury homes by Stronghold Homes, built on the historic site of a former brickworks and featured on The Luxury Home Show. Each property combines striking architecture, premium finishes, and the latest in modern home technology.',
+			'TEC Electrical Services delivered the complete electrical package across the development, from bespoke lighting designs and power distribution to advanced smart home technologies, integrated audio systems, and renewable energy solutions including solar PV. Working closely with Stronghold Homes throughout, we helped create homes that offer outstanding functionality, efficiency, and comfort for modern living.',
+		],
+		remit: [
+			'Complete electrical package',
+			'Bespoke lighting design',
+			'Power distribution',
+			'Smart home technology',
+			'Integrated audio systems',
+			'Solar PV',
+		],
+		gallery: [
+			{
+				src: '/projects/the-kilns-earl-shilton/featured.png',
+				alt: 'The Kilns development exterior with contemporary homes and landscaped driveways',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/exterior-solar-pv.png',
+				alt: 'Luxury new build with integrated solar PV and exterior feature lighting',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/living-room-feature-wall.png',
+				alt: 'Living room with media wall, cove lighting, and integrated ceiling speakers',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/kitchen-lighting.png',
+				alt: 'High-spec kitchen with pendant lighting, integrated appliances, and ceiling speakers',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/bathroom-feature-lighting.png',
+				alt: 'Luxury bathroom with freestanding bath and LED feature wall lighting',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/media-wall-living.png',
+				alt: 'Living room media wall with shelf lighting, chandelier, and electric fireplace',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/living-room-chandelier.png',
+				alt: 'Living room with chandelier, picture lights, and built-in shelving',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/staircase-step-lighting.png',
+				alt: 'Staircase with glass balustrade and recessed step lighting',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/walk-in-wardrobe-lighting.png',
+				alt: 'Walk-in wardrobe with integrated LED strip lighting',
+			},
+			{
+				src: '/projects/the-kilns-earl-shilton/study-shelving-lighting.png',
+				alt: 'Study shelving with LED strips and adjustable display lighting',
+			},
+		],
+	},
+	{
 		slug: 'brookfield-house-wymswold',
 		title: 'Brookfield House, Wymswold',
 		location: 'Wymswold, Leicestershire',
@@ -636,6 +702,7 @@ export function getProjectsByDate(): Project[] {
 
 /** Case studies shown on the homepage “Recent work” grid (order preserved). */
 export const homepageFeaturedSlugs = [
+	'the-kilns-earl-shilton',
 	'gilbert-hall-plumtree-development',
 	'code-fairfax-communal-gym',
 	'code-harper-road',
