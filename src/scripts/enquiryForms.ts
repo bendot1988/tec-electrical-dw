@@ -1,6 +1,17 @@
 type FormSource = 'quote' | 'contact' | 'commercial';
 
 const ENDPOINT = '/.netlify/functions/submit-enquiry';
+
+declare global {
+	interface Window {
+		turnstile?: {
+			render: (container: HTMLElement, options: { sitekey: string }) => string;
+			reset: (widgetId?: string) => void;
+		};
+		onTurnstileLoad?: () => void;
+	}
+}
+
 function fieldsFromForm(form: HTMLFormElement) {
 	const data = new FormData(form);
 	const fields: Record<string, string> = {};
@@ -8,6 +19,47 @@ function fieldsFromForm(form: HTMLFormElement) {
 		if (typeof value === 'string') fields[key] = value;
 	}
 	return fields;
+}
+
+function ensureLoadedAt(form: HTMLFormElement) {
+	let input = form.querySelector<HTMLInputElement>('input[name="_loadedAt"]');
+	if (!input) {
+		input = document.createElement('input');
+		input.type = 'hidden';
+		input.name = '_loadedAt';
+		form.appendChild(input);
+	}
+	if (!input.value) input.value = String(Date.now());
+}
+
+function getTurnstileToken(form: HTMLFormElement) {
+	return form.querySelector<HTMLInputElement>('input[name="cf-turnstile-response"]')?.value?.trim() ?? '';
+}
+
+function requiresTurnstile(form: HTMLFormElement) {
+	return form.dataset.formSource === 'commercial' && !!form.querySelector('[data-turnstile-widget]');
+}
+
+function initTurnstile(form: HTMLFormElement) {
+	const container = form.querySelector<HTMLElement>('[data-turnstile-widget]');
+	const siteKey = container?.dataset.sitekey;
+	if (!container || !siteKey || container.dataset.turnstileReady === 'true') return;
+
+	const renderWidget = () => {
+		if (!window.turnstile) return;
+		container.dataset.turnstileReady = 'true';
+		window.turnstile.render(container, { sitekey: siteKey });
+	};
+
+	if (window.turnstile) {
+		renderWidget();
+		return;
+	}
+
+	window.onTurnstileLoad = () => {
+		renderWidget();
+		window.onTurnstileLoad = undefined;
+	};
 }
 
 async function fireConfetti() {
@@ -83,9 +135,19 @@ function bindForm(form: HTMLFormElement) {
 	const shell = form.closest('.enquiry-form-shell');
 	if (!shell || !(shell instanceof HTMLElement)) return;
 
+	if (source === 'commercial') {
+		ensureLoadedAt(form);
+		initTurnstile(form);
+	}
+
 	form.addEventListener('submit', async (event) => {
 		event.preventDefault();
 		if (!form.reportValidity()) return;
+
+		if (requiresTurnstile(form) && !getTurnstileToken(form)) {
+			showError(shell, 'Please complete the security check and try again.');
+			return;
+		}
 
 		setSubmitting(form, true);
 		const error = shell.querySelector('.enquiry-form-error');
@@ -101,6 +163,7 @@ function bindForm(form: HTMLFormElement) {
 				body: JSON.stringify({
 					source,
 					fields: fieldsFromForm(form),
+					...(source === 'commercial' ? { turnstileToken: getTurnstileToken(form) } : {}),
 				}),
 			});
 

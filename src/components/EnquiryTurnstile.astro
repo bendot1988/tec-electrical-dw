@@ -1,0 +1,12 @@
+---
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+{
+	siteKey ? (
+		<>
+			<div class="enquiry-turnstile" data-turnstile-widget data-sitekey={siteKey} />
+			<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad" async defer />
+		</>
+	) : null
+}

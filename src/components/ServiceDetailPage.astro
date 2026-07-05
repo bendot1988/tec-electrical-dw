@@ -1,6 +1,7 @@
 ---
 import EnquiryFormFeedback from './EnquiryFormFeedback.astro';
 import EnquiryHoneypot from './EnquiryHoneypot.astro';
+import EnquiryTurnstile from './EnquiryTurnstile.astro';
 import InnerPageHero from './InnerPageHero.astro';
 import { siteContact } from '../data/siteContact';
 
@@ -293,6 +294,7 @@ const {
 									>
 								</label>
 								<EnquiryHoneypot />
+								<EnquiryTurnstile />
 								<button type="submit">{sidebarForm.submitLabel ?? 'Send enquiry'}</button>
 							</form>
 							<EnquiryFormFeedback />
@@ -994,6 +996,10 @@ const {
 
 	.service-sidebar-consent input {
 		margin-top: 0.2rem;
+	}
+
+	.enquiry-turnstile {
+		min-height: 65px;
 	}
 
 	.service-sidebar-form button[type='submit'] {

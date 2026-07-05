@@ -1,3 +1,9 @@
+import {
+	evaluateCommercialAntiSpam,
+	getClientIp,
+	isHoneypotTripped,
+	readRawFields,
+} from './lib/antiSpam.mjs';
 import { buildEnquiryEmail } from './lib/buildEnquiryEmail.mjs';
 
 const ALLOWED_SOURCES = new Set(['quote', 'contact', 'commercial']);
@@ -74,9 +80,10 @@ export const handler = async (event) => {
 		return jsonResponse(400, { ok: false, message: 'Unknown form source.' });
 	}
 
-	const fields = sanitizeFields(payload.fields);
+	const rawFields = readRawFields(payload);
+	const fields = sanitizeFields(rawFields);
 
-	if (fields._honeypot) {
+	if (isHoneypotTripped(rawFields)) {
 		return jsonResponse(200, { ok: true });
 	}
 
@@ -106,6 +113,18 @@ export const handler = async (event) => {
 			!fields.projectSummary
 		) {
 			return jsonResponse(400, { ok: false, message: 'Please complete all required fields.' });
+		}
+
+		const antiSpam = await evaluateCommercialAntiSpam({
+			rawFields,
+			fields,
+			turnstileToken: payload.turnstileToken,
+			ip: getClientIp(event),
+		});
+
+		if (antiSpam.flagged) {
+			console.warn('Commercial enquiry silently rejected', antiSpam.reasons);
+			return jsonResponse(200, { ok: true });
 		}
 	}
 
