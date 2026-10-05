@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>Form definitions</title>
+	</head>
+	<body>
+		<!-- Backup forms used by netlify/functions/submit-enquiry.mjs when Resend fails. Fields must match NETLIFY_FORMS there. -->
+		<form name="quote-enquiry" data-netlify="true" hidden>
+			<input type="text" name="subject" />
+			<textarea name="notice"></textarea>
+			<input type="text" name="name" />
+			<input type="tel" name="phone" />
+			<input type="text" name="postcode" />
+			<textarea name="job"></textarea>
+			<textarea name="email_error"></textarea>
+		</form>
+
+		<form name="contact-enquiry" data-netlify="true" hidden>
+			<input type="text" name="subject" />
+			<textarea name="notice"></textarea>
+			<input type="text" name="name" />
+			<input type="email" name="email" />
+			<input type="tel" name="phone" />
+			<input type="text" name="postcode" />
+			<input type="text" name="service" />
+			<input type="text" name="property_type" />
+			<textarea name="message"></textarea>
+			<input type="text" name="consent_legal" />
+			<textarea name="email_error"></textarea>
+		</form>
+
+		<form name="commercial-enquiry" data-netlify="true" hidden>
+			<input type="text" name="subject" />
+			<textarea name="notice"></textarea>
+			<input type="text" name="contactName" />
+			<input type="text" name="businessName" />
+			<input type="text" name="businessType" />
+			<input type="email" name="email" />
+			<input type="tel" name="phone" />
+			<textarea name="projectSummary"></textarea>
+			<input type="text" name="consent_legal" />
+			<textarea name="email_error"></textarea>
+		</form>
+	</body>
+</html>

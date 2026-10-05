@@ -5,8 +5,30 @@ import {
 	readRawFields,
 } from './lib/antiSpam.mjs';
 import { buildEnquiryEmail } from './lib/buildEnquiryEmail.mjs';
+import {
+	connectBlobs,
+	markLeadEmail,
+	notifyPhone,
+	saveLeadBackup,
+	submitNetlifyForm,
+} from '../../src/utils/lead-backup.ts';
 
 const ALLOWED_SOURCES = new Set(['quote', 'contact', 'commercial']);
+
+/** Must match the hidden forms in public/netlify-forms.html. */
+const NETLIFY_FORMS = {
+	quote: { name: 'quote-enquiry', fields: ['name', 'phone', 'postcode', 'job'] },
+	contact: {
+		name: 'contact-enquiry',
+		fields: ['name', 'email', 'phone', 'postcode', 'service', 'property_type', 'message', 'consent_legal'],
+	},
+	commercial: {
+		name: 'commercial-enquiry',
+		fields: ['contactName', 'businessName', 'businessType', 'email', 'phone', 'projectSummary', 'consent_legal'],
+	},
+};
+
+const RESEND_TIMEOUT_MS = 5000;
 
 function jsonResponse(statusCode, body) {
 	return {
@@ -60,12 +82,6 @@ export const handler = async (event) => {
 
 	if (event.httpMethod !== 'POST') {
 		return jsonResponse(405, { ok: false, message: 'Method not allowed' });
-	}
-
-	const apiKey = process.env.RESEND_API_KEY;
-	if (!apiKey) {
-		console.error('RESEND_API_KEY is not configured');
-		return jsonResponse(500, { ok: false, message: 'Email service is not configured.' });
 	}
 
 	let payload;
@@ -128,6 +144,13 @@ export const handler = async (event) => {
 		}
 	}
 
+	const netlifyForm = NETLIFY_FORMS[source];
+	const leadData = { ...fields };
+	delete leadData['cf-turnstile-response'];
+
+	connectBlobs(event);
+	const backup = await saveLeadBackup(netlifyForm.name, leadData);
+
 	const toEmail = process.env.FORM_TO_EMAIL ?? 'info@tecservicesltd.com';
 	const fromEmail =
 		process.env.RESEND_FROM_EMAIL ?? 'Tec Electrical <enquiries@tecservicesltd.com>';
@@ -144,24 +167,56 @@ export const handler = async (event) => {
 		...(replyTo ? { reply_to: replyTo } : {}),
 	};
 
-	const resendResponse = await fetch('https://api.resend.com/emails', {
-		method: 'POST',
-		headers: {
-			Authorization: `Bearer ${apiKey}`,
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(emailPayload),
-	});
+	let emailOk = false;
+	let emailError = '';
+	let emailId = null;
+	try {
+		const apiKey = process.env.RESEND_API_KEY;
+		if (!apiKey) throw new Error('RESEND_API_KEY is not configured');
 
-	const result = await resendResponse.json().catch(() => ({}));
+		const resendResponse = await fetch('https://api.resend.com/emails', {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${apiKey}`,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(emailPayload),
+			signal: AbortSignal.timeout(RESEND_TIMEOUT_MS),
+		});
 
-	if (!resendResponse.ok) {
-		console.error('Resend error', resendResponse.status, result);
+		const result = await resendResponse.json().catch(() => ({}));
+		if (!resendResponse.ok) {
+			throw new Error(`Resend ${resendResponse.status}: ${JSON.stringify(result).slice(0, 200)}`);
+		}
+		emailOk = true;
+		emailId = result.id ?? null;
+	} catch (err) {
+		emailError = err instanceof Error ? err.message : String(err);
+		console.error('Resend error', emailError);
+	}
+
+	let netlifyFormOk = false;
+	if (!emailOk) {
+		const formFields = { subject: `Backup email: ${subject}`, email_error: emailError };
+		for (const key of netlifyForm.fields) {
+			if (leadData[key]) formFields[key] = leadData[key];
+		}
+		netlifyFormOk = await submitNetlifyForm(netlifyForm.name, formFields);
+	}
+
+	await markLeadEmail(
+		backup,
+		emailOk ? 'sent' : 'failed',
+		emailOk ? undefined : `${emailError} | Netlify Forms backup: ${netlifyFormOk ? 'sent' : 'failed'}`,
+	);
+	await notifyPhone(netlifyForm.name, emailOk);
+
+	if (!emailOk && !backup && !netlifyFormOk) {
 		return jsonResponse(502, {
 			ok: false,
 			message: 'We could not send your enquiry right now. Please call us instead.',
 		});
 	}
 
-	return jsonResponse(200, { ok: true, id: result.id ?? null });
+	return jsonResponse(200, { ok: true, id: emailId });
 };
